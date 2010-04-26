@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -377,7 +378,14 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 //				rollDice();
 //			}
 //		});
-
+		
+		/**
+		 * hide keyboard
+		 * 
+		 * works on the emulator
+		 */
+		((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(dice.getWindowToken(), 0);  
+		
 		/**
 		 * display hello message
 		 */
