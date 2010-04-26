@@ -1,0 +1,40 @@
+Exalted Dice Change Log
+
+0.0.1
+0.0.2
+0.0.3
+0.0.4
+0.0.5
+
+0.0.6 V6
+-remodeled onClickListeners
+-remodeled onLongClickListeners
+
+0.0.7 V7
+-Got Listview working with 10 item history
+-removed old onClickListener methods
+-removed old onLongClickListeners
+-ads working with internet permisions
+-Menu with exit option
+
+0.0.8 v8
+-cleaned code for efficency
+-Fixed error checking method to check for a string containing no ints.
+-Fixed shake listener problem
+-First release version, full, and ad free
+-due to a G Market problem, package name switched from  com.TwentyCodes.android.ExaltedDice to com.TwentyCode.android.ExaltedDice
+
+
+0.0.9 V9
+-compiled under 1.5
+-updated ads
+-added System.gc();
+-added stringbuffer to checkForErrors() and results()
+-added a dynamic rollHistory list array
+-added clear history menu option
+
+0.0.10
+-added rotaion methods
+-reformated the output string
+-added crash report
+-added roll again feature
