@@ -8,6 +8,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.Menu;
@@ -26,28 +27,39 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class ExaltedDice extends Activity implements OnClickListener, OnLongClickListener, OnItemClickListener {
 
-	// view variables
 	private TextView dice;
 	private ListView listview;
-
-	// exalted dice variables
-	private int intSuccesses;
-	public int intDice;
 
 	private ArrayList<String> rollHistory = new ArrayList<String>();
 	private ArrayList<Integer> rolled = new ArrayList<Integer>();
 
-	/**
-	 * tag for LogCat
-	 */
-	private static final String tag = "ExaltedDice";
+	private int intSuccesses;
+	private int mCurrent;
+	private static boolean mIncrement;
+	private static boolean mDecrement;
+	
+	//the speed in milliseconds for dice increment or decrement
+	private long mSpeed = 300;
+	
+	//the least and most dice allowed
+	private int mStart = 1;
+	private int mEnd = 999;
+	
+	private Handler mHandler;
+	//this runnable will be used to increment or decrement the amount of dice being rolled
+    private final Runnable mRunnable = new Runnable() {
+		public void run() {
+            if (mIncrement) {
+                changeCurrent(mCurrent + 1);
+                mHandler.postDelayed(this, mSpeed);
+            } else if (mDecrement) {
+                changeCurrent(mCurrent - 1);
+                mHandler.postDelayed(this, mSpeed);
+            }
+        }
+    };
 
-	/**
-	 * set view id's
-	 */
-	private final int ADD_DICE = R.id.up;
-	private final int SUB_DICE = R.id.down;
-	private final int ROLL_DICE = R.id.roll;
+	private static final String TAG = "ExaltedDice";
 
 	/**
 	 * menu options
@@ -57,57 +69,17 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 
 	protected PostMortemReportExceptionHandler mDamageReport = new PostMortemReportExceptionHandler(this);
 	
-	/**
-	 * adds one dice
-	 * 
-	 * @author ricky barrette 3-27-2010
-	 */
-	public void addDiceRolled() {
-		Log.i(tag, " addDiceRolled()");
-
-		// vibrate for 50 milliseconds
-		vibrate(50);
-
-		/**
-		 * get string from dice textfield it convert it into int, while checking
-		 * for user input errors
-		 */
-		intDice = checkForErrors((dice.getText()).toString());
-
-		// add 1 dice
-		intDice = moreDice(intDice, 1);
-
-		// set Dice textfield to finDice
-		dice.setText("" + intDice);
-		System.gc();
+	 protected void changeCurrent(int current) {
+	        // Wrap around the values if we go past the start or end
+	    if (current > mEnd) {
+	        current = mStart;
+	    } else if (current < mStart) {
+	        current = mEnd;
+	    }
+	    mCurrent = current;
+	    dice.setText("" + mCurrent);
 	}
 
-	/**
-	 * add 10 dice 3-27-2010
-	 * 
-	 * @author ricky barrette
-	 */
-	public void addDiceRolledonLongClick() {
-		Log.i(tag, "addDiceRolledonLongClick()");
-
-		// vibrate for 75 milliseconds
-		vibrate(75);
-
-		/**
-		 * get string from dice textfield it convert it into int, while checking
-		 * for user input errors
-		 */
-		intDice = checkForErrors((dice.getText()).toString());
-
-		// add 10 dice
-		intDice = moreDice(intDice, 10);
-
-		// set Dice textfield to finDice
-		dice.setText("" + intDice);
-		System.gc();
-	}
-
-	
 	/**
 	 * checks for the following errors:
 	 * 
@@ -133,7 +105,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 	 * @author ricky barrette
 	 */
 	public int checkForErrors(String string) {
-		Log.i(tag, "checkForErrors()");
+		Log.i(TAG, "checkForErrors()");
 
 		int numDice = 0;
 		char charDice;
@@ -213,7 +185,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 		 */
 		if (errors == true)
 			toastLong("You inputed: \" " + string
-					+ " \", we are assuming you meant: "
+					+ " \", we think you meant: "
 					+ stringDice.toString());
 
 		// -----------------------------------------------------------------------------------------
@@ -252,76 +224,21 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 	}
 
 	/**
-	 * Lower Dice Count By what ever lowerBy is, can't go lower than 1
-	 * 
-	 * @param int number
-	 * @return int number
-	 * @author ricky barrette
-	 */
-	public int lessDice(int number, int lowerBy) {
-		Log.i(tag, "lessDice()");
-
-		/**
-		 * make sure we are not going to go negative
-		 */
-		if (number <= lowerBy)
-			lowerBy = number - 1;
-
-		/**
-		 * cant roll less than 1 dice
-		 */
-		if (number > 1)
-			number = number - lowerBy;
-
-		System.gc();
-		return number;
-	}
-
-	/**
-	 * Raise Dice Count By what ever raiseBy is, can't go higher than 999
-	 * 
-	 * @param int number
-	 * @return int number
-	 * @author ricky barrette
-	 */
-	public int moreDice(int number, int raiseBy) {
-		Log.i(tag, "moreDice()");
-
-		/**
-		 * make sure we are not going to go higher than 999
-		 */
-		if (number > 989)
-			if (raiseBy > (number - 989))
-				raiseBy = 999 - number;
-
-		/**
-		 * Can not roll more than 999 dice
-		 */
-		if (number < 999)
-			number = number + raiseBy;
-
-		System.gc();
-		return number;
-	}
-
-	/**
 	 * also implemented OnClickListener
 	 * 
 	 * @author ricky barrette 3-27-2010
 	 * @author - WWPowers 3-26-2010
 	 */
 	@Override
-	public void onClick(View v) {
+	public void onClick(View v){
+		if (v.getId() == R.id.up)
+			changeCurrent(mCurrent + 1);
 
-		if (v.getId() == ADD_DICE)
-			addDiceRolled();
+		if (v.getId() == R.id.down)
+			changeCurrent(mCurrent - 1);
 
-		if (v.getId() == SUB_DICE)
-			subtractDiceRolled();
-
-		if (v.getId() == ROLL_DICE)
+		if (v.getId() == R.id.roll)
 			rollDice();
-		
 	}
 
 	/**
@@ -335,41 +252,27 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
         Thread.setDefaultUncaughtExceptionHandler(mDamageReport);
 		
 		super.onCreate(savedInstanceState);
-		Log.i(tag, "onCreate()");
+		Log.i(TAG, "onCreate()");
 		setContentView(R.layout.main);
 		
-		/**
-		 * TextViews
+		mHandler = new Handler();
+		
+		/*
+		 * views and listeners
 		 */
 		dice = (TextView) findViewById(R.id.dice);
-
-		/**
-		 * ListViews
-		 */
 		listview = (ListView) findViewById(R.id.list);
-
-		/**
-		 * Buttons
-		 */
-		Button btAddDice = (Button) findViewById(R.id.up);
-		Button btSubtractDice = (Button) findViewById(R.id.down);
+		NumberPickerButton btAddDice = (NumberPickerButton) findViewById(R.id.up);
+		NumberPickerButton btSubtractDice = (NumberPickerButton) findViewById(R.id.down);
 		Button btRollDice = (Button) findViewById(R.id.roll);
-
-		/**
-		 * onClickListeners
-		 */
 		btAddDice.setOnClickListener(this);
 		btSubtractDice.setOnClickListener(this);
 		btRollDice.setOnClickListener(this);
 		listview.setOnItemClickListener(this);
-
-		/**
-		 * onLongClickListeners
-		 */
 		btAddDice.setOnLongClickListener(this);
 		btSubtractDice.setOnLongClickListener(this);
 
-		/**
+		/*
 		 * shake Listener
 		 */
 //		ShakeListener mShaker = new ShakeListener(this);
@@ -379,14 +282,14 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 //			}
 //		});
 		
-		/**
+		/*
 		 * hide keyboard
 		 * 
 		 * works on the emulator
 		 */
 		((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(dice.getWindowToken(), 0);  
 		
-		/**
+		/*
 		 * display hello message
 		 */
 		listview.setAdapter(new ArrayAdapter<String>(this, R.layout.list_row, getResources().getStringArray(R.array.hello_msg)));
@@ -411,26 +314,27 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 	 * @author ricky barrette
 	 */
 	@Override
-	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+	public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
 		if(rolled.size() != 0){
-			dice.setText("" + rolled.get(arg2));
+			dice.setText("" + rolled.get(position));
 			rollDice();
 		}
 	}
 
 	/**
-	 * also implemented OnLongClickListener
+	 * starts a runnable that will increment or decrement the dice
 	 * 
 	 * @author ricky barrette 3-27-2010
 	 * @param v
 	 */
 	public boolean onLongClick(View v) {
-		if (v.getId() == ADD_DICE) {
-			addDiceRolledonLongClick();
+		if (v.getId() == R.id.up) {
+			mIncrement = true;
+            mHandler.post(mRunnable);
 
-		} else if (v.getId() == SUB_DICE) {
-			subtractDiceRolledonLongClick();
-
+		} else if (v.getId() == R.id.down) {
+			mDecrement = true;
+	        mHandler.post(mRunnable);
 		} else {
 			return false;
 		}
@@ -458,18 +362,6 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 	}
 
 	/**
-	 * pauses ShakeListener
-	 */
-	@Override
-	public void onPause() {
-		Log.i(tag, "onPause()");
-		super.onPause();
-//		ShakeListener mShaker = new ShakeListener(this);
-//		mShaker.pause();
-		System.gc();
-	}
-
-	/**
 	 * resorts application state after rotation
 	 * @author ricky barrette
 	 */
@@ -485,17 +377,6 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 	}
 
 	/**
-	 * resumes ShakeListener
-	 */
-	@Override
-	public void onResume() {
-		Log.i(tag, "onResume()");
-		super.onResume();
-//		ShakeListener mShaker = new ShakeListener(this);
-//		mShaker.resume();
-	}
-
-	/**
 	 * saves application state before rotatoin
 	 * @author ricky barrette
 	 */
@@ -508,20 +389,6 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 	  savedInstanceState.putString("dice", dice.getText().toString());
 	  savedInstanceState.putIntegerArrayList("rolled", rolled);
 	  super.onSaveInstanceState(savedInstanceState);
-	}
-
-	/**
-	 * unregisters ShakeListener
-	 * 
-	 * @author ricky barrette 3-26-2010
-	 * @author WWPpwers 3-27-2010
-	 */
-	@Override
-	public void onStop() {
-		Log.i(tag, "onStop()");
-		super.onStop();
-		System.gc();
-//		ExaltedDice.this.finish();
 	}
 
 	/**
@@ -555,7 +422,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 	 * @author ricky barrette
 	 */
 	public String results(int times) {
-		Log.i(tag, "results()");
+		Log.i(TAG, "results()");
 		StringBuffer resultsString = new StringBuffer();
 		resultsString.append("Rolled "+ times +" dice\n");
 
@@ -577,7 +444,6 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 			resultsString.append(roll[i] + ", ");
 		}
 
-		System.gc();
 		return resultsString.toString();
 	}
 
@@ -594,17 +460,15 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 		 * get string from dice textfield it convert it into int, while checking
 		 * for user input errors
 		 */
-		intDice = checkForErrors((dice.getText()).toString());
+		mCurrent = checkForErrors((dice.getText()).toString());
 
 		// set Dice textfield to finDice
-		dice.setText("" + intDice);
+		dice.setText("" + mCurrent);
 
-		rolled.add(0, intDice);
-		rollHistory.add(0, results(intDice));
+		rolled.add(0, mCurrent);
+		rollHistory.add(0, results(mCurrent));
 
 		listview.setAdapter(new ArrayAdapter<String>(this, R.layout.list_row, rollHistory));
-
-		System.gc();
 	}
 
 	/**
@@ -615,66 +479,13 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 	 * @author ricky barrette
 	 */
 	public int[] rollGen(int times) {
-		Log.i(tag, "rollGen()" + times);
+		Log.i(TAG, "rollGen()" + times);
 		int[] roll = new int[times];
 		Random random = new Random();
 		for (int i = 0; i < times; i++) {
 			roll[i] = random.nextInt(10) + 1;
 		}
-		System.gc();
 		return roll;
-	}
-
-	/**
-	 * subtracts one dice 3-27-2010
-	 * 
-	 * @author ricky barrette
-	 */
-	public void subtractDiceRolled() {
-		Log.i(tag, "subtractDice()");
-		;
-
-		// vibrate for 50 milliseconds
-		vibrate(50);
-
-		/**
-		 * get string from dice textfield it convert it into int, while checking
-		 * for user input errors
-		 */
-		intDice = checkForErrors((dice.getText()).toString());
-
-		// subtract 1 dice
-		intDice = lessDice(intDice, 1);
-
-		// set Dice textfield to finDice
-		dice.setText("" + intDice);
-		System.gc();
-	}
-
-	/**
-	 * subtracts 10 dice
-	 * 
-	 * @author ricky barrette
-	 */
-	public void subtractDiceRolledonLongClick() {
-		Log.i(tag, "subtractDiceonLongClick()");
-
-		// vibrate for 75 milliseconds
-		vibrate(75);
-
-		/**
-		 * get string from dice textfield it convert it into int, while checking
-		 * for user input errors
-		 */
-		intDice = checkForErrors((dice.getText()).toString());
-
-		// subtract 10 dice
-		intDice = lessDice(intDice, 10);
-
-		// set Dice textfield to finDice
-		dice.setText("" + intDice);
-		System.gc();
-
 	}
 
 	/**
@@ -686,7 +497,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 	 * @author ricky barrette
 	 */
 	public int successes(int[] roll) {
-		Log.i(tag, "successes()");
+		Log.i(TAG, "successes()");
 		intSuccesses = 0;
 		for (int i = 0; i < roll.length; i++) {
 			if (roll[i] >= 7)
@@ -694,7 +505,6 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 			if (roll[i] == 10)
 				intSuccesses++;
 		}
-		System.gc();
 		return intSuccesses;
 	}
 
@@ -706,9 +516,8 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 	 * @author WWPowers 3-26-2010
 	 */
 	public void toastLong(CharSequence msg) {
-		Log.i(tag, "toastLong()");
-		Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
-		toast.show();
+		Log.i(TAG, "toastLong()");
+		Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 	}
 
 	/**
@@ -719,7 +528,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 	 * @author ricky barrette
 	 */
 	public void vibrate(long milliseconds) {
-		Log.i(tag, "vibrate() for " + milliseconds);
+		Log.i(TAG, "vibrate() for " + milliseconds);
 		/**
 		 * start vibrator service
 		 */
@@ -731,4 +540,21 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 		vib.vibrate(milliseconds);
 	}
 
+	/**
+	 * stop incrementing of dice after longpress
+	 * @author ricky barrette
+	 */
+	public static void cancelIncrement() {
+		mIncrement = false;
+	}
+
+	/**
+	 * stops decrementing of dice after longpress
+	 * @author ricky barrette
+	 */
+	public static void cancelDecrement() {
+		mDecrement = false;
+	}
+	
+	
 }
