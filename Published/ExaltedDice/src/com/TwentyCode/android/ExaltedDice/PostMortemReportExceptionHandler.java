@@ -18,6 +18,11 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 
+/**
+ * dont forget the manifest tag
+ * <uses-permission android:name="android.permission.READ_LOGS" />
+ * @author ricky
+ */
 public class PostMortemReportExceptionHandler implements UncaughtExceptionHandler, Runnable {
 	public static final String ExceptionReportFilename = "postmortem.trace";
 	
@@ -29,24 +34,14 @@ public class PostMortemReportExceptionHandler implements UncaughtExceptionHandle
 	
 	private Thread.UncaughtExceptionHandler mDefaultUEH;
 	private Activity mApp = null;
- 
-	/*
-	 * Constructor
-	 */
+	
 	public PostMortemReportExceptionHandler(Activity aApp) {
 		mDefaultUEH = Thread.getDefaultUncaughtExceptionHandler();
 	    mApp = aApp;
 	 }
 
-	
-	@Override
-	public void uncaughtException(Thread t, Throwable e) {
-		submit(e);
-		//do not forget to pass this exception through up the chain
-		mDefaultUEH.uncaughtException(t,e);
-	}
-	
 	public String getDebugReport(Throwable aException) {
+		
 //		NumberFormat theFormatter = new DecimalFormat("#0.");
 		//stack trace
 		StackTraceElement[] theStackTrace = aException.getStackTrace();
@@ -119,10 +114,35 @@ public class PostMortemReportExceptionHandler implements UncaughtExceptionHandle
 			}
 		}
 		report.append("-------------------------------\n\n");
+
+		report.append("--------- Complete Logcat ---------\n\n");
+		report.append(getLog().toString());
+		report.append("-------------------------------\n\n");
 		
 		report.append("END REPORT");
 		
 		return report.toString();
+	}
+	
+	protected StringBuilder getLog(){
+        final StringBuilder log = new StringBuilder();
+        try{
+            Process process = Runtime.getRuntime().exec("logcat -d");
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            
+            String line;
+            while ((line = bufferedReader.readLine()) != null){ 
+                log.append(line);
+                log.append("\n"); 
+            }
+        } 
+        catch (IOException e){
+        }
+        return log;
+    }
+	
+	public void run() {
+		sendDebugReportToAuthor();
 	}
 	
 	protected void saveDebugReport(String aReport) {
@@ -140,7 +160,8 @@ public class PostMortemReportExceptionHandler implements UncaughtExceptionHandle
 		String theLine = "";
 		StringBuffer theTrace = new StringBuffer();
 		try {
-			BufferedReader theReader = new BufferedReader(new InputStreamReader(mApp.openFileInput(ExceptionReportFilename)));
+			BufferedReader theReader = new BufferedReader(
+					new InputStreamReader(mApp.openFileInput(ExceptionReportFilename)));
 			while ((theLine = theReader.readLine())!=null) {
 				theTrace.append(theLine+"\n");
 			}
@@ -151,8 +172,7 @@ public class PostMortemReportExceptionHandler implements UncaughtExceptionHandle
 			// nothing to do
 		} catch(IOException eIo) {
 			// not going to report
-		}
-		System.gc();
+		}		
 	}
 	
 	public Boolean sendDebugReportToAuthor(String aReport) {
@@ -176,15 +196,16 @@ public class PostMortemReportExceptionHandler implements UncaughtExceptionHandle
 		}
 	}
 	
-	@Override
-	public void run() {
-		sendDebugReportToAuthor();
-	}
-	
 	public void submit(Throwable e) {
 		String theErrReport = getDebugReport(e);
 		saveDebugReport(theErrReport);
 		//try to send file contents via email (need to do so via the UI thread)
 		mApp.runOnUiThread(this);				
+	}
+
+    public void uncaughtException(Thread t, Throwable e) {
+		submit(e);
+		//do not forget to pass this exception through up the chain
+		mDefaultUEH.uncaughtException(t,e);
 	}
 }
