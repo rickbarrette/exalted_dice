@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string-array name="hello_msg"><item>Welcome to ExaltedDice!</item>
+<item>Press the  - button to lower your dice count by 1, or long press to continuously lower the dice count.</item><item>Press the  + button to raise your dice count by 1, or long press to continuously raise the dice count.</item><item>When you press Roll, Your Results Will Be Displayed Here</item>
+
+
+</string-array>
+</resources>
