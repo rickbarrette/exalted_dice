@@ -3,6 +3,8 @@ package com.TwentyCode.android.ExaltedDice;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.TwentyCodes.android.exception.ExceptionHandler;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -48,7 +50,6 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 	private int mEnd = 999;
 	private static final int MENU_QUIT = Menu.FIRST;
 	private static final int MENU_CLEAR = Menu.FIRST + 1;
-	protected PostMortemReportExceptionHandler mDamageReport = new PostMortemReportExceptionHandler(this);
 	private static final String TAG = "ExaltedDice";
 	private Handler mHandler;
 	//this runnable will be used to increment or decrement the amount of dice being rolled
@@ -229,9 +230,8 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		mDamageReport.run();
-        Thread.setDefaultUncaughtExceptionHandler(mDamageReport);
-		
+        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
+        
 		super.onCreate(savedInstanceState);
 		Log.i(TAG, "onCreate()");
 		setContentView(R.layout.main);
