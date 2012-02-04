@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:myapp="com.TwentyCode.android.ExaltedDice"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal" >
+
+    <RelativeLayout
+        android:id="@+id/dice"
+        android:layout_width="0px"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+
+        <include
+            android:id="@+id/die_selector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            layout="@layout/dice_selector" />
+
+        <Button
+            android:id="@+id/roll_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/die_selector"
+            android:layout_marginTop="10dip"
+            android:text="Roll!" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0px"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/ad"
+            android:layout_gravity="top" />
+
+        <com.admob.android.ads.AdView
+            android:id="@id/ad"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            myapp:backgroundColor="#000000"
+            myapp:primaryTextColor="#FFFFFF"
+            myapp:secondaryTextColor="#CCCCCC" />
+    </RelativeLayout>
+
+</LinearLayout>
