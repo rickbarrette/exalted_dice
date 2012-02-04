@@ -34,48 +34,6 @@ import android.util.Log;
  */
 public class Database {
 
-	private static final String TAG = "Database";
-	private Context mContext;
-	private SQLiteDatabase mDb;
-	public boolean isUpgrading = false;
-	private DatabaseListener mListener;
-	
-	/**
-	 * database version. If this is increased, the database will be upgraded the next time it connects
-	 */
-	private final int DATABASE_VERSION = 1;	
-
-	/**
-	 * database file name 
-	 */
-	private final String DATABASE_NAME = "history.db";
-	
-	/**
-	 * database table for games
-	 */
-	private final String GAME_NAME_TABLE = "game_name";
-
-	/**
-	 * Database table of history
-	 */
-	private final String GAME_HISTORY_TABLE = "game_history";
-
-	/*
-	 * Database keys 
-	 */
-	private static final String KEY = "key";
-	private static final String KEY_VALUE = "value";
-	
-	/*
-	 * database value keys
-	 */
-	public final static String KEY_NAME = "name";
-	public final static String KEY_D_TYPE = "d_type";
-	public final static String KEY_NUMBER = "number";
-	public final static String KEY_LOG = "log";
-	public final static String KEY_ROLL_ID = "log_number";
-		
-	
 	/**
 	 * A helper class to manage database creation and version management.
 	 * @author ricky barrette
@@ -161,7 +119,7 @@ public class Database {
 			 }).start();
 		}
 	}
-
+	private static final String TAG = "Database";
 	/**
 	 * Parses a string boolean from the database
 	 * @param bool
@@ -175,6 +133,48 @@ public class Database {
 			return false;
 		}
 	}
+	private Context mContext;
+	private SQLiteDatabase mDb;
+	
+	public boolean isUpgrading = false;	
+
+	private DatabaseListener mListener;
+	
+	/**
+	 * database version. If this is increased, the database will be upgraded the next time it connects
+	 */
+	private final int DATABASE_VERSION = 1;
+
+	/**
+	 * database file name 
+	 */
+	private final String DATABASE_NAME = "history.db";
+
+	/**
+	 * database table for games
+	 */
+	private final String GAME_NAME_TABLE = "game_name";
+	/**
+	 * Database table of history
+	 */
+	private final String GAME_HISTORY_TABLE = "game_history";
+	
+	/*
+	 * Database keys 
+	 */
+	private static final String KEY = "key";
+	private static final String KEY_VALUE = "value";
+	/*
+	 * database value keys
+	 */
+	public final static String KEY_NAME = "name";
+	public final static String KEY_D_TYPE = "d_type";
+	public final static String KEY_NUMBER = "number";
+		
+	
+	public final static String KEY_LOG = "log";
+
+	public final static String KEY_ROLL_ID = "log_number";
 	
 	/**
 	 * Creates a new Database
@@ -241,6 +241,14 @@ public class Database {
 	}
 	
 	/**
+	 * Closes the database 
+	 * @author ricky barrette
+	 */
+	public void close() {
+		mDb.close();
+	}
+
+	/**
 	 * Copies a file
 	 * @param src file
 	 * @param dst file
@@ -298,7 +306,7 @@ public class Database {
 			 }
 		 }).start();
 	}
-
+	
 	/**
 	 * @return a cursor containing all game names
 	 * @author ricky barrette
@@ -325,7 +333,7 @@ public class Database {
 		}
 		return list;
 	}
-	
+
 	/**
 	 * gets a game name from a row id;
 	 * @param id
@@ -335,7 +343,7 @@ public class Database {
 	public Cursor getGameFromId(long id) {
 		return this.mDb.query(GAME_NAME_TABLE, new String[]{ KEY_NAME }, "id = "+id, null, null, null, null);
 	}
-
+	
 	/**
 	 * gets a games's histrory info from the supplied ringer name
 	 * @param gameName
@@ -412,7 +420,7 @@ public class Database {
 			mDb.insert(GAME_HISTORY_TABLE, null, values);
 		}
 	}
-	
+
 	/**
 	 * Restores the database from external storage
 	 * @return true if successful
@@ -489,31 +497,6 @@ public class Database {
 		 */
 		mDb.update(GAME_NAME_TABLE, game, "id" + "= "+ id, null);
 	}
-
-	/**
-	 * Updates the row ids after a row is deleted
-	 * @param id of the row to start with
-	 * @author ricky barrette
-	 */
-	private void updateRowIds(long id) {
-		long currentRow;
-		ContentValues values = new ContentValues();
-		Cursor cursor = this.mDb.query(GAME_NAME_TABLE, new String[] { "id" },null, null, null, null, null);
-		if (cursor.moveToFirst()) {
-			do {
-				currentRow = cursor.getLong(0);
-				if(currentRow == id){
-					id++;
-					values.clear();
-					values.put("id", currentRow -1);
-					mDb.update(GAME_NAME_TABLE, values, "id" + "= "+ currentRow, null);
-				}
-			} while (cursor.moveToNext());
-		}
-		if (cursor != null && !cursor.isClosed()) {
-			cursor.close();
-		}
-	}
 	
 	/**
 	 * Updates all the roll ids after a row is deleted
@@ -533,6 +516,31 @@ public class Database {
 					values.clear();
 					values.put(KEY_ROLL_ID, currentRow -1);
 					mDb.update(GAME_NAME_TABLE, values, KEY_ROLL_ID + "= "+ currentRow, null);
+				}
+			} while (cursor.moveToNext());
+		}
+		if (cursor != null && !cursor.isClosed()) {
+			cursor.close();
+		}
+	}
+
+	/**
+	 * Updates the row ids after a row is deleted
+	 * @param id of the row to start with
+	 * @author ricky barrette
+	 */
+	private void updateRowIds(long id) {
+		long currentRow;
+		ContentValues values = new ContentValues();
+		Cursor cursor = this.mDb.query(GAME_NAME_TABLE, new String[] { "id" },null, null, null, null, null);
+		if (cursor.moveToFirst()) {
+			do {
+				currentRow = cursor.getLong(0);
+				if(currentRow == id){
+					id++;
+					values.clear();
+					values.put("id", currentRow -1);
+					mDb.update(GAME_NAME_TABLE, values, "id" + "= "+ currentRow, null);
 				}
 			} while (cursor.moveToNext());
 		}

@@ -5,5 +5,6 @@
     <string name="rolled">Rolled: </string>
     <string name="email">twentycodes@gmail.com</string>
     <string name="deleteing">Deleting…</string>
+    <string name="empty_msg">Click the plus button to start a new game</string>
 
 </resources>

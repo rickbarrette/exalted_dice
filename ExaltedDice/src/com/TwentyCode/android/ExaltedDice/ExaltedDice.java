@@ -10,6 +10,8 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +26,7 @@ import android.widget.Toast;
 
 import com.TwentyCodes.android.exception.ExceptionHandler;
 
-public class ExaltedDice extends Activity implements OnClickListener, OnItemClickListener, OnValueChangeListener {
+public class ExaltedDice extends Activity implements OnClickListener, OnItemClickListener, OnValueChangeListener, DatabaseListener {
 
 	private ListView listview;
 	private ArrayList<String> rollHistory = new ArrayList<String>();
@@ -34,6 +36,8 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	private int mD = 2;
 	private NumberPicker mNumberPicker;
 	private int mCurrentDie;
+	private NumberPicker mDPicker;
+	private Database mDb;
 	private static final int MENU_QUIT = Menu.FIRST;
 	private static final int MENU_CLEAR = Menu.FIRST + 1;
 	private static final String TAG = "ExaltedDice";
@@ -49,7 +53,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		rolled.clear();
 		listview.setAdapter(new ArrayAdapter<String>(this, R.layout.list_row, rollHistory));
 	}
-
+	
 	/**
 	 * also implemented OnClickListener
 	 * 
@@ -64,6 +68,16 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 				break;
 		}
 		
+	}
+
+	/**
+	 * (non-Javadoc)
+	 * @see android.app.Activity#onContextItemSelected(android.view.MenuItem)
+	 */
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		return super.onContextItemSelected(item);
 	}
 
 	/**
@@ -82,16 +96,18 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		listview = (ListView) findViewById(R.id.list);
 		listview.setOnItemClickListener(this);
 
-		NumberPicker mDPicker = (NumberPicker) findViewById(R.id.d_Picker);
+		mDPicker = (NumberPicker) findViewById(R.id.d_Picker);
 		mDPicker.setMinValue(0);
 		mDPicker.setMaxValue(DICE_VALUES.length -1);
 		mDPicker.setDisplayedValues(DICE_VALUES);
 		mDPicker.setOnValueChangedListener(this);
+		mDPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 		
 		mNumberPicker = (NumberPicker) findViewById(R.id.number_Picker);
 		mNumberPicker.setMaxValue(999);
 		mNumberPicker.setMinValue(1);
 		mNumberPicker.setOnValueChangedListener(this);
+		mNumberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 		
 		findViewById(R.id.roll_button).setOnClickListener(this);
 
@@ -105,6 +121,16 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	}
 
 	/**
+	 * (non-Javadoc)
+	 * @see android.app.Activity#onCreateContextMenu(android.view.ContextMenu, android.view.View, android.view.ContextMenu.ContextMenuInfo)
+	 */
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		// TODO Auto-generated method stub
+		super.onCreateContextMenu(menu, v, menuInfo);
+	}
+
+	/**
 	 * creates a menu with a quit option
 	 * 
 	 * @author WWPowers 3-27-2010
@@ -115,7 +141,25 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		return true;
 	}
 
-	/**
+	@Override
+	public void onDatabaseUpgrade() {
+		// TODO Auto-generated method stub
+		
+	}
+
+    @Override
+	public void onDatabaseUpgradeComplete() {
+		// TODO Auto-generated method stub
+		
+	}
+
+    @Override
+	public void onDeletionComplete() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+    /**
 	 * rolls same amount of dice as previous roll
 	 * @author ricky barrette
 	 */
@@ -126,6 +170,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 			rollDice();
 		}
 	}
+
 
     /**
 	 * handles menu selection
@@ -147,35 +192,67 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	}
 
     /**
+	 * (non-Javadoc)
+	 * @see android.app.Activity#onPause()
+	 */
+	@Override
+	protected void onPause() {
+		mDb.close();
+		super.onPause();
+	}
+
+    @Override
+	public void onRestoreComplete() {
+		// TODO Auto-generated method stub
+		
+	}
+
+    /**
 	 * resorts application state after rotation
 	 * @author ricky barrette
 	 */
 	@Override
 	public void onRestoreInstanceState(Bundle savedInstanceState) {
 	  super.onRestoreInstanceState(savedInstanceState);
-	  // Restore UI state from the savedInstanceState.
-	  // This bundle has also been passed to onCreate.
-	  rollHistory = savedInstanceState.getStringArrayList("roll_history");
-	  rolled = savedInstanceState.getIntegerArrayList("rolled");
-	  listview.setAdapter(new ArrayAdapter<String>(this, R.layout.list_row, rollHistory));
+	  mDPicker.setValue(savedInstanceState.getInt("d"));
+	  mNumberPicker.setValue(savedInstanceState.getInt("number"));
 	}
-	
+
     /**
-	 * saves application state before rotatoin
+	 * (non-Javadoc)
+	 * @see android.app.Activity#onResume()
+	 */
+	@Override
+	protected void onResume() {
+		mDb = new Database(this, this);
+		super.onResume();
+	}
+
+    /**
+	 * saves application state before rotation
 	 * @author ricky barrette
 	 */
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState) {
-	  // Save UI state changes to the savedInstanceState.
-	  // This bundle will be passed to onCreate if the process is
-	  // killed and restarted.
-	  savedInstanceState.putStringArrayList("roll_history", rollHistory);
-	  savedInstanceState.putIntegerArrayList("rolled", rolled);
+	  savedInstanceState.putInt("d", mDPicker.getValue());
+	  savedInstanceState.putInt("number", mNumberPicker.getValue());
 	  super.onSaveInstanceState(savedInstanceState);
 	}
 
+    @Override
+	public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+		switch(picker.getId()){
+			case R.id.d_Picker:
+				mD = Integer.parseInt(DICE_VALUES[newVal].substring(1));
+				mCurrentDie = newVal;
+				break;
+			case R.id.number_Picker:
+				mRolls = newVal;
+				break;
+		}
+	}
 
-    /**
+	/**
 	 * displays a quit dialog
 	 * 
 	 * @author ricky barrette 3-28-2010
@@ -198,7 +275,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		builder.show();
 	}
 
-    /**
+	/**
 	 * returns a custom string containing dice rolls and number of successes
 	 * 
 	 * @param int times
@@ -231,7 +308,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		return resultsString.toString();
 	}
 
-    /**
+	/**
 	 * Performs a dice roll
 	 * 
 	 * @author ricky barrette
@@ -246,7 +323,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		listview.setAdapter(new ArrayAdapter<String>(this, R.layout.list_row, rollHistory));
 	}
 
-    /**
+	/**
 	 * generates an array containing 10 sided dice rolls
 	 * 
 	 * @param int times
@@ -263,7 +340,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		return roll;
 	}
 
-    /**
+	/**
 	 * counts each dice roll that is greater than or equal to 7 as a success. 10
 	 * gets another success (for a total of 2)
 	 * 
@@ -283,7 +360,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		return intSuccesses;
 	}
 
-    /**
+	/**
 	 * displays toast message with a long duration
 	 * 
 	 * @param msg
@@ -295,7 +372,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 	}
 
-    /**
+	/**
 	 * starts Vibrator service and then vibrates for x milliseconds
 	 * 
 	 * @param Long
@@ -313,18 +390,5 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		 * Vibrate for x milliseconds
 		 */
 		vib.vibrate(milliseconds);
-	}
-
-	@Override
-	public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-		switch(picker.getId()){
-			case R.id.d_Picker:
-				mD = Integer.parseInt(DICE_VALUES[newVal].substring(1));
-				mCurrentDie = newVal;
-				break;
-			case R.id.number_Picker:
-				mRolls = newVal;
-				break;
-		}
 	}
 }
