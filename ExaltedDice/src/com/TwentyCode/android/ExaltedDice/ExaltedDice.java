@@ -3,159 +3,41 @@ package com.TwentyCode.android.ExaltedDice;
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.TwentyCodes.android.exception.ExceptionHandler;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Vibrator;
-import android.text.InputFilter;
-import android.text.InputType;
-import android.text.Spanned;
-import android.text.method.NumberKeyListener;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.NumberPicker;
+import android.widget.NumberPicker.OnValueChangeListener;
 import android.widget.Toast;
 
-public class ExaltedDice extends Activity implements OnClickListener, OnLongClickListener, OnItemClickListener {
+import com.TwentyCodes.android.exception.ExceptionHandler;
 
-	private EditText dice;
+public class ExaltedDice extends Activity implements OnClickListener, OnItemClickListener, OnValueChangeListener {
+
 	private ListView listview;
 	private ArrayList<String> rollHistory = new ArrayList<String>();
 	private ArrayList<Integer> rolled = new ArrayList<Integer>();
 	private int intSuccesses;
-    private int mCurrent;
-    private static boolean mIncrement;
-    private static boolean mDecrement;
-    private InputFilter mNumberInputFilter;
-	private String[] mDisplayedValues;
-	//the speed in milliseconds for dice increment or decrement
-	private long mSpeed = 300;
-	//the least and most dice allowed
-	private int mStart = 1;
-	private int mEnd = 999;
+	private int mRolls = 1;
+	private int mD = 2;
+	private NumberPicker mNumberPicker;
+	private int mCurrentDie;
 	private static final int MENU_QUIT = Menu.FIRST;
 	private static final int MENU_CLEAR = Menu.FIRST + 1;
 	private static final String TAG = "ExaltedDice";
-	private Handler mHandler;
-	//this runnable will be used to increment or decrement the amount of dice being rolled
-    private final Runnable mRunnable = new Runnable() {
-		public void run() {
-            if (mIncrement) {
-                changeCurrent(mCurrent + 1);
-                mHandler.postDelayed(this, mSpeed);
-            } else if (mDecrement) {
-                changeCurrent(mCurrent - 1);
-                mHandler.postDelayed(this, mSpeed);
-            }
-        }
-    };
-    
-	private static final char[] DIGIT_CHARACTERS = new char[] {
-        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
-    };
-	
-	private class NumberPickerInputFilter implements InputFilter {
-        public CharSequence filter(CharSequence source, int start, int end,
-                Spanned dest, int dstart, int dend) {
-            if (mDisplayedValues == null) {
-                return mNumberInputFilter.filter(source, start, end, dest, dstart, dend);
-            }
-            CharSequence filtered = String.valueOf(source.subSequence(start, end));
-            String result = String.valueOf(dest.subSequence(0, dstart)) + filtered
-                    + dest.subSequence(dend, dest.length());
-            String str = String.valueOf(result).toLowerCase();
-            for (String val : mDisplayedValues) {
-                val = val.toLowerCase();
-                if (val.startsWith(str)) {
-                    return filtered;
-                }
-            }
-            return "";
-        }
-    }
-
-	private class NumberRangeKeyListener extends NumberKeyListener {
-
-        @Override
-        public CharSequence filter(CharSequence source, int start, int end,  Spanned dest, int dstart, int dend) {
-
-            CharSequence filtered = super.filter(source, start, end, dest, dstart, dend);
-            if (filtered == null) {
-                filtered = source.subSequence(start, end);
-            }
-
-            String result = String.valueOf(dest.subSequence(0, dstart)) + filtered + dest.subSequence(dend, dest.length());
-
-            if ("".equals(result)) {
-                return result;
-            }
-            int val = getSelectedPos(result);
-
-            /* Ensure the user can't type in a value greater
-             * than the max allowed. We have to allow less than min
-             * as the user might want to delete some numbers
-             * and then type a new number.
-             */
-            if (val > mEnd) {
-                return "";
-            } else {
-                return filtered;
-            }
-        }
-
-        @Override
-        protected char[] getAcceptedChars() {
-            return DIGIT_CHARACTERS;
-        }
-
-        // XXX This doesn't allow for range limits when controlled by a
-        // soft input method!
-        public int getInputType() {
-            return InputType.TYPE_CLASS_NUMBER;
-        }
-    }
-	
-	/**
-	 * stops decrementing of dice after longpress
-	 * @author ricky barrette
-	 */
-	public static void cancelDecrement() {
-		mDecrement = false;
-	}
-
-	/**
-	 * stop incrementing of dice after longpress
-	 * @author ricky barrette
-	 */
-	public static void cancelIncrement() {
-		mIncrement = false;
-	}
-
-	protected void changeCurrent(int current) {
-        // Wrap around the values if we go past the start or end
-        if (current > mEnd) {
-            current = mStart;
-        } else if (current < mStart) {
-            current = mEnd;
-        }
-        mCurrent = current;
-        updateView();
-    }
+	private static final String[] DICE_VALUES = { "D2", "D3", "D4", "D6", "D8", "D10", "D12", "D20", "D100" };
 
 	/**
 	 * clears the rollHistory List array and refreshes the listview
@@ -168,32 +50,6 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 		listview.setAdapter(new ArrayAdapter<String>(this, R.layout.list_row, rollHistory));
 	}
 
-	private int getSelectedPos(String str) {
-        if (mDisplayedValues == null) {
-            return Integer.parseInt(str);
-        } else {
-            for (int i = 0; i < mDisplayedValues.length; i++) {
-
-                /* Don't force the user to type in jan when ja will do */
-                str = str.toLowerCase();
-                if (mDisplayedValues[i].toLowerCase().startsWith(str)) {
-                    return mStart + i;
-                }
-            }
-
-            /* The user might have typed in a number into the month field i.e.
-             * 10 instead of OCT so support that too.
-             */
-            try {
-                return Integer.parseInt(str);
-            } catch (NumberFormatException e) {
-
-                /* Ignore as if it's not a number we don't care */
-            }
-        }
-        return mStart;
-    }
-
 	/**
 	 * also implemented OnClickListener
 	 * 
@@ -202,25 +58,12 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 	 */
 	@Override
 	public void onClick(View v){
-		
-		//get the number from the edit text
-		try {
-			mCurrent = Integer.parseInt(dice.getText().toString());
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
-		
-		switch (v.getId()){
-			case R.id.up:
-				changeCurrent(mCurrent + 1);
-				break;
-			case R.id.down:
-				changeCurrent(mCurrent - 1);
-				break;
-			case R.id.roll:
+		switch(v.getId()){
+			case R.id.roll_button:
 				rollDice();
 				break;
 		}
+		
 	}
 
 	/**
@@ -236,42 +79,22 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 		Log.i(TAG, "onCreate()");
 		setContentView(R.layout.main);
 		
-		mHandler = new Handler();
-		
-		/*
-		 * views and listeners
-		 */
-		dice = (EditText) findViewById(R.id.dice);
-        InputFilter inputFilter = new NumberPickerInputFilter();
-        mNumberInputFilter = new NumberRangeKeyListener();
-        dice.setFilters(new InputFilter[] {inputFilter});
-		
 		listview = (ListView) findViewById(R.id.list);
-		NumberPickerButton btAddDice = (NumberPickerButton) findViewById(R.id.up);
-		NumberPickerButton btSubtractDice = (NumberPickerButton) findViewById(R.id.down);
-		Button btRollDice = (Button) findViewById(R.id.roll);
-		btAddDice.setOnClickListener(this);
-		btSubtractDice.setOnClickListener(this);
-		btRollDice.setOnClickListener(this);
 		listview.setOnItemClickListener(this);
-		btAddDice.setOnLongClickListener(this);
-		btSubtractDice.setOnLongClickListener(this);
 
-		/*
-		 * shake Listener
-		 */
-//		ShakeListener mShaker = new ShakeListener(this);
-//		mShaker.setOnShakeListener(new ShakeListener.OnShakeListener() {
-//			public void onShake() {
-//				rollDice();
-//			}
-//		});
+		NumberPicker mDPicker = (NumberPicker) findViewById(R.id.d_Picker);
+		mDPicker.setMinValue(0);
+		mDPicker.setMaxValue(DICE_VALUES.length -1);
+		mDPicker.setDisplayedValues(DICE_VALUES);
+		mDPicker.setOnValueChangedListener(this);
 		
-		/*
-		 * hide keyboard
-		 */
-		((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(dice.getWindowToken(), 0);  
+		mNumberPicker = (NumberPicker) findViewById(R.id.number_Picker);
+		mNumberPicker.setMaxValue(999);
+		mNumberPicker.setMinValue(1);
+		mNumberPicker.setOnValueChangedListener(this);
 		
+		findViewById(R.id.roll_button).setOnClickListener(this);
+
 		/*
 		 * display hello message
 		 */
@@ -299,38 +122,9 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
 		if(rolled.size() != 0){
-			dice.setText("" + rolled.get(position));
+			mNumberPicker.setValue(rolled.get(position));
 			rollDice();
 		}
-	}
-
-	/**
-	 * starts a runnable that will increment or decrement the dice
-	 * 
-	 * @author ricky barrette 3-27-2010
-	 * @param v
-	 */
-	public boolean onLongClick(View v) {
-		
-		//get the number from the edit text
-		try {
-			mCurrent = Integer.parseInt(dice.getText().toString());
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
-		
-		switch (v.getId()){
-			case R.id.up:
-				mIncrement = true;
-				mHandler.post(mRunnable);
-				return true;
-	
-			case R.id.down:
-				mDecrement = true;
-				mHandler.post(mRunnable);
-				return true;
-		}
-		return false;
 	}
 
     /**
@@ -350,7 +144,6 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 			return true;
 		}
 		return false;
-
 	}
 
     /**
@@ -363,7 +156,6 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 	  // Restore UI state from the savedInstanceState.
 	  // This bundle has also been passed to onCreate.
 	  rollHistory = savedInstanceState.getStringArrayList("roll_history");
-	  dice.setText(savedInstanceState.getString("dice"));
 	  rolled = savedInstanceState.getIntegerArrayList("rolled");
 	  listview.setAdapter(new ArrayAdapter<String>(this, R.layout.list_row, rollHistory));
 	}
@@ -378,7 +170,6 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 	  // This bundle will be passed to onCreate if the process is
 	  // killed and restarted.
 	  savedInstanceState.putStringArrayList("roll_history", rollHistory);
-	  savedInstanceState.putString("dice", dice.getText().toString());
 	  savedInstanceState.putIntegerArrayList("rolled", rolled);
 	  super.onSaveInstanceState(savedInstanceState);
 	}
@@ -417,7 +208,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 	public String results(int times) {
 		Log.i(TAG, "results()");
 		StringBuffer resultsString = new StringBuffer();
-		resultsString.append("Rolled "+ times +" dice\n");
+		resultsString.append("Rolled "+ times +" "+DICE_VALUES[mCurrentDie]);
 
 		/**
 		 * roll the dice
@@ -427,7 +218,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 		/**
 		 * add number of successes to resultsString
 		 */
-		resultsString.append("Successes: "+ successes(roll) +"\n");
+		resultsString.append("\nSuccesses: "+ successes(roll) +"\n");
 		
 		resultsString.append("Rolled: ");
 		/**
@@ -449,14 +240,8 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 		// vibrate for 50 milliseconds
 		vibrate(50);
 		
-		//get the number from the edit text
-		try {
-			mCurrent = Integer.parseInt(dice.getText().toString());
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
-		rolled.add(0, mCurrent);
-		rollHistory.add(0, results(mCurrent));
+		rolled.add(0, mRolls);
+		rollHistory.add(0, results(mRolls));
 
 		listview.setAdapter(new ArrayAdapter<String>(this, R.layout.list_row, rollHistory));
 	}
@@ -473,7 +258,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 		int[] roll = new int[times];
 		Random random = new Random();
 		for (int i = 0; i < times; i++) {
-			roll[i] = random.nextInt(10) + 1;
+			roll[i] = random.nextInt(mD) + 1;
 		}
 		return roll;
 	}
@@ -510,15 +295,6 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 		Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 	}
 
-	/**
-	 * a convince method that will update the edit text dice to what the current amount of dice is
-	 * 
-	 * @author ricky barrette
-	 */
-    protected void updateView() {
-  		dice.setText(mCurrent+"");
-    }
-
     /**
 	 * starts Vibrator service and then vibrates for x milliseconds
 	 * 
@@ -538,5 +314,17 @@ public class ExaltedDice extends Activity implements OnClickListener, OnLongClic
 		 */
 		vib.vibrate(milliseconds);
 	}
-	
+
+	@Override
+	public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+		switch(picker.getId()){
+			case R.id.d_Picker:
+				mD = Integer.parseInt(DICE_VALUES[newVal].substring(1));
+				mCurrentDie = newVal;
+				break;
+			case R.id.number_Picker:
+				mRolls = newVal;
+				break;
+		}
+	}
 }
