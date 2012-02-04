@@ -388,37 +388,37 @@ public class Database {
 	 * @param gameHistory values
 	 * @author ricky barrette
 	 */
-	public void insertRinger(String gameName, ContentValues gameHistory){
+	public void insertGame(String gameName, ContentValues gameHistory){
 		ContentValues game = new ContentValues();		
 		game.put(Database.KEY_NAME, checkName(gameName));
 		mDb.insert(GAME_NAME_TABLE, null, game);
-		String ringerName = game.getAsString(Database.KEY_NAME);
 		
-		//insert the information values
-		for(Entry<String, Object> item : gameHistory.valueSet()){
-			ContentValues values = new ContentValues();
-			values.put(KEY_NAME, ringerName);
-			values.put(KEY, item.getKey());
-			/*
-			 * Try get the value.
-			 * If there is a class cast exception, try casting to the next object type.
-			 * 
-			 * The following types are tried:
-			 * String
-			 * Integer
-			 * Boolean
-			 */
-			try {
-				values.put(KEY_VALUE, (String) item.getValue());
-			} catch (ClassCastException e) {
+		if(gameHistory != null)
+			//insert the information values
+			for(Entry<String, Object> item : gameHistory.valueSet()){
+				ContentValues values = new ContentValues();
+				values.put(KEY_NAME, gameName);
+				values.put(KEY, item.getKey());
+				/*
+				 * Try get the value.
+				 * If there is a class cast exception, try casting to the next object type.
+				 * 
+				 * The following types are tried:
+				 * String
+				 * Integer
+				 * Boolean
+				 */
 				try {
-					values.put(KEY_VALUE, (Boolean) item.getValue() ? 1 : 0);
-				} catch (ClassCastException e1) {
-					values.put(KEY_VALUE, (Integer) item.getValue());
+					values.put(KEY_VALUE, (String) item.getValue());
+				} catch (ClassCastException e) {
+					try {
+						values.put(KEY_VALUE, (Boolean) item.getValue() ? 1 : 0);
+					} catch (ClassCastException e1) {
+						values.put(KEY_VALUE, (Integer) item.getValue());
+					}
 				}
+				mDb.insert(GAME_HISTORY_TABLE, null, values);
 			}
-			mDb.insert(GAME_HISTORY_TABLE, null, values);
-		}
 	}
 
 	/**

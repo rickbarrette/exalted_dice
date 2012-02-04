@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
@@ -38,9 +39,11 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	private int mCurrentDie;
 	private NumberPicker mDPicker;
 	private Database mDb;
+	private String mGameName;
 	private static final int MENU_QUIT = Menu.FIRST;
 	private static final int MENU_CLEAR = Menu.FIRST + 1;
 	private static final String TAG = "ExaltedDice";
+	public static final String KEY_GAME_NAME = "game_name";
 	private static final String[] DICE_VALUES = { "D2", "D3", "D4", "D6", "D8", "D10", "D12", "D20", "D100" };
 
 	/**
@@ -67,7 +70,6 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 				rollDice();
 				break;
 		}
-		
 	}
 
 	/**
@@ -88,10 +90,15 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
         Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
-        
 		super.onCreate(savedInstanceState);
 		Log.i(TAG, "onCreate()");
 		setContentView(R.layout.main);
+		Intent i = this.getIntent();
+		if(i != null)
+			if(i.hasExtra(KEY_GAME_NAME)){
+				mGameName = i.getStringExtra(KEY_GAME_NAME);
+				this.setTitle(mGameName);
+			}
 		
 		listview = (ListView) findViewById(R.id.list);
 		listview.setOnItemClickListener(this);

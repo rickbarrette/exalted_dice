@@ -6,5 +6,9 @@
     <string name="email">twentycodes@gmail.com</string>
     <string name="deleteing">Deleting…</string>
     <string name="empty_msg">Click the plus button to start a new game</string>
+    <string name="game_name">Game Name</string>
+    <string name="create_new_game">Create New Game</string>
+    <string name="delete">Delete</string>
+    <string name="new_game">New Game</string>
 
 </resources>

@@ -10,9 +10,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -21,14 +26,30 @@ import android.widget.ListView;
  * 
  * @author ricky barrette
  */
-public class GameListActivity extends Activity implements OnClickListener, DatabaseListener {
+public class GameListActivity extends Activity implements OnClickListener, DatabaseListener, OnItemClickListener {
 
+	private static final int DELETE = 0;
 	private ListView mList;
 	private Database mDb;
 
 	@Override
 	public void onClick(View v) {
-		startActivity(new Intent(this, ExaltedDice.class));
+		new NewGameDialog(this, mDb).show();
+	}
+
+	/**
+	 * (non-Javadoc)
+	 * @see android.app.Activity#onContextItemSelected(android.view.MenuItem)
+	 */
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+		switch(item.getItemId()){
+			case DELETE:
+				mDb.deleteGame(info.id+1);
+				break;
+		}
+		return super.onContextItemSelected(item);
 	}
 
 	/**
@@ -41,6 +62,8 @@ public class GameListActivity extends Activity implements OnClickListener, Datab
 		setContentView(R.layout.game_list);
 		findViewById(R.id.new_game_button).setOnClickListener(this);
 		mList = (ListView) findViewById(android.R.id.list);
+		mList.setOnItemClickListener(this);
+		mList.setEmptyView(findViewById(android.R.id.empty));
 		registerForContextMenu(mList);
 	}
 
@@ -52,9 +75,9 @@ public class GameListActivity extends Activity implements OnClickListener, Datab
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		/* 
 		 * TODO
-		 * delete game
 		 * rename game
 		 */
+		menu.add(0, DELETE, Menu.FIRST, R.string.delete);
 		super.onCreateContextMenu(menu, v, menuInfo);
 	}
 
@@ -66,14 +89,17 @@ public class GameListActivity extends Activity implements OnClickListener, Datab
 
 	@Override
 	public void onDatabaseUpgradeComplete() {
-		// TODO Auto-generated method stub
-		
+		refresh();
 	}
 
 	@Override
 	public void onDeletionComplete() {
-		// TODO Auto-generated method stub
-		
+		refresh();
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		startActivity(new Intent(this, ExaltedDice.class).putExtra(ExaltedDice.KEY_GAME_NAME, mDb.getGameName(id +1)));
 	}
 
 	/**
@@ -99,8 +125,12 @@ public class GameListActivity extends Activity implements OnClickListener, Datab
 	@Override
 	protected void onResume() {
 		mDb = new Database(this, this);
-		mList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mDb.getAllGameTitles()));
+		refresh();
 		super.onResume();
+	}
+
+	private void refresh() {
+		mList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mDb.getAllGameTitles()));
 	}
 
 }
