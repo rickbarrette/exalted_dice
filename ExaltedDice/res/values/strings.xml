@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
+
     <string name="app_name">Exalted Dice</string>
+    <string name="rolled">Rolled: </string>
+    <string name="email">twentycodes@gmail.com</string>
+    <string name="deleteing">Deleting…</string>
 
-<string name="rolled">Rolled: </string>
-
-
-
-
-<string name="email">twentycodes@gmail.com</string>
 </resources>
