@@ -38,8 +38,12 @@ public class NewGameDialog extends Dialog implements android.view.View.OnClickLi
 		findViewById(R.id.new_game_button).setEnabled(false);
 		
 		String name = mGameName.getText().toString();
-		mDb.insertGame(name, null);
-		mContext.startActivity(new Intent(mContext, ExaltedDice.class).putExtra(ExaltedDice.KEY_GAME_NAME, name));
+		
+		Intent i = new Intent(mContext, ExaltedDice.class)
+			.putExtra(ExaltedDice.KEY_GAME_NAME, name)
+			.putExtra(ExaltedDice.KEY_GAME_ID, mDb.insertGame(name));
+		
+		mContext.startActivity(i);
 		this.dismiss();
 	}
 

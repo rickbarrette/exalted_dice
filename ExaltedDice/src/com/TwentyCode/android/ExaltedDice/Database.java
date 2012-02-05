@@ -33,13 +33,52 @@ import android.util.Log;
  * @author ricky barrette
  */
 public class Database {
+	
+	/**
+	 * database version. If this is increased, the database will be upgraded the next time it connects
+	 */
+	private final int DATABASE_VERSION = 1;
+
+	/**
+	 * database file name 
+	 */
+	private final String DATABASE_NAME = "history.db";
+
+	/**
+	 * database table for games
+	 */
+	private final String GAME_NAME_TABLE = "games";
+	/**
+	 * Database table of history
+	 */
+	private final String GAME_HISTORY_TABLE = "history";
+	
+	/*
+	 * Database keys 
+	 */
+	private static final String KEY = "key";
+	private static final String KEY_VALUE = "value";
+	
+	/*
+	 * database value keys
+	 */
+	public final static String KEY_NAME = "name";
+	public final static String KEY_D_TYPE = "d_type";
+	public final static String KEY_NUMBER = "number";
+	public final static String KEY_LOG = "log";
+	public final static String KEY_ROLL_ID = "roll_id";
+
+	private static final String TAG = "Database";
+	private Context mContext;
+	private SQLiteDatabase mDb;
+	public boolean isUpgrading = false;	
+	private DatabaseListener mListener;
 
 	/**
 	 * A helper class to manage database creation and version management.
 	 * @author ricky barrette
 	 */
 	private class OpenHelper extends SQLiteOpenHelper {
-	
 	
 		/**
 		 * Creates a new OpenHelper
@@ -50,7 +89,7 @@ public class Database {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		}
 	
-			/**
+		/**
 		 * Creates the initial database structure 
 		 * @param db
 		 * @author ricky barrette
@@ -58,16 +97,19 @@ public class Database {
 		private void createDatabase(SQLiteDatabase db){
 			db.execSQL("CREATE TABLE " + GAME_NAME_TABLE + 
 					"(id INTEGER PRIMARY KEY, " +
-					KEY_NAME+" TEXT)");
+					KEY_NAME+" TEXT, " +
+					KEY_ROLL_ID + " INTEGER)");
+			
 			db.execSQL("CREATE TABLE " + GAME_HISTORY_TABLE + 
 					"(id INTEGER PRIMARY KEY, " +
 					KEY_NAME+" TEXT, " +
+					KEY_ROLL_ID + " TEXT, "+
 					KEY+" TEXT, " +
-					KEY_VALUE+" TEXT)");
+					KEY_VALUE+" INTEGER)");
 		}
 		
 		/**
-		 * called when the database is created for the first time. this will create our Ringer database
+		 * called when the database is created for the first time. this will create our game database
 		 * (non-Javadoc)
 		 * @see android.database.sqlite.SQLiteOpenHelper#onCreate(android.database.sqlite.SQLiteDatabase)
 		 * @author ricky barrette
@@ -111,7 +153,7 @@ public class Database {
 						case 2:
 							//upgrade from 2 to 3
 						case 3:
-							//upgrade from 4 to 4
+							//upgrade from 3 to 4
 					}
 					handler.sendEmptyMessage(0);					
 					Database.this.isUpgrading = false;
@@ -119,63 +161,7 @@ public class Database {
 			 }).start();
 		}
 	}
-	private static final String TAG = "Database";
-	/**
-	 * Parses a string boolean from the database
-	 * @param bool
-	 * @return true or false
-	 * @author ricky barrette
-	 */
-	public static boolean parseBoolean(String bool){
-		try {
-			return bool == null ? false : Integer.parseInt(bool) == 1 ? true : false;
-		} catch (NumberFormatException e) {
-			return false;
-		}
-	}
-	private Context mContext;
-	private SQLiteDatabase mDb;
-	
-	public boolean isUpgrading = false;	
 
-	private DatabaseListener mListener;
-	
-	/**
-	 * database version. If this is increased, the database will be upgraded the next time it connects
-	 */
-	private final int DATABASE_VERSION = 1;
-
-	/**
-	 * database file name 
-	 */
-	private final String DATABASE_NAME = "history.db";
-
-	/**
-	 * database table for games
-	 */
-	private final String GAME_NAME_TABLE = "game_name";
-	/**
-	 * Database table of history
-	 */
-	private final String GAME_HISTORY_TABLE = "game_history";
-	
-	/*
-	 * Database keys 
-	 */
-	private static final String KEY = "key";
-	private static final String KEY_VALUE = "value";
-	/*
-	 * database value keys
-	 */
-	public final static String KEY_NAME = "name";
-	public final static String KEY_D_TYPE = "d_type";
-	public final static String KEY_NUMBER = "number";
-		
-	
-	public final static String KEY_LOG = "log";
-
-	public final static String KEY_ROLL_ID = "log_number";
-	
 	/**
 	 * Creates a new Database
 	 * @param context
@@ -286,19 +272,19 @@ public class Database {
 		    }
 		};
     	
-    	//ringer deleting thread
+    	//game deleting thread
 		 new Thread( new Runnable(){
 			 @Override
 			 public void run(){
 				 Looper.prepare();
 		
 				/*
-				 * get the game name from the id, and then delete all its information from the game histroy table
+				 * get the game name from the id, and then delete all its information from the game history table
 				 */
-				Database.this.mDb.delete(GAME_HISTORY_TABLE, KEY_NAME +" = "+ DatabaseUtils.sqlEscapeString(Database.this.getGameName(id)), null);
+				Database.this.mDb.delete(GAME_HISTORY_TABLE, KEY_NAME +" = "+ DatabaseUtils.sqlEscapeString(getGameName(id)), null);
 				
 				/*
-				 * finally delete the ringer from the ringer table
+				 * finally delete the game from the game table
 				 */
 				Database.this.mDb.delete(GAME_NAME_TABLE, "id = "+ id, null);
 				updateRowIds(id +1);
@@ -322,7 +308,7 @@ public class Database {
 	 */
 	public List<String> getAllGameTitles() {
 		List<String> list = new ArrayList<String>();
-		Cursor cursor = this.mDb.query(GAME_NAME_TABLE, new String[] { KEY_NAME }, null, null, null, null, null);
+		Cursor cursor = getAllGames();;
 		if (cursor.moveToFirst()) {
 			do {
 				list.add(cursor.getString(0));
@@ -345,14 +331,15 @@ public class Database {
 	}
 	
 	/**
-	 * gets a games's histrory info from the supplied ringer name
+	 * gets roll log from the games's history info from the supplied game name and roll id
 	 * @param gameName
+	 * @param rollId
 	 * @return
 	 * @author ricky barrette
 	 */
-	public ContentValues getGameHistoryInfo(String gameName){
+	public ContentValues getGameHistoryInfo(String gameName, int rollId){
 		ContentValues values = new ContentValues();
-    	Cursor info = this.mDb.query(GAME_HISTORY_TABLE, new String[]{ KEY, KEY_VALUE }, KEY_NAME +" = "+ DatabaseUtils.sqlEscapeString(gameName), null, null, null, null);
+    	Cursor info = this.mDb.query(GAME_HISTORY_TABLE, new String[]{ KEY, KEY_VALUE }, KEY_NAME +" = "+ DatabaseUtils.sqlEscapeString(gameName) +" AND "+ KEY_ROLL_ID+" = "+rollId, null, null, null, null);
 		if (info.moveToFirst()) {
 			do {
 				values.put(info.getString(0), info.getString(1));
@@ -371,15 +358,32 @@ public class Database {
 	 * @author ricky barrette
 	 */
 	public String getGameName(long id) {
-		String name  = null;
 		Cursor cursor = this.mDb.query(GAME_NAME_TABLE, new String[]{ KEY_NAME }, "id = "+id, null, null, null, null);; 
 		if (cursor.moveToFirst()) {
-			name = cursor.getString(0);
+			return cursor.getString(0);
 		}
 		if (cursor != null && !cursor.isClosed()) {
 			cursor.close();
 		}
-		return name;
+		return null;
+	}
+	
+	/**
+	 * Retrieves the number of rolls for this game
+	 * @param id
+	 * @return roll count
+	 * @author ricky barrette
+	 */
+	public int getGameRollCount(long id) {
+		int rolls  = -1;
+		Cursor cursor = this.mDb.query(GAME_NAME_TABLE, new String[]{ KEY_ROLL_ID }, "id = "+id, null, null, null, null);; 
+		if (cursor.moveToFirst()) {
+			rolls = Integer.parseInt(cursor.getString(0));
+		}
+		if (cursor != null && !cursor.isClosed()) {
+			cursor.close();
+		}
+		return rolls;
 	}
 	
 	/**
@@ -387,38 +391,27 @@ public class Database {
 	 * @param game values
 	 * @param gameHistory values
 	 * @author ricky barrette
+	 * @return 
 	 */
-	public void insertGame(String gameName, ContentValues gameHistory){
+	public long insertGame(String gameName){
 		ContentValues game = new ContentValues();		
 		game.put(Database.KEY_NAME, checkName(gameName));
-		mDb.insert(GAME_NAME_TABLE, null, game);
-		
-		if(gameHistory != null)
-			//insert the information values
-			for(Entry<String, Object> item : gameHistory.valueSet()){
-				ContentValues values = new ContentValues();
-				values.put(KEY_NAME, gameName);
-				values.put(KEY, item.getKey());
-				/*
-				 * Try get the value.
-				 * If there is a class cast exception, try casting to the next object type.
-				 * 
-				 * The following types are tried:
-				 * String
-				 * Integer
-				 * Boolean
-				 */
-				try {
-					values.put(KEY_VALUE, (String) item.getValue());
-				} catch (ClassCastException e) {
-					try {
-						values.put(KEY_VALUE, (Boolean) item.getValue() ? 1 : 0);
-					} catch (ClassCastException e1) {
-						values.put(KEY_VALUE, (Integer) item.getValue());
-					}
-				}
-				mDb.insert(GAME_HISTORY_TABLE, null, values);
-			}
+		game.put(Database.KEY_ROLL_ID, 0);
+		return mDb.insert(GAME_NAME_TABLE, null, game);
+	}
+
+	/**
+	 * Parses a string boolean from the database
+	 * @param bool
+	 * @return true or false
+	 * @author ricky barrette
+	 */
+	public static boolean parseBoolean(String bool){
+		try {
+			return bool == null ? false : Integer.parseInt(bool) == 1 ? true : false;
+		} catch (NumberFormatException e) {
+			return false;
+		}
 	}
 
 	/**
@@ -458,23 +451,23 @@ public class Database {
 	 * @param gameHistory values
 	 * @author ricky barrette
 	 */
-	public void updateGame(long id, String gameName, ContentValues gameHistory) throws NullPointerException{
+	public void updateGame(long id, String gameName, ContentValues gameHistory, int rollId) throws NullPointerException{
 		
 		ContentValues game= new ContentValues();
 		
+		//store the current roll
+		game.put(KEY_ROLL_ID, rollId);
+		
 		if(gameName == null || gameHistory == null)
 			throw new NullPointerException("game content was null");
-		
-		String ringer_name = getGameName(id);
-		if(!ringer_name.equals(gameName))
-			game.put(Database.KEY_NAME, checkName(gameName));
 		
 		/*
 		 * update the information values in the info table
 		 */
 		for(Entry<String, Object> item : gameHistory.valueSet()){
 			ContentValues values = new ContentValues();
-			values.put(KEY_NAME, game.getAsString(KEY_NAME));
+			values.put(KEY_ROLL_ID, rollId);
+			values.put(KEY_NAME, gameName);
 			values.put(KEY, item.getKey());
 			try {
 				values.put(KEY_VALUE, (String) item.getValue());
@@ -486,44 +479,18 @@ public class Database {
 				}
 			}
 			/*
-			 * try to update, if update fails insert
+			 * we dont care about updating the history, just insert new information
 			 */
-			if(!(mDb.update(GAME_HISTORY_TABLE, values, KEY_NAME + "="+ DatabaseUtils.sqlEscapeString(ringer_name) +" AND " + KEY +"='"+ item.getKey()+"'", null) > 0))
+//			if(!(mDb.update(GAME_HISTORY_TABLE, values, KEY_NAME + "="+ DatabaseUtils.sqlEscapeString(gameName) +" AND " + KEY +"='"+ item.getKey()+"'", null) > 0))
 				mDb.insert(GAME_HISTORY_TABLE, null, values);
 		}
 		
 		/*
-		 * update the ringer table
+		 * update the game table
 		 */
 		mDb.update(GAME_NAME_TABLE, game, "id" + "= "+ id, null);
 	}
 	
-	/**
-	 * Updates all the roll ids after a row is deleted
-	 * @param gameName
-	 * @param id of the roll to start with
-	 * @author ricky barrette
-	 */
-	private void updateRollIds(String gameName, int rollId) {
-		long currentRow;
-		ContentValues values = new ContentValues();
-		Cursor cursor = this.mDb.query(GAME_HISTORY_TABLE, new String[] { KEY_ROLL_ID },KEY_NAME+" = "+ gameName, null, null, null, null);
-		if (cursor.moveToFirst()) {
-			do {
-				currentRow = cursor.getLong(0);
-				if(currentRow == rollId){
-					rollId++;
-					values.clear();
-					values.put(KEY_ROLL_ID, currentRow -1);
-					mDb.update(GAME_NAME_TABLE, values, KEY_ROLL_ID + "= "+ currentRow, null);
-				}
-			} while (cursor.moveToNext());
-		}
-		if (cursor != null && !cursor.isClosed()) {
-			cursor.close();
-		}
-	}
-
 	/**
 	 * Updates the row ids after a row is deleted
 	 * @param id of the row to start with

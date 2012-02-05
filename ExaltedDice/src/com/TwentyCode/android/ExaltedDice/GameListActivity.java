@@ -99,7 +99,7 @@ public class GameListActivity extends Activity implements OnClickListener, Datab
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		startActivity(new Intent(this, ExaltedDice.class).putExtra(ExaltedDice.KEY_GAME_NAME, mDb.getGameName(id +1)));
+		startActivity(new Intent(this, ExaltedDice.class).putExtra(ExaltedDice.KEY_GAME_NAME, mDb.getGameName(id +1)).putExtra(ExaltedDice.KEY_GAME_ID, id+1));
 	}
 
 	/**
