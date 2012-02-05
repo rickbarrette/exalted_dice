@@ -10,7 +10,8 @@
         android:label="@string/app_name" >
         <activity
             android:name="GameListActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Holo" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,9 +23,13 @@
             android:name="ADMOB_PUBLISHER_ID"
             android:value="a14bad63772f7d3" />
 
-        <activity android:name="com.TwentyCodes.android.exception.ExceptionReportActivity" >
+        <activity
+            android:name="com.TwentyCodes.android.exception.ExceptionReportActivity"
+            android:theme="@android:style/Theme.Holo" >
         </activity>
-        <activity android:name="ExaltedDice" >
+        <activity
+            android:name="ExaltedDice"
+            android:theme="@android:style/Theme.Holo" >
         </activity>
     </application>
 

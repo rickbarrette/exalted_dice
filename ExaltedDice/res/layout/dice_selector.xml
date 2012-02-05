@@ -8,17 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dip" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="10dip"
-        android:layout_toRightOf="@id/d_Picker"
-        android:text="Number"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_marginLeft="100dip" />
 
     <NumberPicker
         android:id="@+id/number_Picker"
