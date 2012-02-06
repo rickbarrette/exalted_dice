@@ -22,17 +22,14 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.NumberPicker;
-import android.widget.NumberPicker.OnValueChangeListener;
 import android.widget.Toast;
 
 import com.TwentyCodes.android.exception.ExceptionHandler;
 
-public class ExaltedDice extends Activity implements OnClickListener, OnItemClickListener, OnValueChangeListener {
+public class ExaltedDice extends Activity implements OnClickListener, OnItemClickListener {
 
 	private ListView mListView;
 	private int intSuccesses;
-	private int mRolls = 1;
-	private int mD = 2;
 	private NumberPicker mNumberPicker;
 	private NumberPicker mDPicker;
 	private Database mDb;
@@ -49,11 +46,10 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 
 	/**
 	 * clears the rollHistory List array and refreshes the listview
-	 * 
 	 * @author ricky barrette
 	 */
 	private void clearHistory() {
-		//TODO clear history
+		mDb.clearHistory(mGameId);
 		refresh();
 	}
 	
@@ -107,18 +103,17 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		
 		mListView = (ListView) findViewById(R.id.list);
 		mListView.setOnItemClickListener(this);
+		mListView.setStackFromBottom(true);
 
 		mDPicker = (NumberPicker) findViewById(R.id.d_Picker);
 		mDPicker.setMinValue(0);
 		mDPicker.setMaxValue(DICE_VALUES.length -1);
 		mDPicker.setDisplayedValues(DICE_VALUES);
-		mDPicker.setOnValueChangedListener(this);
 		mDPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 		
 		mNumberPicker = (NumberPicker) findViewById(R.id.number_Picker);
 		mNumberPicker.setMaxValue(999);
 		mNumberPicker.setMinValue(1);
-		mNumberPicker.setOnValueChangedListener(this);
 		mNumberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 		
 		findViewById(R.id.roll_button).setOnClickListener(this);
@@ -126,7 +121,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		/*
 		 * display hello message
 		 */
-		mListView.setAdapter(new ArrayAdapter<String>(this, R.layout.list_row, getResources().getStringArray(R.array.hello_msg)));
+		mListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.hello_msg)));
 	}
 
 	/**
@@ -209,8 +204,6 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	 */
 	@Override
 	protected void onResume() {
-		this.setTitle(mDb.getGameName(mGameId));
-		
 		if(mDb.getGameRollCount(mGameId) > 0){
 			isNewGame = false;
 			refresh();
@@ -242,18 +235,6 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	  super.onSaveInstanceState(savedInstanceState);
 	}
 
-    @Override
-	public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-		switch(picker.getId()){
-			case R.id.d_Picker:
-				mD = Integer.parseInt(DICE_VALUES[newVal].substring(1));
-				break;
-			case R.id.number_Picker:
-				mRolls = newVal;
-				break;
-		}
-	}
-
 	/**
 	 * displays a quit dialog
 	 * 
@@ -278,8 +259,10 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	}
 	
 	public void refresh(){
-		if(!isNewGame)
+		if(!isNewGame){
 			mListView.setAdapter(mListAdapter);
+			isNewGame = false;
+		}
 		mListAdapter.notifyDataSetChanged();
 	}
 
@@ -293,25 +276,19 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	public String results(int times) {
 		Log.i(TAG, "results()");
 		StringBuffer resultsString = new StringBuffer();
-
-		/**
-		 * roll the dice
-		 */
-		int[] roll = rollGen(times);
-
-		/**
-		 * add number of successes to resultsString
-		 */
-		resultsString.append("\nSuccesses: "+ successes(roll) +"\n");
+		StringBuffer rolls = new StringBuffer();
+		long total = 0;
 		
-		resultsString.append("Rolled: ");
-		/**
-		 * add rolled dice results to resultsString
-		 */
-		for (int i = 0; i < roll.length; i++) {
-			resultsString.append(roll[i] + ", ");
+		int[] roll = rollGen(times);
+		
+		for (int item : roll) {
+			rolls.append(item + ", ");
+			total = total + item;
 		}
 
+		resultsString.append("Total: "+ total);
+		resultsString.append("\nSuccesses: "+ successes(roll));
+		resultsString.append("\nRolls: "+ rolls.toString());
 		return resultsString.toString();
 	}
 
@@ -329,7 +306,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		ContentValues roll = new ContentValues();
 		roll.put(Database.KEY_D_TYPE, DICE_VALUES[mDPicker.getValue()]);
 		roll.put(Database.KEY_NUMBER, mNumberPicker.getValue());
-		roll.put(Database.KEY_LOG, results(mRolls));
+		roll.put(Database.KEY_LOG, results(mNumberPicker.getValue()));
 		
 		mDb.updateGame(mGameId, mGameName, roll, rollId);
 		
@@ -337,8 +314,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	}
 
 	/**
-	 * generates an array containing 10 sided dice rolls
-	 * 
+	 * generates an array containing dice rolls
 	 * @param int times
 	 * @return int[] roll
 	 * @author ricky barrette
@@ -348,7 +324,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		int[] roll = new int[times];
 		Random random = new Random();
 		for (int i = 0; i < times; i++) {
-			roll[i] = random.nextInt(mD) + 1;
+			roll[i] = random.nextInt(Integer.parseInt(DICE_VALUES[mDPicker.getValue()].substring(1))) + 1;
 		}
 		return roll;
 	}
@@ -387,21 +363,13 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 
 	/**
 	 * starts Vibrator service and then vibrates for x milliseconds
-	 * 
 	 * @param Long
 	 *            milliseconds
 	 * @author ricky barrette
 	 */
 	public void vibrate(long milliseconds) {
 		Log.i(TAG, "vibrate() for " + milliseconds);
-		/**
-		 * start vibrator service
-		 */
 		Vibrator vib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-
-		/**
-		 * Vibrate for x milliseconds
-		 */
 		vib.vibrate(milliseconds);
 	}
 }

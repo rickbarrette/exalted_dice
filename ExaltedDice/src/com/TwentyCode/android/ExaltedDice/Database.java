@@ -227,6 +227,49 @@ public class Database {
 	}
 	
 	/**
+	 * Clears the history of a game by it's id
+	 * @param gameId
+	 * @author ricky barrette
+	 */
+	public void clearHistory(final long gameId) {
+		final ProgressDialog progress = ProgressDialog.show(Database.this.mContext, "", Database.this.mContext.getText(R.string.deleteing), true, true);
+		
+		final Handler handler =  new Handler(){
+			@Override
+		    public void handleMessage(Message msg) {
+				if(Database.this.mListener != null)
+					Database.this.mListener.onDeletionComplete();
+					progress.dismiss();
+		    }
+		};
+    	
+    	//game deleting thread
+		 new Thread( new Runnable(){
+			 @Override
+			 public void run(){
+				 Looper.prepare();
+		
+				/*
+				 * get the game name from the id, and then delete all its information from the game history table
+				 */
+				Database.this.mDb.delete(GAME_HISTORY_TABLE, KEY_NAME +" = "+ DatabaseUtils.sqlEscapeString(getGameName(gameId)), null);
+				
+				/*
+				 * update the game table
+				 */
+				ContentValues game= new ContentValues();
+				
+				//store the current roll
+				game.put(KEY_ROLL_ID, 0);
+				mDb.update(GAME_NAME_TABLE, game, "id" + "= "+ gameId, null);
+
+				
+				handler.sendEmptyMessage(0);
+			 }
+		 }).start();		
+	}
+	
+	/**
 	 * Closes the database 
 	 * @author ricky barrette
 	 */
