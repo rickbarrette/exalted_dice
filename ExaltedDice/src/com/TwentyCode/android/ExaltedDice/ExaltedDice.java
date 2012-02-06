@@ -34,10 +34,10 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	private static final String TAG = "ExaltedDice";
 	public static final String KEY_GAME_NAME = "game_name";
 	public static final String KEY_GAME_ID = "game_id";
-	private static final String[] DICE_VALUES = { "D2", "D3", "D4", "D6", "D8", "D10", "D12", "D20", "D100" };
 	private static final int DELETE = 0;
 	private static final int SETTINGS = Menu.FIRST + 2;
 
+	private String[] mDiceValues;
 	private ListView mListView;
 	private NumberPicker mNumberPicker;
 	private NumberPicker mDPicker;
@@ -103,11 +103,9 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 				mGameName = i.getStringExtra(KEY_GAME_NAME);
 				mGameId = i.getLongExtra(KEY_GAME_ID, -1);
 				this.setTitle(mGameName);
-				
-				Log.v(TAG, "game name ="+mGameName);
-				Log.v(TAG, "game id ="+mGameId);
-				
 			}
+		
+		mDiceValues = getResources().getStringArray(R.array.dice_types);
 		
 		mListView = (ListView) findViewById(R.id.list);
 		mListView.setOnItemClickListener(this);
@@ -115,8 +113,8 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 
 		mDPicker = (NumberPicker) findViewById(R.id.d_Picker);
 		mDPicker.setMinValue(0);
-		mDPicker.setMaxValue(DICE_VALUES.length -1);
-		mDPicker.setDisplayedValues(DICE_VALUES);
+		mDPicker.setMaxValue(mDiceValues.length -1);
+		mDPicker.setDisplayedValues(mDiceValues);
 		mDPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 		
 		mNumberPicker = (NumberPicker) findViewById(R.id.number_Picker);
@@ -148,9 +146,9 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	 * @author WWPowers 3-27-2010
 	 */
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(1, MENU_CLEAR, 0, "Clear Roll History");
-		menu.add(1, SETTINGS, 0, "Settings");
-		menu.add(1, MENU_QUIT, 0, "Quit");
+		menu.add(1, MENU_CLEAR, 0, R.string.clear_history).setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+		menu.add(1, SETTINGS, 0, R.string.settings).setIcon(android.R.drawable.ic_menu_preferences);;
+		menu.add(1, MENU_QUIT, 0, R.string.quit).setIcon(android.R.drawable.ic_menu_revert);
 		return true;
 	}
 
@@ -253,8 +251,8 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	 * @author ricky barrette
 	 */
     private int parseD(String d) {
-		for(int i = 0; i < DICE_VALUES.length; i++)
-			if (DICE_VALUES[i].equalsIgnoreCase(d))
+		for(int i = 0; i < mDiceValues.length; i++)
+			if (mDiceValues[i].equalsIgnoreCase(d))
 				return i;
 		return 0;
 	}
@@ -267,13 +265,13 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	 */
 	public void quitDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage("Are you sure you want to quit?").setCancelable(
-				false).setPositiveButton("Yes",
+		builder.setMessage(R.string.do_you_want_to_quit).setCancelable(
+				false).setPositiveButton(android.R.string.yes,
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
 						ExaltedDice.this.finish();
 					}
-				}).setNegativeButton("No",
+				}).setNegativeButton(android.R.string.no,
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
 						dialog.cancel();
@@ -314,9 +312,9 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 			total = total + item;
 		}
 
-		resultsString.append("Total: "+ total);
-		resultsString.append("\nSuccesses: "+ successes(roll));
-		resultsString.append("\nRolls: "+ rolls.toString());
+		resultsString.append(getString(R.string.total)+ total);
+		resultsString.append(getString(R.string.sucesses)+ successes(roll));
+		resultsString.append(getString(R.string.rolls)+ rolls.toString());
 		return resultsString.toString();
 	}
 
@@ -332,7 +330,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		int rollId = mDb.getGameRollCount(mGameId) +1;
 		
 		ContentValues roll = new ContentValues();
-		roll.put(Database.KEY_D_TYPE, DICE_VALUES[mDPicker.getValue()]);
+		roll.put(Database.KEY_D_TYPE, mDiceValues[mDPicker.getValue()]);
 		roll.put(Database.KEY_NUMBER, mNumberPicker.getValue());
 		roll.put(Database.KEY_LOG, results(mNumberPicker.getValue()));
 		
@@ -352,7 +350,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		int[] roll = new int[times];
 		Random random = new Random();
 		for (int i = 0; i < times; i++) {
-			roll[i] = random.nextInt(Integer.parseInt(DICE_VALUES[mDPicker.getValue()].substring(1))) + 1;
+			roll[i] = random.nextInt(Integer.parseInt(mDiceValues[mDPicker.getValue()].substring(1))) + 1;
 		}
 		return roll;
 	}
@@ -385,7 +383,6 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	 * @author WWPowers 3-26-2010
 	 */
 	public void toastLong(CharSequence msg) {
-		Log.i(TAG, "toastLong()");
 		Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 	}
 

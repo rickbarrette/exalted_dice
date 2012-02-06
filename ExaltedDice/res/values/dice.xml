@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="dice_types">
+        <item>D2</item>
+        <item>D3</item>
+        <item>D4</item>
+        <item>D6</item>
+        <item>D8</item>
+        <item>D10</item>
+        <item>D12</item>
+        <item>D20</item>
+        <item>D100</item>
+    </string-array>
+
+</resources>
