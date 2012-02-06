@@ -337,6 +337,16 @@ public class Database {
 	}
 	
 	/**
+	 * Deletes a roll from the roll history
+	 * @param gameId
+	 * @param rollId
+	 * @author ricky barrette
+	 */
+	public void deleteRoll(long gameId, long rollId) {
+		// TODO Auto-generated method stub
+	}
+	
+	/**
 	 * @return a cursor containing all game names
 	 * @author ricky barrette
 	 */
@@ -428,7 +438,7 @@ public class Database {
 		}
 		return rolls;
 	}
-	
+
 	/**
 	 * Inserts a new game into the database
 	 * @param game values

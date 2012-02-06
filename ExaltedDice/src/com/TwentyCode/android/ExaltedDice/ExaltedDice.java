@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -28,8 +29,15 @@ import com.TwentyCodes.android.exception.ExceptionHandler;
 
 public class ExaltedDice extends Activity implements OnClickListener, OnItemClickListener {
 
+	private static final int MENU_QUIT = Menu.FIRST;
+	private static final int MENU_CLEAR = Menu.FIRST + 1;
+	private static final String TAG = "ExaltedDice";
+	public static final String KEY_GAME_NAME = "game_name";
+	public static final String KEY_GAME_ID = "game_id";
+	private static final String[] DICE_VALUES = { "D2", "D3", "D4", "D6", "D8", "D10", "D12", "D20", "D100" };
+	private static final int DELETE = 0;
+
 	private ListView mListView;
-	private int intSuccesses;
 	private NumberPicker mNumberPicker;
 	private NumberPicker mDPicker;
 	private Database mDb;
@@ -37,13 +45,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	private long mGameId;
 	private RollHistoryDatabaseAdapter mListAdapter;
 	private boolean isNewGame;
-	private static final int MENU_QUIT = Menu.FIRST;
-	private static final int MENU_CLEAR = Menu.FIRST + 1;
-	private static final String TAG = "ExaltedDice";
-	public static final String KEY_GAME_NAME = "game_name";
-	public static final String KEY_GAME_ID = "game_id";
-	private static final String[] DICE_VALUES = { "D2", "D3", "D4", "D6", "D8", "D10", "D12", "D20", "D100" };
-
+	
 	/**
 	 * clears the rollHistory List array and refreshes the listview
 	 * @author ricky barrette
@@ -74,7 +76,12 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	 */
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+		switch(item.getItemId()){
+			case DELETE:
+				mDb.deleteRoll(mGameId, info.id+1);
+				break;
+		}
 		return super.onContextItemSelected(item);
 	}
 
@@ -130,7 +137,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	 */
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-		// TODO Auto-generated method stub
+		menu.add(0, DELETE, Menu.FIRST, R.string.delete);
 		super.onCreateContextMenu(menu, v, menuInfo);
 	}
 
@@ -150,16 +157,15 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	 * @author ricky barrette
 	 */
 	@Override
-	public void onItemClick(AdapterView<?> arg0, View v, int position, long arg3) {
-//		if(rolled.size() != 0){
-//			mNumberPicker.setValue(rolled.get(position));
-//			rollDice();
-//		}
-		//TODO roll again
+	public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
+		ContentValues roll = mDb.getGameHistoryInfo(mGameName, (int) (id + 1));
+		mNumberPicker.setValue(roll.getAsInteger(Database.KEY_NUMBER));
+		mDPicker.setValue(parseD(roll.getAsString(Database.KEY_D_TYPE)));
+		
+		rollDice();
 	}
-
-
-    /**
+	
+	/**
 	 * handles menu selection
 	 * 
 	 * @author WWPowers 3-27-2010
@@ -230,9 +236,22 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	 */
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState) {
-	  savedInstanceState.putInt("d", mDPicker.getValue());
-	  savedInstanceState.putInt("number", mNumberPicker.getValue());
-	  super.onSaveInstanceState(savedInstanceState);
+		savedInstanceState.putInt("d", mDPicker.getValue());
+		savedInstanceState.putInt("number", mNumberPicker.getValue());
+		super.onSaveInstanceState(savedInstanceState);
+	}
+
+	/**
+	 * Parses the string d type to the appropriate value
+	 * @param d type
+	 * @return value for d picker
+	 * @author ricky barrette
+	 */
+    private int parseD(String d) {
+		for(int i = 0; i < DICE_VALUES.length; i++)
+			if (DICE_VALUES[i].equalsIgnoreCase(d))
+				return i;
+		return 0;
 	}
 
 	/**
@@ -258,6 +277,10 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		builder.show();
 	}
 	
+	/**
+	 * Refreshes the list view
+	 * @author ricky barrette
+	 */
 	public void refresh(){
 		if(!isNewGame){
 			mListView.setAdapter(mListAdapter);
@@ -339,7 +362,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	 */
 	public int successes(int[] roll) {
 		Log.i(TAG, "successes()");
-		intSuccesses = 0;
+		int intSuccesses = 0;
 		for (int i = 0; i < roll.length; i++) {
 			if (roll[i] >= 7)
 				intSuccesses++;
