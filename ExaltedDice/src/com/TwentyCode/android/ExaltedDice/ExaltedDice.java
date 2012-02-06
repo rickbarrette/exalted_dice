@@ -36,6 +36,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	public static final String KEY_GAME_ID = "game_id";
 	private static final String[] DICE_VALUES = { "D2", "D3", "D4", "D6", "D8", "D10", "D12", "D20", "D100" };
 	private static final int DELETE = 0;
+	private static final int SETTINGS = Menu.FIRST + 2;
 
 	private ListView mListView;
 	private NumberPicker mNumberPicker;
@@ -148,6 +149,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	 */
 	public boolean onCreateOptionsMenu(Menu menu) {
 		menu.add(1, MENU_CLEAR, 0, "Clear Roll History");
+		menu.add(1, SETTINGS, 0, "Settings");
 		menu.add(1, MENU_QUIT, 0, "Quit");
 		return true;
 	}
@@ -174,12 +176,15 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		switch (item.getItemId()) {
-		case MENU_QUIT:
-			quitDialog();
-			return true;
-		case MENU_CLEAR:
-			clearHistory();
-			return true;
+			case MENU_QUIT:
+				quitDialog();
+				return true;
+			case MENU_CLEAR:
+				clearHistory();
+				return true;
+			case SETTINGS:
+				startActivity(new Intent(this, Settings.class));
+				break;
 		}
 		return false;
 	}

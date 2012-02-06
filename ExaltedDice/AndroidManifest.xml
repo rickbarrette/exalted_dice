@@ -31,6 +31,10 @@
             android:name="ExaltedDice"
             android:theme="@android:style/Theme.Holo" >
         </activity>
+        <activity
+            android:name="Settings"
+            android:theme="@android:style/Theme.Holo" >
+        </activity>
     </application>
 
     <uses-sdk android:minSdkVersion="3" />

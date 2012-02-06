@@ -10,5 +10,9 @@
     <string name="create_new_game">Create New Game</string>
     <string name="delete">Delete</string>
     <string name="new_game">New Game</string>
+    <string name="version_info">Version Information</string>
+    <string name="email">twentycodes@gmail.com</string>
+    <string name="email_about">Send an email with ideas or problems to help make this application even better! Good or bad we want to know what you think!</string>
+    <string name="contact_us">Contact Us</string>
 
 </resources>
