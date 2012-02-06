@@ -5,27 +5,41 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <include
-        android:id="@+id/die_selector"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        layout="@layout/dice_selector" />
-
-    <Button
-        android:id="@+id/roll_button"
+    <LinearLayout
+        android:id="@+id/holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/die_selector"
-        android:text="Roll!" />
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+
+            <include
+                android:id="@+id/die_selector"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                layout="@layout/dice_selector" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/roll_button"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Roll!" />
+    </LinearLayout>
 
     <ListView
         android:id="@+id/list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/ad"
-        android:layout_below="@id/roll_button"
+        android:layout_below="@id/holder"
         android:layout_gravity="top" />
 
     <com.admob.android.ads.AdView
