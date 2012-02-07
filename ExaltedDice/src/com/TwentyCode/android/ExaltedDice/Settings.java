@@ -29,6 +29,17 @@ public class Settings extends PreferenceActivity implements OnPreferenceClickLis
 	
 	public static final String SETTINGS = "settings";
 	private static final CharSequence EMAIL = "email";
+	
+	public static final String KEY_ROLL_AGAIN = "roll_again";
+	public static final String KEY_CALC_SUCCESSES = "calc_successes";
+//	public static final String KEY_ = "";
+//	public static final String KEY_ = "";
+//	public static final String KEY_ = "";
+//	public static final String KEY_ = "";
+//	public static final String KEY_ = "";
+//	public static final String KEY_ = "";
+//	public static final String KEY_ = "";
+	
 
 	/**
 	 * generates the exception repost email intent

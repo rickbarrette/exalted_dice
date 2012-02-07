@@ -22,5 +22,9 @@
     <string name="total">Total: </string>
     <string name="sucesses">\nSuccesses: </string>
     <string name="rolls">\nRolls: </string>
+    <string name="roll_again">Roll Again</string>
+    <string name="roll_again_summary">Rolls the with the same presets as the selected roll from history</string>
+    <string name="calc_successes">Calculate Successes</string>
+    <string name="calc_successes_summary">Calculates the total amount of success for each roll</string>
 
 </resources>
