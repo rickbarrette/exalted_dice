@@ -178,8 +178,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case android.R.id.home:
-	            Intent intent = new Intent(this, GameListActivity.class);
-	            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	            Intent intent = new Intent(this, GameListActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	            startActivity(intent);
 	            return true;
 			case MENU_QUIT:
@@ -189,7 +188,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 				clearHistory();
 				return true;
 			case SETTINGS:
-				startActivity(new Intent(this, Settings.class));
+				startActivity(new Intent(this, Settings.class).putExtras(getIntent().getExtras()));
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);

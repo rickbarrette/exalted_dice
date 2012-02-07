@@ -104,8 +104,9 @@ public class Settings extends PreferenceActivity implements OnPreferenceClickLis
     	public boolean onOptionsItemSelected(MenuItem item) {
     		switch (item.getItemId()) {
     			case android.R.id.home:
-    	            Intent intent = new Intent(this, ExaltedDice.class);
-    	            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    	            Intent intent = new Intent(this, ExaltedDice.class)
+    	            	.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+    	            	.putExtras(getIntent().getExtras());
     	            startActivity(intent);
     	            return true;
     			default:
