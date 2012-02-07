@@ -2,6 +2,7 @@ package com.TwentyCode.android.ExaltedDice;
 
 import java.util.Random;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentValues;
@@ -20,7 +21,6 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.Toast;
@@ -45,7 +45,6 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	private String mGameName;
 	private long mGameId;
 	private RollHistoryDatabaseAdapter mListAdapter;
-	private boolean isNewGame;
 	
 	/**
 	 * clears the rollHistory List array and refreshes the listview
@@ -97,6 +96,15 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		super.onCreate(savedInstanceState);
 		Log.i(TAG, "onCreate()");
 		setContentView(R.layout.main);
+		
+		/*
+		 * The following is for api 11 and up
+		 */
+		if(Integer.valueOf(android.os.Build.VERSION.SDK) > 11){
+			ActionBar actionBar = getActionBar();
+			actionBar.setDisplayHomeAsUpEnabled(true);
+		}
+		
 		Intent i = this.getIntent();
 		if(i != null)
 			if(i.hasExtra(KEY_GAME_NAME)){
@@ -124,10 +132,6 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		
 		findViewById(R.id.roll_button).setOnClickListener(this);
 
-		/*
-		 * display hello message
-		 */
-		mListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.hello_msg)));
 	}
 
 	/**
@@ -172,8 +176,12 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	 * @author ricky barrette 3-27-2010
 	 */
 	public boolean onOptionsItemSelected(MenuItem item) {
-
 		switch (item.getItemId()) {
+			case android.R.id.home:
+	            Intent intent = new Intent(this, GameListActivity.class);
+	            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	            startActivity(intent);
+	            return true;
 			case MENU_QUIT:
 				quitDialog();
 				return true;
@@ -182,9 +190,10 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 				return true;
 			case SETTINGS:
 				startActivity(new Intent(this, Settings.class));
-				break;
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
 		}
-		return false;
 	}
 
     /**
@@ -192,9 +201,9 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	 * @see android.app.Activity#onPause()
 	 */
 	@Override
-	protected void onPause() {
+	protected void onStop() {
 		mDb.close();
-		super.onPause();
+		super.onStop();
 	}
     /**
 	 * resorts application state after rotation
@@ -213,11 +222,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	 */
 	@Override
 	protected void onResume() {
-		if(mDb.getGameRollCount(mGameId) > 0){
-			isNewGame = false;
-			refresh();
-		} else
-			isNewGame = true;
+		refresh();
 		super.onResume();
 	}
 
@@ -285,11 +290,8 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	 * @author ricky barrette
 	 */
 	public void refresh(){
-		if(!isNewGame){
-			mListView.setAdapter(mListAdapter);
-			isNewGame = false;
-		}
-		mListAdapter.notifyDataSetChanged();
+//		mListAdapter.notifyDataSetChanged();
+		mListView.setAdapter(mListAdapter);
 	}
 
 	/**

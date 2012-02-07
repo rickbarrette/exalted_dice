@@ -452,6 +452,14 @@ public class Database {
 		game.put(Database.KEY_ROLL_ID, 0);
 		return mDb.insert(GAME_NAME_TABLE, null, game);
 	}
+	
+	/**
+	 * @return true if the database is open
+	 * @author ricky barrette
+	 */
+	public boolean isOpen(){
+		return mDb.isOpen();
+	}
 
 	/**
 	 * Parses a string boolean from the database
