@@ -52,6 +52,22 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	private NumberPicker mModPicker;
 	
 	/**
+	 * Applies the presets from the provided roll
+	 * @param id of the roll
+	 * @author ricky barrette
+	 */
+	private void applyRollPresets(long id) {
+		ContentValues roll = mDb.getGameHistoryInfo(mGameName, (int) (id));
+		try{
+			mNumberPicker.setValue(roll.getAsInteger(Database.KEY_NUMBER));
+			mDPicker.setValue(parseD(roll.getAsString(Database.KEY_D_TYPE)));
+			mModPicker.setValue(parseMod(roll.getAsString(Database.KEY_MOD).replace("'", "")));
+		} catch(NullPointerException e){
+			mModPicker.setValue(parseMod("0"));
+		}
+	}
+	
+	/**
 	 * clears the rollHistory List array and refreshes the listview
 	 * @author ricky barrette
 	 */
@@ -145,7 +161,6 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		mModPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 		
 		findViewById(R.id.roll_button).setOnClickListener(this);
-
 	}
 
 	/**
@@ -176,15 +191,12 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	 */
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-		ContentValues roll = mDb.getGameHistoryInfo(mGameName, (int) (id + 1));
-		mNumberPicker.setValue(roll.getAsInteger(Database.KEY_NUMBER));
-		mDPicker.setValue(parseD(roll.getAsString(Database.KEY_D_TYPE)));
-		mModPicker.setValue(parseMod(roll.getAsString(Database.KEY_MOD).replace("'", "")));
+		applyRollPresets(id + 1);
 		
 		if(mSettings.getBoolean(Settings.KEY_ROLL_AGAIN, true))
 			rollDice();
 	}
-	
+
 	/**
 	 * handles menu selection
 	 * 
@@ -239,6 +251,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	@Override
 	protected void onResume() {
 		refresh();
+		applyRollPresets(mDb.getGameRollCount(mGameId));
 		super.onResume();
 	}
 
