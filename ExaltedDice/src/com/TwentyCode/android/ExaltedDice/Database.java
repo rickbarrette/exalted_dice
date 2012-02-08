@@ -67,7 +67,9 @@ public class Database {
 	public final static String KEY_NUMBER = "number";
 	public final static String KEY_LOG = "log";
 	public final static String KEY_ROLL_ID = "roll_id";
-
+	public final static String KEY_MOD = "mod";
+	
+	
 	private static final String TAG = "Database";
 	private Context mContext;
 	private SQLiteDatabase mDb;

@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.DatabaseUtils;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
@@ -47,6 +48,8 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	private long mGameId;
 	private RollHistoryDatabaseAdapter mListAdapter;
 	private SharedPreferences mSettings;
+	private String[] mModValues;
+	private NumberPicker mModPicker;
 	
 	/**
 	 * clears the rollHistory List array and refreshes the listview
@@ -118,6 +121,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		mSettings = getSharedPreferences(Settings.SETTINGS, Context.MODE_WORLD_WRITEABLE);
 		
 		mDiceValues = getResources().getStringArray(R.array.dice_types);
+		mModValues = getResources().getStringArray(R.array.mods);
 		
 		mListView = (ListView) findViewById(R.id.list);
 		mListView.setOnItemClickListener(this);
@@ -133,6 +137,12 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		mNumberPicker.setMaxValue(999);
 		mNumberPicker.setMinValue(1);
 		mNumberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+		
+		mModPicker = (NumberPicker) findViewById(R.id.mod_Picker);
+		mModPicker.setMinValue(0);
+		mModPicker.setMaxValue(mModValues.length -1);
+		mModPicker.setDisplayedValues(mModValues);
+		mModPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 		
 		findViewById(R.id.roll_button).setOnClickListener(this);
 
@@ -169,6 +179,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		ContentValues roll = mDb.getGameHistoryInfo(mGameName, (int) (id + 1));
 		mNumberPicker.setValue(roll.getAsInteger(Database.KEY_NUMBER));
 		mDPicker.setValue(parseD(roll.getAsString(Database.KEY_D_TYPE)));
+		mModPicker.setValue(parseMod(roll.getAsString(Database.KEY_MOD).replace("'", "")));
 		
 		if(mSettings.getBoolean(Settings.KEY_ROLL_AGAIN, true))
 			rollDice();
@@ -218,6 +229,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	  super.onRestoreInstanceState(savedInstanceState);
 	  mDPicker.setValue(savedInstanceState.getInt("d"));
 	  mNumberPicker.setValue(savedInstanceState.getInt("number"));
+	  mModPicker.setValue(savedInstanceState.getInt("mod"));
 	}
 
     /**
@@ -250,6 +262,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	public void onSaveInstanceState(Bundle savedInstanceState) {
 		savedInstanceState.putInt("d", mDPicker.getValue());
 		savedInstanceState.putInt("number", mNumberPicker.getValue());
+		savedInstanceState.putInt("mod", mModPicker.getValue());
 		super.onSaveInstanceState(savedInstanceState);
 	}
 
@@ -262,6 +275,19 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
     private int parseD(String d) {
 		for(int i = 0; i < mDiceValues.length; i++)
 			if (mDiceValues[i].equalsIgnoreCase(d))
+				return i;
+		return 0;
+	}
+    
+    /**
+	 * Parses the string mod to the appropriate value
+	 * @param mod 
+	 * @return value for d picker
+	 * @author ricky barrette
+	 */
+    private int parseMod(String mod) {
+		for(int i = 0; i < mModValues.length; i++)
+			if (mModValues[i].equalsIgnoreCase(mod))
 				return i;
 		return 0;
 	}
@@ -320,6 +346,8 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 
 		resultsString.append(getString(R.string.total)+ total);
 		
+		resultsString.append(getString(R.string.total_plus_mod)+ (total + Integer.parseInt(mModValues[mModPicker.getValue()].replace("+", ""))));
+		
 		if(mSettings.getBoolean(Settings.KEY_CALC_SUCCESSES, true))
 			resultsString.append(getString(R.string.sucesses)+ successes(roll));
 			
@@ -342,6 +370,8 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		roll.put(Database.KEY_D_TYPE, mDiceValues[mDPicker.getValue()]);
 		roll.put(Database.KEY_NUMBER, mNumberPicker.getValue());
 		roll.put(Database.KEY_LOG, results(mNumberPicker.getValue()));
+		
+		roll.put(Database.KEY_MOD,  DatabaseUtils.sqlEscapeString(mModValues[mModPicker.getValue()]));
 		
 		mDb.updateGame(mGameId, mGameName, roll, rollId);
 		

@@ -89,7 +89,8 @@ public class RollHistoryDatabaseAdapter extends BaseAdapter {
         
         StringBuffer s = new StringBuffer();
         s.append("Rolled: "+roll.getAsInteger(Database.KEY_NUMBER));
-        s.append(" "+(String)roll.getAsString(Database.KEY_D_TYPE));
+        s.append(" "+roll.getAsString(Database.KEY_D_TYPE));
+        s.append(" "+roll.getAsString(Database.KEY_MOD).replace("'", ""));
         s.append("\n"+roll.getAsString(Database.KEY_LOG));
         
         holder.text.setText(s.toString());
