@@ -68,9 +68,11 @@ public class Database {
 	public final static String KEY_LOG = "log";
 	public final static String KEY_ROLL_ID = "roll_id";
 	public final static String KEY_MOD = "mod";
+	public static final String KEY_ROLLED = "rolled";
 	
 	
 	private static final String TAG = "Database";
+
 	private Context mContext;
 	private SQLiteDatabase mDb;
 	public boolean isUpgrading = false;	

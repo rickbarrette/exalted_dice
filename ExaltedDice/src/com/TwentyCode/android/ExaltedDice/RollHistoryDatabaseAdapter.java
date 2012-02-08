@@ -78,27 +78,27 @@ public class RollHistoryDatabaseAdapter extends BaseAdapter {
         	convertView = mInflater.inflate(R.layout.list_row, null);
 
             holder = new ViewHolder();
-            holder.text = (TextView) convertView.findViewById(R.id.text1);
+            holder.mRoll = (TextView) convertView.findViewById(R.id.textView1);
+            holder.mStats = (TextView) convertView.findViewById(R.id.textView2);
+            holder.mRolled = (TextView) convertView.findViewById(R.id.textView3);
+            
 
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        
         ContentValues roll = getItem(position);
         
-        StringBuffer s = new StringBuffer();
-        s.append("Rolled: "+roll.getAsInteger(Database.KEY_NUMBER));
-        s.append(" "+roll.getAsString(Database.KEY_D_TYPE));
-        s.append(" "+roll.getAsString(Database.KEY_MOD).replace("'", ""));
-        s.append("\n"+roll.getAsString(Database.KEY_LOG));
-        
-        holder.text.setText(s.toString());
+        holder.mRoll.setText("Rolled: "+roll.getAsInteger(Database.KEY_NUMBER) + " "+roll.getAsString(Database.KEY_D_TYPE) +" "+ roll.getAsString(Database.KEY_MOD).replace("'", ""));
+        holder.mStats.setText(roll.getAsString(Database.KEY_LOG));
+        holder.mRolled.setText(roll.getAsString(Database.KEY_ROLLED));
         return convertView;
 	}
 	
 	private class ViewHolder {
-        TextView text;
+        TextView mRoll;
+        TextView mStats;
+        TextView mRolled;
     }
 
 }

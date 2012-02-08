@@ -331,8 +331,9 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	 * @return String resultsString
 	 * @author ricky barrette
 	 */
-	public String results(int times) {
+	public ContentValues results(int times) {
 		Log.i(TAG, "results()");
+		ContentValues rolled = new ContentValues();
 		StringBuffer resultsString = new StringBuffer();
 		StringBuffer rolls = new StringBuffer();
 		long total = 0;
@@ -351,8 +352,10 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		if(mSettings.getBoolean(Settings.KEY_CALC_SUCCESSES, true))
 			resultsString.append(getString(R.string.sucesses)+ successes(roll));
 			
-		resultsString.append(getString(R.string.rolls)+ rolls.toString());
-		return resultsString.toString();
+		rolled.put(Database.KEY_LOG, resultsString.toString());
+		
+		rolled.put(Database.KEY_ROLLED, getString(R.string.rolls)+ rolls.toString());
+		return rolled;
 	}
 
 	/**
@@ -369,7 +372,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		ContentValues roll = new ContentValues();
 		roll.put(Database.KEY_D_TYPE, mDiceValues[mDPicker.getValue()]);
 		roll.put(Database.KEY_NUMBER, mNumberPicker.getValue());
-		roll.put(Database.KEY_LOG, results(mNumberPicker.getValue()));
+		roll.putAll(results(mNumberPicker.getValue()));
 		
 		roll.put(Database.KEY_MOD,  DatabaseUtils.sqlEscapeString(mModValues[mModPicker.getValue()]));
 		
