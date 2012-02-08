@@ -9,6 +9,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
@@ -45,6 +46,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	private String mGameName;
 	private long mGameId;
 	private RollHistoryDatabaseAdapter mListAdapter;
+	private SharedPreferences mSettings;
 	
 	/**
 	 * clears the rollHistory List array and refreshes the listview
@@ -113,6 +115,8 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 				this.setTitle(mGameName);
 			}
 		
+		mSettings = getSharedPreferences(Settings.SETTINGS, Context.MODE_WORLD_WRITEABLE);
+		
 		mDiceValues = getResources().getStringArray(R.array.dice_types);
 		
 		mListView = (ListView) findViewById(R.id.list);
@@ -166,7 +170,8 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		mNumberPicker.setValue(roll.getAsInteger(Database.KEY_NUMBER));
 		mDPicker.setValue(parseD(roll.getAsString(Database.KEY_D_TYPE)));
 		
-		rollDice();
+		if(mSettings.getBoolean(Settings.KEY_ROLL_AGAIN, true))
+			rollDice();
 	}
 	
 	/**
@@ -314,7 +319,10 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		}
 
 		resultsString.append(getString(R.string.total)+ total);
-		resultsString.append(getString(R.string.sucesses)+ successes(roll));
+		
+		if(mSettings.getBoolean(Settings.KEY_CALC_SUCCESSES, true))
+			resultsString.append(getString(R.string.sucesses)+ successes(roll));
+			
 		resultsString.append(getString(R.string.rolls)+ rolls.toString());
 		return resultsString.toString();
 	}
