@@ -338,12 +338,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	 */
 	public void refresh(){
 		mListAdapter.notifyDataSetChanged();
-		mListView.post(new Runnable(){
-			@Override
-			public void run(){
-				mListView.setAdapter(mListAdapter);
-			}
-		});
+		mListView.setSelection(mDb.getGameRollCount(mGameId));
 	}
 
 	/**
@@ -387,12 +382,13 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	 * @author ricky barrette
 	 */
 	public void rollDice() {
+		mListAdapter.notifyDataSetInvalidated();
 		mRollButton.setEnabled(false);
 		mRollProgress.setVisibility(View.VISIBLE);
 		
-		new Thread( new Runnable() {
-			@Override
-			public void run(){
+//		new Thread( new Runnable() {
+//			@Override
+//			public void run(){
 				// vibrate for 50 milliseconds
 				vibrate(50);
 				
@@ -406,8 +402,8 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 				roll.put(Database.KEY_MOD,  DatabaseUtils.sqlEscapeString(mModValues[mModPicker.getValue()]));
 				
 				mDb.updateGame(mGameId, mGameName, roll, rollId);
-			}
-		}).start();
+//			}
+//		}).start();
 	}
 
 	/**
