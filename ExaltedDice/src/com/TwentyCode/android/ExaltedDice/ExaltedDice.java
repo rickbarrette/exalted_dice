@@ -66,7 +66,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 			mDPicker.setValue(parseD(roll.getAsString(Database.KEY_D_TYPE)));
 			mModPicker.setValue(parseMod(roll.getAsString(Database.KEY_MOD).replace("'", "")));
 		} catch(NullPointerException e){
-			mModPicker.setValue(parseMod("0"));
+			mModPicker.setValue(parseMod("+0"));
 		}
 	}
 	
@@ -258,6 +258,13 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	protected void onResume() {
 		refresh();
 		applyRollPresets(mDb.getGameRollCount(mGameId));
+		
+		if(mSettings.getBoolean(Settings.KEY_ROLL_MOD, true)){
+			mModPicker.setVisibility(View.VISIBLE);
+		} else {
+			mModPicker.setVisibility(View.GONE);
+			mModPicker.setValue(parseMod("+0"));
+		}
 		super.onResume();
 	}
 
@@ -366,7 +373,8 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 
 		resultsString.append(getString(R.string.total)+ total);
 		
-		resultsString.append(getString(R.string.total_plus_mod)+ (total + Integer.parseInt(mModValues[mModPicker.getValue()].replace("+", ""))));
+		if(mSettings.getBoolean(Settings.KEY_ROLL_MOD, true))
+			resultsString.append(getString(R.string.total_plus_mod)+ (total + Integer.parseInt(mModValues[mModPicker.getValue()].replace("+", ""))));
 		
 		if(mSettings.getBoolean(Settings.KEY_CALC_SUCCESSES, true))
 			resultsString.append(getString(R.string.sucesses)+ successes(roll));
@@ -436,8 +444,9 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		for (int i = 0; i < roll.length; i++) {
 			if (roll[i] >= 7)
 				intSuccesses++;
-			if (roll[i] == 10)
-				intSuccesses++;
+			if(mSettings.getBoolean(Settings.KEY_TENS_COUNT_TWICE, true))
+				if (roll[i] == 10)
+					intSuccesses++;
 		}
 		return intSuccesses;
 	}

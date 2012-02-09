@@ -27,5 +27,10 @@
     <string name="calc_successes">Calculate Successes</string>
     <string name="calc_successes_summary">Calculates the total amount of success for each roll</string>
     <string name="total_plus_mod">\nTotal + Mod: </string>
+    <string name="tens_count_twice_msg">10 counts as two successes</string>
+    <string name="successes">Successes</string>
+    <string name="tens_count_twice">Tens count twice</string>
+    <string name="roll_mod">Roll Modifier</string>
+    <string name="roll_mod_msg">Calculate Roll + Modifier</string>
 
 </resources>

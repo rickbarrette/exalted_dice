@@ -8,8 +8,23 @@
         android:title="@string/roll_again" />
     <CheckBoxPreference
         android:defaultValue="true"
+        android:key="roll_mod"
+        android:summary="@string/roll_mod_msg"
+        android:title="@string/roll_mod" />
+
+    <PreferenceCategory android:title="@string/successes" >
+    </PreferenceCategory>
+
+    <CheckBoxPreference
+        android:defaultValue="true"
         android:key="calc_successes"
         android:title="@string/calc_successes" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:dependency="calc_successes"
+        android:key="tens_count_twice"
+        android:summary="@string/tens_count_twice_msg"
+        android:title="@string/tens_count_twice" />
 
     <PreferenceCategory android:title="@string/contact_us" >
         <Preference
