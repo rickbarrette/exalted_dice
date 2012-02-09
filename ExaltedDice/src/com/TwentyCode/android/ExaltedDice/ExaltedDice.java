@@ -71,15 +71,6 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	}
 	
 	/**
-	 * clears the rollHistory List array and refreshes the listview
-	 * @author ricky barrette
-	 */
-	private void clearHistory() {
-		mDb.clearHistory(mGameId);
-		refresh();
-	}
-	
-	/**
 	 * also implemented OnClickListener
 	 * 
 	 * @author ricky barrette 3-27-2010
@@ -219,7 +210,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 				quitDialog();
 				return true;
 			case MENU_CLEAR:
-				clearHistory();
+				mDb.clearHistory(mGameId);
 				return true;
 			case SETTINGS:
 				startActivity(new Intent(this, Settings.class).putExtras(getIntent().getExtras()));
@@ -346,8 +337,13 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	 * @author ricky barrette
 	 */
 	public void refresh(){
-//		mListAdapter.notifyDataSetChanged();
-		mListView.setAdapter(mListAdapter);
+		mListAdapter.notifyDataSetChanged();
+		mListView.post(new Runnable(){
+			@Override
+			public void run(){
+				mListView.setAdapter(mListAdapter);
+			}
+		});
 	}
 
 	/**
@@ -482,8 +478,12 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 
 	@Override
 	public void onDeletionComplete() {
-		// do nothing
-		
+		this.runOnUiThread(new Runnable(){
+			@Override
+			public void run(){
+				refresh();
+			}
+		});
 	}
 
 	@Override
