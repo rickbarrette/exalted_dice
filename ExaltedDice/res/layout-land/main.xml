@@ -20,13 +20,26 @@
             android:layout_centerHorizontal="true"
             layout="@layout/dice_selector" />
 
-        <Button
-            android:id="@+id/roll_button"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/die_selector"
-            android:layout_marginTop="10dip"
-            android:text="@string/roll" />
+            android:layout_marginTop="10dip" >
+
+            <Button
+                android:id="@+id/roll_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/roll" />
+
+            <ProgressBar
+                android:id="@+id/roll_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:visibility="gone" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <RelativeLayout

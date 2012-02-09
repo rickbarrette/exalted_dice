@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:baselineAligned="false"
         android:orientation="horizontal" >
 
         <RelativeLayout
@@ -26,12 +27,25 @@
                 layout="@layout/dice_selector" />
         </RelativeLayout>
 
-        <Button
-            android:id="@+id/roll_button"
+        <RelativeLayout
             android:layout_width="0px"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/roll" />
+            android:layout_weight="1" >
+
+            <Button
+                android:id="@+id/roll_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/roll" />
+
+            <ProgressBar
+                android:id="@+id/roll_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:visibility="gone" />
+        </RelativeLayout>
     </LinearLayout>
 
     <ListView

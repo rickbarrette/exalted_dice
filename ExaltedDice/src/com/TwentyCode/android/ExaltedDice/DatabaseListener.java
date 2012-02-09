@@ -36,5 +36,11 @@ public interface DatabaseListener {
 	 * @author ricky barrette
 	 */
 	public void onDatabaseUpgrade();
+	
+	/**
+	 * Called when information has been inserted into the database  
+	 * @author ricky barrette
+	 */
+	public void onDatabaseInsertComplete();
 
 }

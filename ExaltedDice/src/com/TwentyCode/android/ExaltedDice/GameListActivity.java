@@ -82,6 +82,12 @@ public class GameListActivity extends Activity implements OnClickListener, Datab
 	}
 
 	@Override
+	public void onDatabaseInsertComplete() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
 	public void onDatabaseUpgrade() {
 		// TODO Auto-generated method stub
 		

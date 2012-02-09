@@ -25,11 +25,12 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.NumberPicker;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.TwentyCodes.android.exception.ExceptionHandler;
 
-public class ExaltedDice extends Activity implements OnClickListener, OnItemClickListener {
+public class ExaltedDice extends Activity implements OnClickListener, OnItemClickListener, DatabaseListener {
 
 	private static final int MENU_QUIT = Menu.FIRST;
 	private static final int MENU_CLEAR = Menu.FIRST + 1;
@@ -50,6 +51,8 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	private SharedPreferences mSettings;
 	private String[] mModValues;
 	private NumberPicker mModPicker;
+	private ProgressBar mRollProgress;
+	private View mRollButton;
 	
 	/**
 	 * Applies the presets from the provided roll
@@ -160,7 +163,10 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		mModPicker.setDisplayedValues(mModValues);
 		mModPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 		
-		findViewById(R.id.roll_button).setOnClickListener(this);
+		mRollProgress = (ProgressBar) findViewById(R.id.roll_progress);
+		
+		mRollButton = findViewById(R.id.roll_button);
+		mRollButton.setOnClickListener(this);
 	}
 
 	/**
@@ -261,7 +267,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	 */
 	@Override
 	protected void onStart() {
-		mDb = new Database(this);
+		mDb = new Database(this, this);
 		mListAdapter = new RollHistoryDatabaseAdapter(mGameId, mDb, this);
 		mListView.setAdapter(mListAdapter);
 		super.onStart();
@@ -377,21 +383,27 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	 * @author ricky barrette
 	 */
 	public void rollDice() {
-		// vibrate for 50 milliseconds
-		vibrate(50);
+		mRollButton.setEnabled(false);
+		mRollProgress.setVisibility(View.VISIBLE);
 		
-		int rollId = mDb.getGameRollCount(mGameId) +1;
-		
-		ContentValues roll = new ContentValues();
-		roll.put(Database.KEY_D_TYPE, mDiceValues[mDPicker.getValue()]);
-		roll.put(Database.KEY_NUMBER, mNumberPicker.getValue());
-		roll.putAll(results(mNumberPicker.getValue()));
-		
-		roll.put(Database.KEY_MOD,  DatabaseUtils.sqlEscapeString(mModValues[mModPicker.getValue()]));
-		
-		mDb.updateGame(mGameId, mGameName, roll, rollId);
-		
-		refresh();
+		new Thread( new Runnable() {
+			@Override
+			public void run(){
+				// vibrate for 50 milliseconds
+				vibrate(50);
+				
+				int rollId = mDb.getGameRollCount(mGameId) +1;
+				
+				ContentValues roll = new ContentValues();
+				roll.put(Database.KEY_D_TYPE, mDiceValues[mDPicker.getValue()]);
+				roll.put(Database.KEY_NUMBER, mNumberPicker.getValue());
+				roll.putAll(results(mNumberPicker.getValue()));
+				
+				roll.put(Database.KEY_MOD,  DatabaseUtils.sqlEscapeString(mModValues[mModPicker.getValue()]));
+				
+				mDb.updateGame(mGameId, mGameName, roll, rollId);
+			}
+		}).start();
 	}
 
 	/**
@@ -451,5 +463,39 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		Log.i(TAG, "vibrate() for " + milliseconds);
 		Vibrator vib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 		vib.vibrate(milliseconds);
+	}
+
+	@Override
+	public void onDatabaseUpgradeComplete() {
+		// do nothing
+		
+	}
+
+	@Override
+	public void onDeletionComplete() {
+		// do nothing
+		
+	}
+
+	@Override
+	public void onRestoreComplete() {
+		// do nothing
+	}
+
+	@Override
+	public void onDatabaseUpgrade() {
+		//do nothing		
+	}
+
+	@Override
+	public void onDatabaseInsertComplete() {
+		this.runOnUiThread(new Runnable(){
+			@Override
+			public void run(){
+				mRollProgress.setVisibility(View.GONE);
+				mRollButton.setEnabled(true);
+				refresh();
+			}
+		});
 	}
 }

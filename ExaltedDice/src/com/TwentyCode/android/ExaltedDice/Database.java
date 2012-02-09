@@ -554,6 +554,9 @@ public class Database {
 		 * update the game table
 		 */
 		mDb.update(GAME_NAME_TABLE, game, "id" + "= "+ id, null);
+		
+		if(mListener != null)
+			mListener.onDatabaseInsertComplete();
 	}
 	
 	/**
