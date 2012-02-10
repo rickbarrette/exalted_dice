@@ -8,6 +8,8 @@ package com.TwentyCode.android.ExaltedDice;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,7 @@ public class RollHistoryDatabaseAdapter extends BaseAdapter {
 	private String mGameName;
 	private LayoutInflater mInflater;
 	private int mCount;
+	private SharedPreferences mSettings;
 
 	/**
 	 * Creates a new RollHistoryDatabaseAdapter
@@ -36,6 +39,7 @@ public class RollHistoryDatabaseAdapter extends BaseAdapter {
 		mDb = db;
 		mInflater = LayoutInflater.from(context);
 		mCount = mDb.getGameRollCount(mGameId);
+		mSettings = context.getSharedPreferences(Settings.SETTINGS, Context.MODE_WORLD_WRITEABLE);
 	}
 
 	/**
@@ -91,6 +95,17 @@ public class RollHistoryDatabaseAdapter extends BaseAdapter {
         holder.mRoll.setText("Rolled: "+roll.getAsInteger(Database.KEY_NUMBER) + " "+roll.getAsString(Database.KEY_D_TYPE) +" "+ roll.getAsString(Database.KEY_MOD).replace("'", ""));
         holder.mStats.setText(roll.getAsString(Database.KEY_LOG));
         holder.mRolled.setText(roll.getAsString(Database.KEY_ROLLED));
+        
+        if(position + 1 == mCount){
+        	holder.mRoll.setTextColor(mSettings.getInt(Settings.KEY_COLOR, Color.WHITE));
+        	holder.mStats.setTextColor(mSettings.getInt(Settings.KEY_COLOR, Color.WHITE));
+        	holder.mRolled.setTextColor(mSettings.getInt(Settings.KEY_COLOR, Color.WHITE));
+        	
+        } else {
+        	holder.mRoll.setTextColor(Color.WHITE);
+        	holder.mStats.setTextColor(Color.WHITE);
+        	holder.mRolled.setTextColor(Color.WHITE);
+        }
         return convertView;
 	}
 	

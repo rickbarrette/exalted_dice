@@ -12,6 +12,11 @@
         android:summary="@string/roll_mod_msg"
         android:title="@string/roll_mod" />
 
+    <com.TwentyCode.android.ExaltedDice.ColorDialogPreference
+        android:key="color"
+        android:summary="@string/higlight_color_msg"
+        android:title="@string/higlight_color" />
+
     <PreferenceCategory android:title="@string/successes" >
     </PreferenceCategory>
 

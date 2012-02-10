@@ -32,5 +32,7 @@
     <string name="tens_count_twice">Tens count twice</string>
     <string name="roll_mod">Roll Modifier</string>
     <string name="roll_mod_msg">Calculate Roll + Modifier</string>
+    <string name="higlight_color">Highlight Color</string>
+    <string name="higlight_color_msg">Highlights your last roll in a custom color</string>
 
 </resources>
