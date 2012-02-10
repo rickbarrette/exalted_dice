@@ -53,6 +53,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	private NumberPicker mModPicker;
 	private ProgressBar mRollProgress;
 	private View mRollButton;
+	private boolean isRolling = false;
 	
 	/**
 	 * Applies the presets from the provided roll
@@ -382,28 +383,32 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	 * @author ricky barrette
 	 */
 	public void rollDice() {
-		mListAdapter.notifyDataSetInvalidated();
-		mRollButton.setEnabled(false);
-		mRollProgress.setVisibility(View.VISIBLE);
-		
-//		new Thread( new Runnable() {
-//			@Override
-//			public void run(){
-				// vibrate for 50 milliseconds
-				vibrate(50);
-				
-				int rollId = mDb.getGameRollCount(mGameId) +1;
-				
-				ContentValues roll = new ContentValues();
-				roll.put(Database.KEY_D_TYPE, mDiceValues[mDPicker.getValue()]);
-				roll.put(Database.KEY_NUMBER, mNumberPicker.getValue());
-				roll.putAll(results(mNumberPicker.getValue()));
-				
-				roll.put(Database.KEY_MOD,  DatabaseUtils.sqlEscapeString(mModValues[mModPicker.getValue()]));
-				
-				mDb.updateGame(mGameId, mGameName, roll, rollId);
-//			}
-//		}).start();
+		if(!isRolling){
+			isRolling = true;
+			
+			mListAdapter.notifyDataSetInvalidated();
+			mRollButton.setEnabled(false);
+			mRollProgress.setVisibility(View.VISIBLE);
+			
+			new Thread( new Runnable() {
+				@Override
+				public void run(){
+					// vibrate for 50 milliseconds
+					vibrate(50);
+					
+					int rollId = mDb.getGameRollCount(mGameId) +1;
+					
+					ContentValues roll = new ContentValues();
+					roll.put(Database.KEY_D_TYPE, mDiceValues[mDPicker.getValue()]);
+					roll.put(Database.KEY_NUMBER, mNumberPicker.getValue());
+					roll.putAll(results(mNumberPicker.getValue()));
+					
+					roll.put(Database.KEY_MOD,  DatabaseUtils.sqlEscapeString(mModValues[mModPicker.getValue()]));
+					
+					mDb.updateGame(mGameId, mGameName, roll, rollId);
+				}
+			}).start();
+		}
 	}
 
 	/**
@@ -494,6 +499,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 
 	@Override
 	public void onDatabaseInsertComplete() {
+		isRolling = false;
 		this.runOnUiThread(new Runnable(){
 			@Override
 			public void run(){

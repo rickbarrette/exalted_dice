@@ -8,7 +8,6 @@ package com.TwentyCode.android.ExaltedDice;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +20,11 @@ import android.widget.TextView;
  */
 public class RollHistoryDatabaseAdapter extends BaseAdapter {
 
-	private static final String TAG = "RollHistoryDatabaseAdapter";
 	private long mGameId;
 	private Database mDb;
 	private String mGameName;
 	private LayoutInflater mInflater;
+	private int mCount;
 
 	/**
 	 * Creates a new RollHistoryDatabaseAdapter
@@ -36,6 +35,7 @@ public class RollHistoryDatabaseAdapter extends BaseAdapter {
 		mGameName = db.getGameName(gameId);
 		mDb = db;
 		mInflater = LayoutInflater.from(context);
+		mCount = mDb.getGameRollCount(mGameId);
 	}
 
 	/**
@@ -44,8 +44,7 @@ public class RollHistoryDatabaseAdapter extends BaseAdapter {
 	 */
 	@Override
 	public int getCount() {
-		Log.v(TAG, "getCount() "+mDb.getGameRollCount(mGameId));
-		return mDb.getGameRollCount(mGameId);
+		return mCount;
 	}
 
 	/**
@@ -95,6 +94,20 @@ public class RollHistoryDatabaseAdapter extends BaseAdapter {
         return convertView;
 	}
 	
+	/**
+	 * (non-Javadoc)
+	 * @see android.widget.BaseAdapter#notifyDataSetChanged()
+	 */
+	@Override
+	public void notifyDataSetChanged() {
+		mCount = mDb.getGameRollCount(mGameId);
+		super.notifyDataSetChanged();
+	}
+	
+	/**
+	 * A simple holder class
+	 * @author ricky barrette
+	 */
 	private class ViewHolder {
         TextView mRoll;
         TextView mStats;
