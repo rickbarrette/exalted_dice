@@ -84,7 +84,8 @@ public class Settings extends PreferenceActivity implements OnPreferenceClickLis
 			 */
 			if(Integer.valueOf(android.os.Build.VERSION.SDK) > 11){
 				ActionBar actionBar = getActionBar();
-				actionBar.setDisplayHomeAsUpEnabled(true);
+				if(actionBar != null)
+					actionBar.setDisplayHomeAsUpEnabled(true);
 			}
 			
 			super.onCreate(savedInstanceState);
