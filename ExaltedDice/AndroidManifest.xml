@@ -3,9 +3,12 @@
     android:installLocation="auto"
     package="com.TwentyCode.android.ExaltedDice"
     android:versionCode="15"
-    android:versionName="1.0.1" ><uses-sdk android:minSdkVersion="4" /><uses-permission android:name="android.permission.VIBRATE" />
+    android:versionName="2.0" >
+
+    <uses-sdk android:minSdkVersion="4" />
+
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_LOGS" />
 
     <application
         android:icon="@drawable/icon"
@@ -38,7 +41,5 @@
             android:theme="@style/MyTheme" >
         </activity>
     </application>
-
-
 
 </manifest> <!-- android:screenOrientation="portrait" -->
