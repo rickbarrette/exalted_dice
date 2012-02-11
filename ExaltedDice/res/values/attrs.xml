@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-     <resources>
-        <declare-styleable name="com.admob.android.ads.AdView">            
-           <attr name="backgroundColor" format="color" />
-           <attr name="primaryTextColor" format="color" />
-           <attr name="secondaryTextColor" format="color" />
-           <attr name="keywords" format="string" />
-           <attr name="refreshInterval" format="integer" />
-        </declare-styleable>
-     </resources>
+<resources>
+
+    <declare-styleable name="com.admob.android.ads.AdView">
+        <attr name="backgroundColor" format="color" />
+        <attr name="primaryTextColor" format="color" />
+        <attr name="secondaryTextColor" format="color" />
+        <attr name="keywords" format="string" />
+        <attr name="refreshInterval" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="numberpicker">
+        <attr name="startRange" format="integer" />
+        <attr name="endRange" format="integer" />
+        <attr name="defaultValue" format="integer" />
+        <attr name="maxValue" format="integer" />
+        <attr name="wrap" format="boolean" />
+    </declare-styleable>
+
+</resources>

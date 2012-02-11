@@ -4,17 +4,19 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal" >
 
-    <com.TwentyCode.android.ExaltedDice.NumberPicker
+    <NumberPicker
         android:id="@+id/number_Picker"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dip" />
 
-    <com.TwentyCode.android.ExaltedDice.NumberPicker
+    <NumberPicker
         android:id="@+id/d_Picker"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dip" />
 
-    <com.TwentyCode.android.ExaltedDice.NumberPicker
+    <NumberPicker
         android:id="@+id/mod_Picker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

@@ -44,16 +44,20 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	private ListView mListView;
 	private NumberPicker mNumberPicker;
 	private NumberPicker mDPicker;
+	private NumberPicker mModPicker;
 	private Database mDb;
 	private String mGameName;
 	private long mGameId;
 	private RollHistoryDatabaseAdapter mListAdapter;
 	private SharedPreferences mSettings;
 	private String[] mModValues;
-	private NumberPicker mModPicker;
 	private ProgressBar mRollProgress;
 	private View mRollButton;
 	private boolean isRolling = false;
+	private com.TwentyCode.android.ExaltedDice.NumberPicker mCompatDPicker;
+	private com.TwentyCode.android.ExaltedDice.NumberPicker mCompatNumberPicker;
+	private com.TwentyCode.android.ExaltedDice.NumberPicker mCompatModPicker;
+	private boolean isCompat = false;
 	
 	/**
 	 * Applies the presets from the provided roll
@@ -63,14 +67,66 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	private void applyRollPresets(long id) {
 		ContentValues roll = mDb.getGameHistoryInfo(mGameName, (int) (id));
 		try{
-			mNumberPicker.setValue(roll.getAsInteger(Database.KEY_NUMBER));
-			mDPicker.setValue(parseD(roll.getAsString(Database.KEY_D_TYPE)));
-			mModPicker.setValue(parseMod(roll.getAsString(Database.KEY_MOD).replace("'", "")));
+			if(isCompat){
+				mCompatNumberPicker.setValue(roll.getAsInteger(Database.KEY_NUMBER));
+				mCompatDPicker.setValue(parseD(roll.getAsString(Database.KEY_D_TYPE)));
+				mCompatModPicker.setValue(parseMod(roll.getAsString(Database.KEY_MOD).replace("'", "")));
+			} else {
+				mNumberPicker.setValue(roll.getAsInteger(Database.KEY_NUMBER));
+				mDPicker.setValue(parseD(roll.getAsString(Database.KEY_D_TYPE)));
+				mModPicker.setValue(parseMod(roll.getAsString(Database.KEY_MOD).replace("'", "")));
+			}
 		} catch(NullPointerException e){
-			mModPicker.setValue(parseMod("+0"));
+			if(isCompat)
+				mCompatModPicker.setValue(parseMod("+0"));
+			else
+				mModPicker.setValue(parseMod("+0"));
 		}
 	}
 	
+	/**
+	 * Initializes compat pickers for api < 11 
+	 * @author ricky barrette
+	 */
+	private void initCompatPickers() {
+		isCompat  = true;
+		
+		mCompatDPicker = (com.TwentyCode.android.ExaltedDice.NumberPicker) findViewById(R.id.d_Picker);
+		mCompatDPicker.setDisplayedValues(mDiceValues);
+		mCompatDPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+		
+		mCompatNumberPicker = (com.TwentyCode.android.ExaltedDice.NumberPicker) findViewById(R.id.number_Picker);
+		mCompatNumberPicker.setRange(1, 999);
+		mCompatNumberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+		
+		mCompatModPicker = (com.TwentyCode.android.ExaltedDice.NumberPicker) findViewById(R.id.mod_Picker);
+		mCompatModPicker.setDisplayedValues(mModValues);
+		mCompatModPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+	}
+
+	/**
+	 * Initializes native number pickers api > 11
+	 * @author ricky barrette
+	 */
+	private void initPickers() {
+		mDPicker = (NumberPicker) findViewById(R.id.d_Picker);
+		mDPicker.setMinValue(0);
+		mDPicker.setMaxValue(mDiceValues.length -1);
+		mDPicker.setDisplayedValues(mDiceValues);
+		mDPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+		
+		mNumberPicker = (NumberPicker) findViewById(R.id.number_Picker);
+		mNumberPicker.setMaxValue(999);
+		mNumberPicker.setMinValue(1);
+		mNumberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+		
+		mModPicker = (NumberPicker) findViewById(R.id.mod_Picker);
+		mModPicker.setMinValue(0);
+		mModPicker.setMaxValue(mModValues.length -1);
+		mModPicker.setDisplayedValues(mModValues);
+		mModPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+	}
+
 	/**
 	 * also implemented OnClickListener
 	 * 
@@ -113,13 +169,21 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		Log.i(TAG, "onCreate()");
 		setContentView(R.layout.main);
 		
+		mSettings = getSharedPreferences(Settings.SETTINGS, Context.MODE_WORLD_WRITEABLE);
+		
+		mDiceValues = getResources().getStringArray(R.array.dice_types);
+		mModValues = getResources().getStringArray(R.array.mods);
+
 		/*
 		 * The following is for api 11 and up
+		 * else use compat methods
 		 */
 		if(Integer.valueOf(android.os.Build.VERSION.SDK) > 11){
 			ActionBar actionBar = getActionBar();
 			actionBar.setDisplayHomeAsUpEnabled(true);
-		}
+			initPickers();
+		} else 
+			initCompatPickers();
 		
 		Intent i = this.getIntent();
 		if(i != null)
@@ -129,32 +193,10 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 				this.setTitle(mGameName);
 			}
 		
-		mSettings = getSharedPreferences(Settings.SETTINGS, Context.MODE_WORLD_WRITEABLE);
-		
-		mDiceValues = getResources().getStringArray(R.array.dice_types);
-		mModValues = getResources().getStringArray(R.array.mods);
-		
 		mListView = (ListView) findViewById(R.id.list);
 		mListView.setOnItemClickListener(this);
 		mListView.setStackFromBottom(true);
 
-		mDPicker = (NumberPicker) findViewById(R.id.d_Picker);
-		mDPicker.setMinValue(0);
-		mDPicker.setMaxValue(mDiceValues.length -1);
-		mDPicker.setDisplayedValues(mDiceValues);
-		mDPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
-		
-		mNumberPicker = (NumberPicker) findViewById(R.id.number_Picker);
-		mNumberPicker.setMaxValue(999);
-		mNumberPicker.setMinValue(1);
-		mNumberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
-		
-		mModPicker = (NumberPicker) findViewById(R.id.mod_Picker);
-		mModPicker.setMinValue(0);
-		mModPicker.setMaxValue(mModValues.length -1);
-		mModPicker.setDisplayedValues(mModValues);
-		mModPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
-		
 		mRollProgress = (ProgressBar) findViewById(R.id.roll_progress);
 		
 		mRollButton = findViewById(R.id.roll_button);
@@ -181,6 +223,40 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		menu.add(1, SETTINGS, 0, R.string.settings).setIcon(android.R.drawable.ic_menu_preferences);;
 		menu.add(1, MENU_QUIT, 0, R.string.quit).setIcon(android.R.drawable.ic_menu_revert);
 		return true;
+	}
+
+    @Override
+	public void onDatabaseInsertComplete() {
+		isRolling = false;
+		this.runOnUiThread(new Runnable(){
+			@Override
+			public void run(){
+				mRollProgress.setVisibility(View.GONE);
+				mRollButton.setEnabled(true);
+				refresh();
+			}
+		});
+	}
+
+	@Override
+	public void onDatabaseUpgrade() {
+		//do nothing		
+	}
+
+    @Override
+	public void onDatabaseUpgradeComplete() {
+		// do nothing
+		
+	}
+
+    @Override
+	public void onDeletionComplete() {
+		this.runOnUiThread(new Runnable(){
+			@Override
+			public void run(){
+				refresh();
+			}
+		});
 	}
 
     /**
@@ -220,29 +296,31 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 				return super.onOptionsItemSelected(item);
 		}
 	}
-
-    /**
-	 * (non-Javadoc)
-	 * @see android.app.Activity#onPause()
-	 */
-	@Override
-	protected void onStop() {
-		mDb.close();
-		super.onStop();
+    
+    @Override
+	public void onRestoreComplete() {
+		// do nothing
 	}
+    
     /**
-	 * resorts application state after rotation
-	 * @author ricky barrette
-	 */
-	@Override
-	public void onRestoreInstanceState(Bundle savedInstanceState) {
-	  super.onRestoreInstanceState(savedInstanceState);
-	  mDPicker.setValue(savedInstanceState.getInt("d"));
-	  mNumberPicker.setValue(savedInstanceState.getInt("number"));
-	  mModPicker.setValue(savedInstanceState.getInt("mod"));
-	}
+   	 * resorts application state after rotation
+   	 * @author ricky barrette
+   	 */
+   	@Override
+   	public void onRestoreInstanceState(Bundle savedInstanceState) {
+   	  super.onRestoreInstanceState(savedInstanceState);
+   	  if(isCompat){
+   		  mCompatDPicker.setCurrent(savedInstanceState.getInt("d"));
+ 		  mCompatNumberPicker.setCurrent(savedInstanceState.getInt("number"));
+ 		  mCompatModPicker.setCurrent(savedInstanceState.getInt("mod"));
+   	  } else {
+   		  mDPicker.setValue(savedInstanceState.getInt("d"));
+   		  mNumberPicker.setValue(savedInstanceState.getInt("number"));
+   		  mModPicker.setValue(savedInstanceState.getInt("mod"));
+   	  }
+   	}
 
-    /**
+	/**
 	 * (non-Javadoc)
 	 * @see android.app.Activity#onResume()
 	 */
@@ -252,15 +330,41 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		applyRollPresets(mDb.getGameRollCount(mGameId));
 		
 		if(mSettings.getBoolean(Settings.KEY_ROLL_MOD, true)){
-			mModPicker.setVisibility(View.VISIBLE);
+			if(isCompat)
+				mCompatModPicker.setVisibility(View.VISIBLE);
+			else
+				mModPicker.setVisibility(View.VISIBLE);
 		} else {
-			mModPicker.setVisibility(View.GONE);
-			mModPicker.setValue(parseMod("+0"));
+			if(isCompat){
+				mCompatModPicker.setVisibility(View.GONE);
+				mCompatModPicker.setValue(parseMod("+0"));
+			} else {
+				mModPicker.setVisibility(View.GONE);
+				mModPicker.setValue(parseMod("+0"));
+			}
 		}
 		super.onResume();
 	}
+	
+	/**
+	 * saves application state before rotation
+	 * @author ricky barrette
+	 */
+	@Override
+	public void onSaveInstanceState(Bundle savedInstanceState) {
+		if(isCompat){
+			savedInstanceState.putInt("d", mCompatDPicker.getCurrent());
+			savedInstanceState.putInt("number", mCompatNumberPicker.getCurrent());
+			savedInstanceState.putInt("mod", mCompatModPicker.getCurrent());
+		} else {
+			savedInstanceState.putInt("d", mDPicker.getValue());
+			savedInstanceState.putInt("number", mNumberPicker.getValue());
+			savedInstanceState.putInt("mod", mModPicker.getValue());
+		}
+		super.onSaveInstanceState(savedInstanceState);
+	}
 
-    /**
+	/**
 	 * (non-Javadoc)
 	 * @see android.app.Activity#onStart()
 	 */
@@ -273,15 +377,13 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	}
 
 	/**
-	 * saves application state before rotation
-	 * @author ricky barrette
+	 * (non-Javadoc)
+	 * @see android.app.Activity#onPause()
 	 */
 	@Override
-	public void onSaveInstanceState(Bundle savedInstanceState) {
-		savedInstanceState.putInt("d", mDPicker.getValue());
-		savedInstanceState.putInt("number", mNumberPicker.getValue());
-		savedInstanceState.putInt("mod", mModPicker.getValue());
-		super.onSaveInstanceState(savedInstanceState);
+	protected void onStop() {
+		mDb.close();
+		super.onStop();
 	}
 
 	/**
@@ -296,8 +398,8 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 				return i;
 		return 0;
 	}
-    
-    /**
+
+	/**
 	 * Parses the string mod to the appropriate value
 	 * @param mod 
 	 * @return value for d picker
@@ -332,7 +434,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 				});
 		builder.show();
 	}
-	
+
 	/**
 	 * Refreshes the list view
 	 * @author ricky barrette
@@ -366,7 +468,10 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		resultsString.append(getString(R.string.total)+ total);
 		
 		if(mSettings.getBoolean(Settings.KEY_ROLL_MOD, true))
-			resultsString.append(getString(R.string.total_plus_mod)+ (total + Integer.parseInt(mModValues[mModPicker.getValue()].replace("+", ""))));
+			if(isCompat)
+				resultsString.append(getString(R.string.total_plus_mod)+ (total + Integer.parseInt(mCompatModPicker.getValue().replace("+", ""))));
+			else
+				resultsString.append(getString(R.string.total_plus_mod)+ (total + Integer.parseInt(mModValues[mModPicker.getValue()].replace("+", ""))));
 		
 		if(mSettings.getBoolean(Settings.KEY_CALC_SUCCESSES, true))
 			resultsString.append(getString(R.string.sucesses)+ successes(roll));
@@ -399,11 +504,20 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 					int rollId = mDb.getGameRollCount(mGameId) +1;
 					
 					ContentValues roll = new ContentValues();
-					roll.put(Database.KEY_D_TYPE, mDiceValues[mDPicker.getValue()]);
-					roll.put(Database.KEY_NUMBER, mNumberPicker.getValue());
-					roll.putAll(results(mNumberPicker.getValue()));
 					
-					roll.put(Database.KEY_MOD,  DatabaseUtils.sqlEscapeString(mModValues[mModPicker.getValue()]));
+					if(isCompat){
+						roll.put(Database.KEY_D_TYPE, mCompatDPicker.getValue());
+						roll.put(Database.KEY_NUMBER, mCompatNumberPicker.getCurrent());
+						roll.putAll(results(mCompatNumberPicker.getCurrent()));
+						roll.put(Database.KEY_MOD,  DatabaseUtils.sqlEscapeString(mCompatModPicker.getValue()));
+					} else{
+						roll.put(Database.KEY_D_TYPE, mDiceValues[mDPicker.getValue()]);
+						roll.put(Database.KEY_NUMBER, mNumberPicker.getValue());
+						roll.putAll(results(mNumberPicker.getValue()));
+						roll.put(Database.KEY_MOD,  DatabaseUtils.sqlEscapeString(mModValues[mModPicker.getValue()]));
+					}
+					
+					
 					
 					mDb.updateGame(mGameId, mGameName, roll, rollId);
 				}
@@ -422,7 +536,10 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		int[] roll = new int[times];
 		Random random = new Random();
 		for (int i = 0; i < times; i++) {
-			roll[i] = random.nextInt(Integer.parseInt(mDiceValues[mDPicker.getValue()].substring(1))) + 1;
+			if(isCompat)
+				roll[i] = random.nextInt(Integer.parseInt(mCompatDPicker.getValue().substring(1))) + 1;
+			else
+				roll[i] = random.nextInt(Integer.parseInt(mDiceValues[mDPicker.getValue()].substring(1))) + 1;
 		}
 		return roll;
 	}
@@ -469,44 +586,5 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		Log.i(TAG, "vibrate() for " + milliseconds);
 		Vibrator vib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 		vib.vibrate(milliseconds);
-	}
-
-	@Override
-	public void onDatabaseUpgradeComplete() {
-		// do nothing
-		
-	}
-
-	@Override
-	public void onDeletionComplete() {
-		this.runOnUiThread(new Runnable(){
-			@Override
-			public void run(){
-				refresh();
-			}
-		});
-	}
-
-	@Override
-	public void onRestoreComplete() {
-		// do nothing
-	}
-
-	@Override
-	public void onDatabaseUpgrade() {
-		//do nothing		
-	}
-
-	@Override
-	public void onDatabaseInsertComplete() {
-		isRolling = false;
-		this.runOnUiThread(new Runnable(){
-			@Override
-			public void run(){
-				mRollProgress.setVisibility(View.GONE);
-				mRollButton.setEnabled(true);
-				refresh();
-			}
-		});
 	}
 }
