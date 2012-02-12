@@ -67,7 +67,7 @@ public class Database {
 	public final static String KEY_ROLL_ID = "roll_id";
 	public final static String KEY_MOD = "mod";
 	public static final String KEY_ROLLED = "rolled";
-	public static final String KEY_INTENT = "intent";
+	public static final String KEY_MODE = "mode";
 //	public static final String KEY_ = "";
 //	public static final String KEY_ = "";
 //	public static final String KEY_ = "";
@@ -335,11 +335,10 @@ public class Database {
 			 @Override
 			 public void run(){
 				 Looper.prepare();
+				 String gameName = DatabaseUtils.sqlEscapeString(getGameName(id));
 		
-				/*
-				 * get the game name from the id, and then delete all its information from the game history table
-				 */
-				Database.this.mDb.delete(GAME_HISTORY_TABLE, KEY_NAME +" = "+ DatabaseUtils.sqlEscapeString(getGameName(id)), null);
+				Database.this.mDb.delete(GAME_HISTORY_TABLE, KEY_NAME +" = "+ gameName, null);
+				Database.this.mDb.delete(GAME_OPTIONS_TABLE, KEY_NAME +" = "+ gameName, null);
 				
 				/*
 				 * finally delete the game from the game table
