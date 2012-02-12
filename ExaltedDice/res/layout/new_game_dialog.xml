@@ -26,11 +26,25 @@
             android:singleLine="true" />
     </LinearLayout>
 
+    <Spinner
+        android:id="@+id/game_mode_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/linearLayout1"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"
+        android:entries="@array/game_modes"
+        android:prompt="@string/game_mode" />
+
     <Button
         android:id="@+id/new_game_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/linearLayout1"
+        android:layout_below="@id/game_mode_spinner"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"
         android:text="@string/create_new_game" />
 
 </RelativeLayout>

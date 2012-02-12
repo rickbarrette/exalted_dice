@@ -34,5 +34,6 @@
     <string name="roll_mod_msg">Calculate Roll + Modifier</string>
     <string name="higlight_color">Highlight Color</string>
     <string name="higlight_color_msg">Highlights your last roll in a custom color</string>
+    <string name="game_mode">Game Mode</string>
 
 </resources>

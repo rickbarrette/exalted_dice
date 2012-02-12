@@ -32,11 +32,13 @@ import com.TwentyCodes.android.exception.ExceptionHandler;
 
 public class ExaltedDice extends Activity implements OnClickListener, OnItemClickListener, DatabaseListener {
 
-	private static final int MENU_QUIT = Menu.FIRST;
-	private static final int MENU_CLEAR = Menu.FIRST + 1;
-	private static final String TAG = "ExaltedDice";
+	public static final String KEY_GAME_MODE = "game_mode";
 	public static final String KEY_GAME_NAME = "game_name";
 	public static final String KEY_GAME_ID = "game_id";
+
+	private static final String TAG = "ExaltedDice";
+	private static final int MENU_QUIT = Menu.FIRST;
+	private static final int MENU_CLEAR = Menu.FIRST + 1;
 	private static final int DELETE = 0;
 	private static final int SETTINGS = Menu.FIRST + 2;
 
@@ -186,12 +188,16 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 			initCompatPickers();
 		
 		Intent i = this.getIntent();
-		if(i != null)
+		if(i != null){
 			if(i.hasExtra(KEY_GAME_NAME)){
 				mGameName = i.getStringExtra(KEY_GAME_NAME);
 				mGameId = i.getLongExtra(KEY_GAME_ID, -1);
 				this.setTitle(mGameName);
 			}
+			if(i.hasExtra(KEY_GAME_MODE)){
+				setGameMode(i.getStringExtra(KEY_GAME_MODE));
+			}
+		}
 		
 		mListView = (ListView) findViewById(R.id.list);
 		mListView.setOnItemClickListener(this);
@@ -410,6 +416,37 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 			if (mModValues[i].equalsIgnoreCase(mod))
 				return i;
 		return 0;
+	}
+    
+    /**
+     * Sets the game mode for this activity
+     * @param stringExtra
+     * @author ricky barrette
+     */
+    private void setGameMode(String mode) {
+		
+    	/*
+    	 * EXALTED
+    	 */
+    	if(mode.equals(getString(R.string.game_mode_exalted))){
+			/*
+			 * TODO 
+			 * + set die to d10
+			 * + enable successes
+			 * + remove roll modifier
+			 */
+		} 
+		
+    	/*
+    	 * D&D
+    	 */
+		else if(mode.equals(getString(R.string.game_mode_dd))){
+			/*
+			 * TODO
+			 * + disable successes
+			 */
+		}
+		
 	}
 
 	/**
