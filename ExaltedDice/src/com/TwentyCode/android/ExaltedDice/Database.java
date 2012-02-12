@@ -456,7 +456,7 @@ public class Database {
 	 * @author ricky barrette
 	 */
 	public ContentValues getGameOptions(long gameId){
-		return parseCursor(mDb.query(GAME_HISTORY_TABLE, new String[]{ KEY, KEY_VALUE }, KEY_NAME +" = "+ DatabaseUtils.sqlEscapeString(getGameName(gameId)), null, null, null, null));
+		return parseCursor(mDb.query(GAME_OPTIONS_TABLE, new String[]{ KEY, KEY_VALUE }, KEY_NAME +" = "+ DatabaseUtils.sqlEscapeString(getGameName(gameId)), null, null, null, null));
 	}
 	
 	/**
