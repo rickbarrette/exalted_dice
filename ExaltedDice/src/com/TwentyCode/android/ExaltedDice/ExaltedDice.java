@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,10 +38,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	public static final String KEY_GAME_ID = "game_id";
 
 	private static final String TAG = "ExaltedDice";
-	private static final int MENU_QUIT = Menu.FIRST;
-	private static final int MENU_CLEAR = Menu.FIRST + 1;
 	private static final int DELETE = 0;
-	private static final int SETTINGS = Menu.FIRST + 2;
 
 	private String[] mDiceValues;
 	private ListView mListView;
@@ -224,9 +222,8 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	 * @author WWPowers 3-27-2010
 	 */
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(1, MENU_CLEAR, 0, R.string.clear_history).setIcon(android.R.drawable.ic_menu_close_clear_cancel);
-		menu.add(1, SETTINGS, 0, R.string.settings).setIcon(android.R.drawable.ic_menu_preferences);;
-		menu.add(1, MENU_QUIT, 0, R.string.quit).setIcon(android.R.drawable.ic_menu_revert);
+		MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.dice_roller_menu, menu);
 		return true;
 	}
 
@@ -288,13 +285,10 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	            Intent intent = new Intent(this, GameListActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	            startActivity(intent);
 	            return true;
-			case MENU_QUIT:
-				quitDialog();
-				return true;
-			case MENU_CLEAR:
+			case R.id.menu_clear:
 				mDb.clearHistory(mGameId);
 				return true;
-			case SETTINGS:
+			case R.id.menu_settings:
 				startActivity(new Intent(this, Settings.class).putExtras(getIntent().getExtras()));
 				return true;
 			default:

@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,7 +29,6 @@ import android.widget.ListView;
  */
 public class GameListActivity extends Activity implements OnClickListener, DatabaseListener, OnItemClickListener {
 
-	private static final int DELETE = 0;
 	private ListView mList;
 	private Database mDb;
 
@@ -45,7 +45,7 @@ public class GameListActivity extends Activity implements OnClickListener, Datab
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 		switch(item.getItemId()){
-			case DELETE:
+			case R.id.menu_delete:
 				mDb.deleteGame(info.id+1);
 				break;
 		}
@@ -73,12 +73,20 @@ public class GameListActivity extends Activity implements OnClickListener, Datab
 	 */
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-		/* 
-		 * TODO
-		 * rename game
-		 */
-		menu.add(0, DELETE, Menu.FIRST, R.string.delete);
+		MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.game_list_context_menu, menu);
 		super.onCreateContextMenu(menu, v, menuInfo);
+	}
+
+	/**
+	 * (non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.game_list_menu, menu);
+		return true;
 	}
 
 	@Override
@@ -109,6 +117,21 @@ public class GameListActivity extends Activity implements OnClickListener, Datab
 		.putExtra(ExaltedDice.KEY_GAME_NAME, mDb.getGameName(id +1))
 		.putExtra(ExaltedDice.KEY_GAME_ID, id+1)
 		.putExtra(ExaltedDice.KEY_GAME_MODE, mDb.getGameOptions(id+1).getAsString(Database.KEY_MODE)));
+	}
+
+	/**
+	 * (non-Javadoc)
+	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()){
+			case R.id.menu_settings:
+				startActivity(new Intent(this, Settings.class));
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
 	}
 
 	/**
