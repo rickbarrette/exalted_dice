@@ -28,6 +28,7 @@ public class RollHistoryDatabaseAdapter extends BaseAdapter {
 	private LayoutInflater mInflater;
 	private int mCount;
 	private SharedPreferences mSettings;
+	private boolean isRollModEnabled = true;
 
 	/**
 	 * Creates a new RollHistoryDatabaseAdapter
@@ -92,7 +93,11 @@ public class RollHistoryDatabaseAdapter extends BaseAdapter {
         }
         ContentValues roll = getItem(position);
         
-        holder.mRoll.setText("Rolled: "+roll.getAsInteger(Database.KEY_NUMBER) + " "+roll.getAsString(Database.KEY_D_TYPE) +" "+ roll.getAsString(Database.KEY_MOD).replace("'", ""));
+        holder.mRoll.setText("Rolled: "+roll.getAsInteger(Database.KEY_NUMBER) + " "+roll.getAsString(Database.KEY_D_TYPE));
+        
+        if(isRollModEnabled)
+        	holder.mRoll.append(" "+ roll.getAsString(Database.KEY_MOD).replace("'", ""));
+        
         holder.mStats.setText(roll.getAsString(Database.KEY_LOG));
         holder.mRolled.setText(roll.getAsString(Database.KEY_ROLLED));
         
@@ -128,5 +133,14 @@ public class RollHistoryDatabaseAdapter extends BaseAdapter {
         TextView mStats;
         TextView mRolled;
     }
+
+	/**
+	 * Sets the enabled state for displaying the roll mod
+	 * @param isEnabled
+	 * @author ricky barrette
+	 */
+	public void setRollModEnabled(boolean isEnabled) {
+		isRollModEnabled = isEnabled;
+	}
 
 }

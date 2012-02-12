@@ -60,6 +60,9 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	private com.TwentyCode.android.ExaltedDice.NumberPicker mCompatNumberPicker;
 	private com.TwentyCode.android.ExaltedDice.NumberPicker mCompatModPicker;
 	private boolean isCompat = false;
+	private boolean isSuccessesEanbled = false;
+	private boolean isRollModEnabled = true;
+	private boolean isCalculatingTotal = true;
 	
 	/**
 	 * Applies the presets from the provided roll
@@ -188,16 +191,12 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 			initCompatPickers();
 		
 		Intent i = this.getIntent();
-		if(i != null){
+		if(i != null)
 			if(i.hasExtra(KEY_GAME_NAME)){
 				mGameName = i.getStringExtra(KEY_GAME_NAME);
 				mGameId = i.getLongExtra(KEY_GAME_ID, -1);
 				this.setTitle(mGameName);
 			}
-			if(i.hasExtra(KEY_GAME_MODE)){
-				setGameMode(i.getStringExtra(KEY_GAME_MODE));
-			}
-		}
 		
 		mListView = (ListView) findViewById(R.id.list);
 		mListView.setOnItemClickListener(this);
@@ -335,20 +334,9 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		refresh();
 		applyRollPresets(mDb.getGameRollCount(mGameId));
 		
-		if(mSettings.getBoolean(Settings.KEY_ROLL_MOD, true)){
-			if(isCompat)
-				mCompatModPicker.setVisibility(View.VISIBLE);
-			else
-				mModPicker.setVisibility(View.VISIBLE);
-		} else {
-			if(isCompat){
-				mCompatModPicker.setVisibility(View.GONE);
-				mCompatModPicker.setValue(parseMod("+0"));
-			} else {
-				mModPicker.setVisibility(View.GONE);
-				mModPicker.setValue(parseMod("+0"));
-			}
-		}
+		Intent i = getIntent();
+		if(i.hasExtra(KEY_GAME_MODE))
+			setGameMode(i.getStringExtra(KEY_GAME_MODE));
 		super.onResume();
 	}
 	
@@ -429,12 +417,20 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
     	 * EXALTED
     	 */
     	if(mode.equals(getString(R.string.game_mode_exalted))){
-			/*
-			 * TODO 
-			 * + set die to d10
-			 * + enable successes
-			 * + remove roll modifier
-			 */
+    		isSuccessesEanbled = true;
+    		isRollModEnabled  = false;
+    		isCalculatingTotal  = false;
+    		mListAdapter.setRollModEnabled(false);
+    		
+    		if(isCompat){
+    			mCompatModPicker.setVisibility(View.GONE);
+    			mCompatDPicker.setCurrent(parseD("D10"));
+    			mCompatDPicker.setEnabled(false);
+    		} else {
+    			mModPicker.setVisibility(View.GONE);
+    			mDPicker.setValue(parseD("D10"));
+    			mDPicker.setEnabled(false);
+    		}
 		} 
 		
     	/*
@@ -443,7 +439,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		else if(mode.equals(getString(R.string.game_mode_dd))){
 			/*
 			 * TODO
-			 * + disable successes
+			 * nothing
 			 */
 		}
 		
@@ -502,15 +498,16 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 			total = total + item;
 		}
 
-		resultsString.append(getString(R.string.total)+ total);
+		if(isCalculatingTotal)
+			resultsString.append(getString(R.string.total)+ total);
 		
-		if(mSettings.getBoolean(Settings.KEY_ROLL_MOD, true))
+		if(isRollModEnabled)
 			if(isCompat)
 				resultsString.append(getString(R.string.total_plus_mod)+ (total + Integer.parseInt(mCompatModPicker.getValue().replace("+", ""))));
 			else
 				resultsString.append(getString(R.string.total_plus_mod)+ (total + Integer.parseInt(mModValues[mModPicker.getValue()].replace("+", ""))));
 		
-		if(mSettings.getBoolean(Settings.KEY_CALC_SUCCESSES, true))
+		if(isSuccessesEanbled)
 			resultsString.append(getString(R.string.sucesses)+ successes(roll));
 			
 		rolled.put(Database.KEY_LOG, resultsString.toString());
@@ -546,12 +543,14 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 						roll.put(Database.KEY_D_TYPE, mCompatDPicker.getValue());
 						roll.put(Database.KEY_NUMBER, mCompatNumberPicker.getCurrent());
 						roll.putAll(results(mCompatNumberPicker.getCurrent()));
-						roll.put(Database.KEY_MOD,  DatabaseUtils.sqlEscapeString(mCompatModPicker.getValue()));
+						if(isRollModEnabled)
+							roll.put(Database.KEY_MOD,  DatabaseUtils.sqlEscapeString(mCompatModPicker.getValue()));
 					} else{
 						roll.put(Database.KEY_D_TYPE, mDiceValues[mDPicker.getValue()]);
 						roll.put(Database.KEY_NUMBER, mNumberPicker.getValue());
 						roll.putAll(results(mNumberPicker.getValue()));
-						roll.put(Database.KEY_MOD,  DatabaseUtils.sqlEscapeString(mModValues[mModPicker.getValue()]));
+						if(isRollModEnabled)
+							roll.put(Database.KEY_MOD,  DatabaseUtils.sqlEscapeString(mModValues[mModPicker.getValue()]));
 					}
 					
 					

@@ -6,11 +6,6 @@
         android:key="roll_again"
         android:summary="@string/roll_again_summary"
         android:title="@string/roll_again" />
-    <CheckBoxPreference
-        android:defaultValue="true"
-        android:key="roll_mod"
-        android:summary="@string/roll_mod_msg"
-        android:title="@string/roll_mod" />
 
     <com.TwentyCode.android.ExaltedDice.ColorDialogPreference
         android:key="color"
@@ -20,10 +15,6 @@
     <PreferenceCategory android:title="@string/successes" >
     </PreferenceCategory>
 
-    <CheckBoxPreference
-        android:defaultValue="true"
-        android:key="calc_successes"
-        android:title="@string/calc_successes" />
     <CheckBoxPreference
         android:defaultValue="true"
         android:dependency="calc_successes"

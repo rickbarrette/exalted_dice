@@ -10,8 +10,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
-import android.view.Menu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -105,7 +105,10 @@ public class GameListActivity extends Activity implements OnClickListener, Datab
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		startActivity(new Intent(this, ExaltedDice.class).putExtra(ExaltedDice.KEY_GAME_NAME, mDb.getGameName(id +1)).putExtra(ExaltedDice.KEY_GAME_ID, id+1));
+		startActivity(new Intent(this, ExaltedDice.class)
+		.putExtra(ExaltedDice.KEY_GAME_NAME, mDb.getGameName(id +1))
+		.putExtra(ExaltedDice.KEY_GAME_ID, id+1)
+		.putExtra(ExaltedDice.KEY_GAME_MODE, mDb.getGameOptions(id+1).getAsString(Database.KEY_MODE)));
 	}
 
 	/**

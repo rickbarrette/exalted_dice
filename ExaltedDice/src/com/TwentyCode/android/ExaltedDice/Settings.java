@@ -31,9 +31,7 @@ public class Settings extends PreferenceActivity implements OnPreferenceClickLis
 	private static final CharSequence EMAIL = "email";
 	
 	public static final String KEY_ROLL_AGAIN = "roll_again";
-	public static final String KEY_CALC_SUCCESSES = "calc_successes";
 	public static final String KEY_TENS_COUNT_TWICE = "tens_count_twice";
-	public static final String KEY_ROLL_MOD = "roll_mod";
 	public static final String KEY_COLOR = "color";
 //	public static final String KEY_ = "";
 //	public static final String KEY_ = "";
