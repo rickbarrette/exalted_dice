@@ -17,7 +17,6 @@
 
     <CheckBoxPreference
         android:defaultValue="true"
-        android:dependency="calc_successes"
         android:key="tens_count_twice"
         android:summary="@string/tens_count_twice_msg"
         android:title="@string/tens_count_twice" />
