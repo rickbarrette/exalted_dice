@@ -39,25 +39,23 @@ public class Database {
 	 */
 	private final int DATABASE_VERSION = 1;
 
-	/**
-	 * database file name 
+	/*
+	 * database file name
 	 */
 	private final String DATABASE_NAME = "history.db";
-
-	/**
-	 * database table for games
+	
+	/*
+	 * database tables
 	 */
 	private final String GAME_NAME_TABLE = "games";
-	/**
-	 * Database table of history
-	 */
+	private final String GAME_OPTIONS_TABLE = "game_options";
 	private final String GAME_HISTORY_TABLE = "history";
 	
 	/*
 	 * Database keys 
 	 */
-	private static final String KEY = "key";
-	private static final String KEY_VALUE = "value";
+	private final String KEY = "key";
+	private final String KEY_VALUE = "value";
 	
 	/*
 	 * database value keys
@@ -69,7 +67,13 @@ public class Database {
 	public final static String KEY_ROLL_ID = "roll_id";
 	public final static String KEY_MOD = "mod";
 	public static final String KEY_ROLLED = "rolled";
-	
+	public static final String KEY_INTENT = "intent";
+//	public static final String KEY_ = "";
+//	public static final String KEY_ = "";
+//	public static final String KEY_ = "";
+//	public static final String KEY_ = "";
+//	public static final String KEY_ = "";
+//	public static final String KEY_ = "";
 	
 	private static final String TAG = "Database";
 
@@ -84,6 +88,7 @@ public class Database {
 	 */
 	private class OpenHelper extends SQLiteOpenHelper {
 	
+
 		/**
 		 * Creates a new OpenHelper
 		 * @param context
@@ -108,6 +113,12 @@ public class Database {
 					"(id INTEGER PRIMARY KEY, " +
 					KEY_NAME+" TEXT, " +
 					KEY_ROLL_ID + " TEXT, "+
+					KEY+" TEXT, " +
+					KEY_VALUE+" INTEGER)");
+			
+			db.execSQL("CREATE TABLE " + GAME_OPTIONS_TABLE + 
+					"(id INTEGER PRIMARY KEY, " +
+					KEY_NAME+" TEXT, " +
 					KEY+" TEXT, " +
 					KEY_VALUE+" INTEGER)");
 		}
@@ -351,6 +362,30 @@ public class Database {
 	}
 	
 	/**
+	 * Generates a new ContentValues Object containing the game name, a key, and it's value
+	 * @param gameName
+	 * @param key
+	 * @param value
+	 * @return ContentValues Object containing the game name, a key, and it's value
+	 * @author ricky barrette
+	 */
+	private ContentValues generateContentValues(String gameName, String key, Object value) {
+		ContentValues values = new ContentValues();
+		values.put(KEY_NAME, gameName);
+		values.put(KEY, key);
+		try {
+			values.put(KEY_VALUE, (String) value);
+		} catch (ClassCastException e) {
+			try {
+				values.put(KEY_VALUE, (Boolean) value ? 1 : 0);
+			} catch (ClassCastException e1) {
+				values.put(KEY_VALUE, (Integer) value);
+			}
+		}
+		return values;
+	}
+	
+	/**
 	 * @return a cursor containing all game names
 	 * @author ricky barrette
 	 */
@@ -395,17 +430,7 @@ public class Database {
 	 * @author ricky barrette
 	 */
 	public ContentValues getGameHistoryInfo(String gameName, int rollId){
-		ContentValues values = new ContentValues();
-    	Cursor info = this.mDb.query(GAME_HISTORY_TABLE, new String[]{ KEY, KEY_VALUE }, KEY_NAME +" = "+ DatabaseUtils.sqlEscapeString(gameName) +" AND "+ KEY_ROLL_ID+" = "+rollId, null, null, null, null);
-		if (info.moveToFirst()) {
-			do {
-				values.put(info.getString(0), info.getString(1));
-			} while (info.moveToNext());
-		}
-		if (info != null && !info.isClosed()) {
-			info.close();
-		}
-		return values;
+    	return parseCursor(this.mDb.query(GAME_HISTORY_TABLE, new String[]{ KEY, KEY_VALUE }, KEY_NAME +" = "+ DatabaseUtils.sqlEscapeString(gameName) +" AND "+ KEY_ROLL_ID+" = "+rollId, null, null, null, null));
 	}
 	
 	/**
@@ -423,6 +448,16 @@ public class Database {
 			cursor.close();
 		}
 		return null;
+	}
+	
+	/**
+	 * Retrieves the game options from the database
+	 * @param gameId
+	 * @return a ContentValues object containing the game's key/value pairs
+	 * @author ricky barrette
+	 */
+	public ContentValues getGameOptions(long gameId){
+		return parseCursor(mDb.query(GAME_HISTORY_TABLE, new String[]{ KEY, KEY_VALUE }, KEY_NAME +" = "+ DatabaseUtils.sqlEscapeString(getGameName(gameId)), null, null, null, null));
 	}
 	
 	/**
@@ -478,7 +513,26 @@ public class Database {
 			return false;
 		}
 	}
-
+	
+	/**
+	 * Parses a cursor containing key value pairs
+	 * @param query
+	 * @return
+	 * @author ricky barrette
+	 */
+	private ContentValues parseCursor(Cursor query) {
+		ContentValues values = new ContentValues();
+		if (query.moveToFirst()) {
+			do {
+				values.put(query.getString(query.getColumnIndex(KEY)), query.getString(query.getColumnIndex(KEY_VALUE)));
+			} while (query.moveToNext());
+		}
+		if (query != null && !query.isClosed()) {
+			query.close();
+		}
+		return values;
+	}
+	
 	/**
 	 * Restores the database from external storage
 	 * @return true if successful
@@ -510,10 +564,12 @@ public class Database {
 	}
 
 	/**
-	 * updates a ringer by it's id
+	 * updates a game's history by it's id
 	 * @param id
-	 * @param ringer values
-	 * @param gameHistory values
+	 * @param gameName
+	 * @param gameHistory
+	 * @param rollId
+	 * @throws NullPointerException
 	 * @author ricky barrette
 	 */
 	public void updateGame(long id, String gameName, ContentValues gameHistory, int rollId) throws NullPointerException{
@@ -527,27 +583,12 @@ public class Database {
 			throw new NullPointerException("game content was null");
 		
 		/*
-		 * update the information values in the info table
+		 * insert the history information values in the info table
 		 */
 		for(Entry<String, Object> item : gameHistory.valueSet()){
-			ContentValues values = new ContentValues();
+			ContentValues values = generateContentValues(gameName, item.getKey(), item.getValue());
 			values.put(KEY_ROLL_ID, rollId);
-			values.put(KEY_NAME, gameName);
-			values.put(KEY, item.getKey());
-			try {
-				values.put(KEY_VALUE, (String) item.getValue());
-			} catch (ClassCastException e) {
-				try {
-					values.put(KEY_VALUE, (Boolean) item.getValue() ? 1 : 0);
-				} catch (ClassCastException e1) {
-					values.put(KEY_VALUE, (Integer) item.getValue());
-				}
-			}
-			/*
-			 * we dont care about updating the history, just insert new information
-			 */
-//			if(!(mDb.update(GAME_HISTORY_TABLE, values, KEY_NAME + "="+ DatabaseUtils.sqlEscapeString(gameName) +" AND " + KEY +"='"+ item.getKey()+"'", null) > 0))
-				mDb.insert(GAME_HISTORY_TABLE, null, values);
+			mDb.insert(GAME_HISTORY_TABLE, null, values);
 		}
 		
 		/*
@@ -559,6 +600,35 @@ public class Database {
 			mListener.onDatabaseInsertComplete();
 	}
 	
+	/**
+	 * updates a game's options by it's id
+	 * @param id
+	 * @param options values
+	 * @author ricky barrette
+	 */
+	public void updateOptions(long id, ContentValues options) throws NullPointerException{
+		String gameName = getGameName(id);
+		
+		if(gameName == null || options == null)
+			throw new NullPointerException("game content was null");
+		
+		/*
+		 * update the information values in the info table
+		 */
+		for(Entry<String, Object> item : options.valueSet()){
+			ContentValues values = generateContentValues(gameName, item.getKey(), item.getValue());			
+			
+			/*
+			 * try to update existing information, if not, insert the changes
+			 */
+			if(!(mDb.update(GAME_OPTIONS_TABLE, values, KEY_NAME + "="+ DatabaseUtils.sqlEscapeString(gameName) +" AND " + KEY +"='"+ item.getKey()+"'", null) > 0))
+				mDb.insert(GAME_OPTIONS_TABLE, null, values);
+		}
+		
+		if(mListener != null)
+			mListener.onDatabaseInsertComplete();
+	}
+
 	/**
 	 * Updates the row ids after a row is deleted
 	 * @param id of the row to start with
