@@ -15,6 +15,7 @@
         android:label="@string/app_name" >
         <activity
             android:name="GameListActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation"
             android:label="@string/app_name"
             android:theme="@style/MyTheme" >
             <intent-filter>
@@ -40,6 +41,9 @@
             android:name="Settings"
             android:theme="@style/MyTheme" >
         </activity>
+
+        <service android:name="com.TwentyCodes.android.exception.ReportPostingService" >
+        </service>
     </application>
 
 </manifest> <!-- android:screenOrientation="portrait" -->
