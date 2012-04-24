@@ -100,7 +100,6 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		
 		mCompatNumberPicker = (com.TwentyCode.android.ExaltedDice.NumberPicker) findViewById(R.id.number_Picker);
 		mCompatNumberPicker.setRange(1, 999);
-		mCompatNumberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 		
 		mCompatModPicker = (com.TwentyCode.android.ExaltedDice.NumberPicker) findViewById(R.id.mod_Picker);
 		mCompatModPicker.setDisplayedValues(mModValues);
@@ -121,7 +120,6 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		mNumberPicker = (NumberPicker) findViewById(R.id.number_Picker);
 		mNumberPicker.setMaxValue(999);
 		mNumberPicker.setMinValue(1);
-		mNumberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 		
 		mModPicker = (NumberPicker) findViewById(R.id.mod_Picker);
 		mModPicker.setMinValue(0);
