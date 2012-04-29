@@ -1,0 +1,936 @@
+com.TwentyCode.android.ExaltedDice.ColorDialogPreference -> com.TwentyCode.android.ExaltedDice.ColorDialogPreference:
+    int color -> a
+    com.TwentyCode.android.ExaltedDice.ColorDialogPreference$OnColorChangedListener dialogColorChangedListener -> b
+    191:196:void onDialogClosed(boolean) -> onDialogClosed
+    201:216:void onPrepareDialogBuilder(android.app.AlertDialog$Builder) -> onPrepareDialogBuilder
+    173:173:void access$0(com.TwentyCode.android.ExaltedDice.ColorDialogPreference,int) -> a
+com.TwentyCode.android.ExaltedDice.ColorDialogPreference$1 -> com.TwentyCode.android.ExaltedDice.a:
+    com.TwentyCode.android.ExaltedDice.ColorDialogPreference this$0 -> a
+com.TwentyCode.android.ExaltedDice.ColorDialogPreference$ColorPickerView -> com.TwentyCode.android.ExaltedDice.b:
+    android.graphics.Paint paint -> b
+    android.graphics.Paint centerPaint -> c
+    boolean trackingCenter -> d
+    int[] colors -> e
+    com.TwentyCode.android.ExaltedDice.ColorDialogPreference this$0 -> a
+    67:67:int ave(int,int,float) -> a
+    75:95:int interpColor(int[],float) -> a
+    101:120:void onDraw(android.graphics.Canvas) -> onDraw
+    125:132:void onMeasure(int,int) -> onMeasure
+    137:159:boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
+com.TwentyCode.android.ExaltedDice.ColorDialogPreference$OnColorChangedListener -> com.TwentyCode.android.ExaltedDice.c:
+com.TwentyCode.android.ExaltedDice.Database -> com.TwentyCode.android.ExaltedDice.d:
+    int DATABASE_VERSION -> b
+    java.lang.String DATABASE_NAME -> c
+    java.lang.String GAME_NAME_TABLE -> d
+    java.lang.String GAME_OPTIONS_TABLE -> e
+    java.lang.String GAME_HISTORY_TABLE -> f
+    java.lang.String KEY -> g
+    java.lang.String KEY_VALUE -> h
+    android.content.Context mContext -> i
+    android.database.sqlite.SQLiteDatabase mDb -> j
+    boolean isUpgrading -> a
+    com.TwentyCode.android.ExaltedDice.DatabaseListener mListener -> k
+    232:241:java.lang.String checkName(java.lang.String) -> b
+    250:285:void clearHistory(long) -> a
+    292:293:void close() -> a
+    322:351:void deleteGame(long) -> b
+    361:361:void deleteRoll(long,long) -> a
+    372:384:android.content.ContentValues generateContentValues(java.lang.String,java.lang.String,java.lang.Object) -> a
+    392:392:android.database.Cursor getAllGames() -> b
+    401:411:java.util.List getAllGameTitles() -> c
+    432:432:android.content.ContentValues getGameHistoryInfo(java.lang.String,int) -> a
+    442:449:java.lang.String getGameName(long) -> c
+    459:459:android.content.ContentValues getGameOptions(long) -> d
+    469:477:int getGameRollCount(long) -> e
+    488:491:long insertGame(java.lang.String) -> a
+    523:532:android.content.ContentValues parseCursor(android.database.Cursor) -> a
+    576:600:void updateGame(long,java.lang.String,android.content.ContentValues,int) -> a
+    609:629:void updateOptions(long,android.content.ContentValues) -> a
+    638:654:void updateRowIds(long) -> f
+    83:83:com.TwentyCode.android.ExaltedDice.DatabaseListener access$0(com.TwentyCode.android.ExaltedDice.Database) -> a
+    81:81:android.database.sqlite.SQLiteDatabase access$1(com.TwentyCode.android.ExaltedDice.Database) -> b
+    636:636:void access$2(com.TwentyCode.android.ExaltedDice.Database,long) -> a
+com.TwentyCode.android.ExaltedDice.Database$1 -> com.TwentyCode.android.ExaltedDice.e:
+    com.TwentyCode.android.ExaltedDice.Database this$0 -> a
+    android.app.ProgressDialog val$progress -> b
+    255:258:void handleMessage(android.os.Message) -> handleMessage
+com.TwentyCode.android.ExaltedDice.Database$2 -> com.TwentyCode.android.ExaltedDice.f:
+    com.TwentyCode.android.ExaltedDice.Database this$0 -> a
+    long val$gameId -> b
+    android.os.Handler val$handler -> c
+    265:283:void run() -> run
+com.TwentyCode.android.ExaltedDice.Database$3 -> com.TwentyCode.android.ExaltedDice.g:
+    com.TwentyCode.android.ExaltedDice.Database this$0 -> a
+    android.app.ProgressDialog val$progress -> b
+    327:330:void handleMessage(android.os.Message) -> handleMessage
+com.TwentyCode.android.ExaltedDice.Database$4 -> com.TwentyCode.android.ExaltedDice.h:
+    com.TwentyCode.android.ExaltedDice.Database this$0 -> a
+    long val$id -> b
+    android.os.Handler val$handler -> c
+    337:349:void run() -> run
+com.TwentyCode.android.ExaltedDice.Database$OpenHelper -> com.TwentyCode.android.ExaltedDice.i:
+    com.TwentyCode.android.ExaltedDice.Database this$0 -> a
+    107:124:void createDatabase(android.database.sqlite.SQLiteDatabase) -> a
+    134:135:void onCreate(android.database.sqlite.SQLiteDatabase) -> onCreate
+    145:177:void onUpgrade(android.database.sqlite.SQLiteDatabase,int,int) -> onUpgrade
+    89:89:com.TwentyCode.android.ExaltedDice.Database access$0(com.TwentyCode.android.ExaltedDice.Database$OpenHelper) -> a
+com.TwentyCode.android.ExaltedDice.Database$OpenHelper$1 -> com.TwentyCode.android.ExaltedDice.j:
+    com.TwentyCode.android.ExaltedDice.Database$OpenHelper this$1 -> a
+    155:157:void handleMessage(android.os.Message) -> handleMessage
+com.TwentyCode.android.ExaltedDice.Database$OpenHelper$2 -> com.TwentyCode.android.ExaltedDice.k:
+    com.TwentyCode.android.ExaltedDice.Database$OpenHelper this$1 -> a
+    int val$oldVersion -> b
+    android.os.Handler val$handler -> c
+    164:175:void run() -> run
+com.TwentyCode.android.ExaltedDice.DatabaseListener -> com.TwentyCode.android.ExaltedDice.l:
+    void onDatabaseUpgradeComplete() -> a
+    void onDeletionComplete() -> b
+    void onDatabaseUpgrade() -> c
+    void onDatabaseInsertComplete() -> d
+com.TwentyCode.android.ExaltedDice.ExaltedDice -> com.TwentyCode.android.ExaltedDice.ExaltedDice:
+    java.lang.String[] mDiceValues -> a
+    android.widget.ListView mListView -> b
+    android.widget.NumberPicker mNumberPicker -> c
+    android.widget.NumberPicker mDPicker -> d
+    android.widget.NumberPicker mModPicker -> e
+    com.TwentyCode.android.ExaltedDice.Database mDb -> f
+    java.lang.String mGameName -> g
+    long mGameId -> h
+    com.TwentyCode.android.ExaltedDice.RollHistoryDatabaseAdapter mListAdapter -> i
+    android.content.SharedPreferences mSettings -> j
+    java.lang.String[] mModValues -> k
+    android.widget.ProgressBar mRollProgress -> l
+    android.view.View mRollButton -> m
+    boolean isRolling -> n
+    com.TwentyCode.android.ExaltedDice.NumberPicker mCompatDPicker -> o
+    com.TwentyCode.android.ExaltedDice.NumberPicker mCompatNumberPicker -> p
+    com.TwentyCode.android.ExaltedDice.NumberPicker mCompatModPicker -> q
+    boolean isCompat -> r
+    boolean isSuccessesEanbled -> s
+    boolean isRollModEnabled -> t
+    boolean isCalculatingTotal -> u
+    71:88:void applyRollPresets(long) -> b
+    95:107:void initCompatPickers() -> g
+    114:129:void initPickers() -> h
+    139:144:void onClick(android.view.View) -> onClick
+    152:158:boolean onContextItemSelected(android.view.MenuItem) -> onContextItemSelected
+    168:205:void onCreate(android.os.Bundle) -> onCreate
+    213:215:void onCreateContextMenu(android.view.ContextMenu,android.view.View,android.view.ContextMenu$ContextMenuInfo) -> onCreateContextMenu
+    223:225:boolean onCreateOptionsMenu(android.view.Menu) -> onCreateOptionsMenu
+    230:239:void onDatabaseInsertComplete() -> d
+    244:244:void onDatabaseUpgrade() -> c
+    250:250:void onDatabaseUpgradeComplete() -> a
+    254:260:void onDeletionComplete() -> b
+    268:272:void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
+    281:293:boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
+    308:318:void onRestoreInstanceState(android.os.Bundle) -> onRestoreInstanceState
+    326:333:void onResume() -> onResume
+    341:351:void onSaveInstanceState(android.os.Bundle) -> onSaveInstanceState
+    359:363:void onStart() -> onStart
+    371:373:void onStop() -> onStop
+    382:385:int parseD(java.lang.String) -> a
+    395:398:int parseMod(java.lang.String) -> b
+    411:438:void setGameMode(java.lang.String) -> c
+    468:470:void refresh() -> e
+    480:508:android.content.ContentValues results(int) -> a
+    517:554:void rollDice() -> f
+    563:572:int[] rollGen(int) -> b
+    584:593:int successes(int[]) -> a
+    614:617:void vibrate(long) -> a
+    54:54:android.widget.ProgressBar access$0(com.TwentyCode.android.ExaltedDice.ExaltedDice) -> a
+    55:55:android.view.View access$1(com.TwentyCode.android.ExaltedDice.ExaltedDice) -> b
+    48:48:com.TwentyCode.android.ExaltedDice.Database access$2(com.TwentyCode.android.ExaltedDice.ExaltedDice) -> c
+    50:50:long access$3(com.TwentyCode.android.ExaltedDice.ExaltedDice) -> d
+    60:60:boolean access$4(com.TwentyCode.android.ExaltedDice.ExaltedDice) -> e
+    57:57:com.TwentyCode.android.ExaltedDice.NumberPicker access$5(com.TwentyCode.android.ExaltedDice.ExaltedDice) -> f
+    58:58:com.TwentyCode.android.ExaltedDice.NumberPicker access$6(com.TwentyCode.android.ExaltedDice.ExaltedDice) -> g
+    62:62:boolean access$7(com.TwentyCode.android.ExaltedDice.ExaltedDice) -> h
+    59:59:com.TwentyCode.android.ExaltedDice.NumberPicker access$8(com.TwentyCode.android.ExaltedDice.ExaltedDice) -> i
+    43:43:java.lang.String[] access$9(com.TwentyCode.android.ExaltedDice.ExaltedDice) -> j
+    46:46:android.widget.NumberPicker access$10(com.TwentyCode.android.ExaltedDice.ExaltedDice) -> k
+    45:45:android.widget.NumberPicker access$11(com.TwentyCode.android.ExaltedDice.ExaltedDice) -> l
+    53:53:java.lang.String[] access$12(com.TwentyCode.android.ExaltedDice.ExaltedDice) -> m
+    47:47:android.widget.NumberPicker access$13(com.TwentyCode.android.ExaltedDice.ExaltedDice) -> n
+    49:49:java.lang.String access$14(com.TwentyCode.android.ExaltedDice.ExaltedDice) -> o
+com.TwentyCode.android.ExaltedDice.ExaltedDice$1 -> com.TwentyCode.android.ExaltedDice.m:
+    com.TwentyCode.android.ExaltedDice.ExaltedDice this$0 -> a
+    234:237:void run() -> run
+com.TwentyCode.android.ExaltedDice.ExaltedDice$2 -> com.TwentyCode.android.ExaltedDice.n:
+    com.TwentyCode.android.ExaltedDice.ExaltedDice this$0 -> a
+    257:258:void run() -> run
+com.TwentyCode.android.ExaltedDice.ExaltedDice$5 -> com.TwentyCode.android.ExaltedDice.o:
+    com.TwentyCode.android.ExaltedDice.ExaltedDice this$0 -> a
+    528:551:void run() -> run
+com.TwentyCode.android.ExaltedDice.GameListActivity -> com.TwentyCode.android.ExaltedDice.GameListActivity:
+    android.widget.ListView mList -> a
+    com.TwentyCode.android.ExaltedDice.Database mDb -> b
+    37:38:void onClick(android.view.View) -> onClick
+    46:52:boolean onContextItemSelected(android.view.MenuItem) -> onContextItemSelected
+    61:68:void onCreate(android.os.Bundle) -> onCreate
+    76:79:void onCreateContextMenu(android.view.ContextMenu,android.view.View,android.view.ContextMenu$ContextMenuInfo) -> onCreateContextMenu
+    87:89:boolean onCreateOptionsMenu(android.view.Menu) -> onCreateOptionsMenu
+    96:96:void onDatabaseInsertComplete() -> d
+    102:102:void onDatabaseUpgrade() -> c
+    106:107:void onDatabaseUpgradeComplete() -> a
+    111:112:void onDeletionComplete() -> b
+    116:120:void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
+    128:133:boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
+    143:145:void onPause() -> onPause
+    159:162:void onResume() -> onResume
+    165:166:void refresh() -> e
+com.TwentyCode.android.ExaltedDice.NewGameDialog -> com.TwentyCode.android.ExaltedDice.p:
+    android.content.Context mContext -> a
+    com.TwentyCode.android.ExaltedDice.Database mDb -> b
+    android.widget.EditText mGameName -> c
+    android.widget.Spinner mGameModeSpinner -> d
+    41:69:void onClick(android.view.View) -> onClick
+com.TwentyCode.android.ExaltedDice.NumberPicker -> com.TwentyCode.android.ExaltedDice.NumberPicker:
+    android.os.Handler mHandler -> e
+    android.widget.EditText mText -> f
+    android.text.InputFilter mNumberInputFilter -> g
+    java.lang.Runnable mRunnable -> h
+    java.lang.String[] mDisplayedValues -> i
+    int mStart -> a
+    int mEnd -> b
+    int mCurrent -> c
+    int mPrevious -> d
+    com.TwentyCode.android.ExaltedDice.NumberPicker$OnChangedListener mListener -> j
+    long mSpeed -> k
+    boolean mIncrement -> l
+    boolean mDecrement -> m
+    com.TwentyCode.android.ExaltedDice.NumberPickerButton mIncrementButton -> n
+    com.TwentyCode.android.ExaltedDice.NumberPickerButton mDecrementButton -> o
+    boolean mWrap -> p
+    char[] DIGIT_CHARACTERS -> q
+    236:237:void cancelDecrement() -> a
+    240:241:void cancelIncrement() -> b
+    246:256:void changeCurrent(int) -> a
+    262:262:int getCurrent() -> c
+    266:288:int getSelectedPos(java.lang.String) -> a
+    292:292:java.lang.String getValue() -> d
+    296:299:void notifyChange() -> e
+    302:311:void onClick(android.view.View) -> onClick
+    318:321:void onFocusChange(android.view.View,boolean) -> onFocusChange
+    332:342:boolean onLongClick(android.view.View) -> onLongClick
+    350:352:void setCurrent(int) -> setCurrent
+    359:362:void setCurrentAndNotify(int) -> setCurrentAndNotify
+    370:375:void setDisplayedValues(java.lang.String[]) -> setDisplayedValues
+    379:383:void setEnabled(boolean) -> setEnabled
+    386:387:void setOnChangeListener(com.TwentyCode.android.ExaltedDice.NumberPicker$OnChangedListener) -> setOnChangeListener
+    397:401:void setRange(int,int) -> setRange
+    413:418:void setRange(int,int,java.lang.String[]) -> setRange
+    425:426:void setSpeed(long) -> setSpeed
+    434:437:void setValue(int) -> setValue
+    445:446:void setWrap(boolean) -> setWrap
+    454:462:void updateView() -> f
+    465:474:void validateCurrentView(java.lang.CharSequence) -> a
+    477:487:void validateInput(android.view.View) -> a
+    165:165:boolean access$0(com.TwentyCode.android.ExaltedDice.NumberPicker) -> a
+    142:142:android.os.Handler access$1(com.TwentyCode.android.ExaltedDice.NumberPicker) -> b
+    164:164:long access$2(com.TwentyCode.android.ExaltedDice.NumberPicker) -> c
+    166:166:boolean access$3(com.TwentyCode.android.ExaltedDice.NumberPicker) -> d
+    158:158:java.lang.String[] access$4(com.TwentyCode.android.ExaltedDice.NumberPicker) -> e
+    144:144:android.text.InputFilter access$5(com.TwentyCode.android.ExaltedDice.NumberPicker) -> f
+    265:265:int access$6(com.TwentyCode.android.ExaltedDice.NumberPicker,java.lang.String) -> a
+    170:170:char[] access$7() -> g
+com.TwentyCode.android.ExaltedDice.NumberPicker$1 -> com.TwentyCode.android.ExaltedDice.q:
+    com.TwentyCode.android.ExaltedDice.NumberPicker this$0 -> a
+    148:155:void run() -> run
+com.TwentyCode.android.ExaltedDice.NumberPicker$NumberPickerInputFilter -> com.TwentyCode.android.ExaltedDice.r:
+    com.TwentyCode.android.ExaltedDice.NumberPicker this$0 -> a
+    60:74:java.lang.CharSequence filter(java.lang.CharSequence,int,int,android.text.Spanned,int,int) -> filter
+com.TwentyCode.android.ExaltedDice.NumberPicker$NumberRangeKeyListener -> com.TwentyCode.android.ExaltedDice.s:
+    com.TwentyCode.android.ExaltedDice.NumberPicker this$0 -> a
+    87:109:java.lang.CharSequence filter(java.lang.CharSequence,int,int,android.text.Spanned,int,int) -> filter
+    115:115:char[] getAcceptedChars() -> getAcceptedChars
+    121:121:int getInputType() -> getInputType
+com.TwentyCode.android.ExaltedDice.NumberPicker$OnChangedListener -> com.TwentyCode.android.ExaltedDice.t:
+    void onChanged(com.TwentyCode.android.ExaltedDice.NumberPicker,int,int) -> a
+com.TwentyCode.android.ExaltedDice.NumberPickerButton -> com.TwentyCode.android.ExaltedDice.NumberPickerButton:
+    com.TwentyCode.android.ExaltedDice.NumberPicker mNumberPicker -> a
+    46:47:void setNumberPicker(com.TwentyCode.android.ExaltedDice.NumberPicker) -> setNumberPicker
+    51:52:boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
+    57:58:boolean onTrackballEvent(android.view.MotionEvent) -> onTrackballEvent
+    63:67:boolean onKeyUp(int,android.view.KeyEvent) -> onKeyUp
+    71:75:void cancelLongpressIfRequired(android.view.MotionEvent) -> a
+    78:83:void cancelLongpress() -> a
+com.TwentyCode.android.ExaltedDice.R -> com.TwentyCode.android.ExaltedDice.u:
+com.TwentyCode.android.ExaltedDice.R$styleable -> com.TwentyCode.android.ExaltedDice.v:
+    int[] com_admob_android_ads_AdView -> com_admob_android_ads_AdView
+    int com_admob_android_ads_AdView_backgroundColor -> com_admob_android_ads_AdView_backgroundColor
+    int com_admob_android_ads_AdView_keywords -> com_admob_android_ads_AdView_keywords
+    int com_admob_android_ads_AdView_primaryTextColor -> com_admob_android_ads_AdView_primaryTextColor
+    int com_admob_android_ads_AdView_refreshInterval -> com_admob_android_ads_AdView_refreshInterval
+    int com_admob_android_ads_AdView_secondaryTextColor -> com_admob_android_ads_AdView_secondaryTextColor
+    int[] numberpicker -> numberpicker
+    int numberpicker_defaultValue -> numberpicker_defaultValue
+    int numberpicker_endRange -> numberpicker_endRange
+    int numberpicker_maxValue -> numberpicker_maxValue
+    int numberpicker_startRange -> numberpicker_startRange
+    int numberpicker_wrap -> numberpicker_wrap
+com.TwentyCode.android.ExaltedDice.RollHistoryDatabaseAdapter -> com.TwentyCode.android.ExaltedDice.w:
+    long mGameId -> a
+    com.TwentyCode.android.ExaltedDice.Database mDb -> b
+    java.lang.String mGameName -> c
+    android.view.LayoutInflater mInflater -> d
+    int mCount -> e
+    android.content.SharedPreferences mSettings -> f
+    boolean isRollModEnabled -> g
+    52:52:int getCount() -> getCount
+    61:61:android.content.ContentValues getItem(int) -> a
+    70:70:long getItemId(int) -> getItemId
+    81:114:android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
+    123:125:void notifyDataSetChanged() -> notifyDataSetChanged
+    143:144:void setRollModEnabled(boolean) -> a
+    1:1:java.lang.Object getItem(int) -> getItem
+com.TwentyCode.android.ExaltedDice.RollHistoryDatabaseAdapter$ViewHolder -> com.TwentyCode.android.ExaltedDice.x:
+    android.widget.TextView mRoll -> a
+    android.widget.TextView mStats -> b
+    android.widget.TextView mRolled -> c
+    com.TwentyCode.android.ExaltedDice.RollHistoryDatabaseAdapter this$0 -> d
+com.TwentyCode.android.ExaltedDice.Settings -> com.TwentyCode.android.ExaltedDice.Settings:
+    java.lang.CharSequence EMAIL -> a
+    52:70:android.content.Intent generateEmailIntent() -> a
+    83:96:void onCreate(android.os.Bundle) -> onCreate
+    104:112:boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
+    121:122:boolean onPreferenceClick(android.preference.Preference) -> onPreferenceClick
+com.TwentyCodes.android.exception.ExceptionHandler -> com.TwentyCodes.android.exception.a:
+    java.lang.Thread$UncaughtExceptionHandler mDefaultUEH -> a
+    android.app.Activity mApp -> b
+    android.app.Service mService -> c
+    android.content.BroadcastReceiver mBroadcastReceiver -> d
+    android.content.Context mContext -> e
+    com.TwentyCodes.android.exception.Report mReport -> f
+    java.lang.String mURL -> g
+    java.lang.String mEmail -> h
+    java.lang.String mAppName -> i
+    java.lang.String mTracker -> j
+    96:117:void displayEmailNotification() -> a
+    125:133:void displayNotification(android.content.Intent) -> a
+    140:155:void parseProperties() -> b
+    158:162:void run() -> run
+    172:229:void uncaughtException(java.lang.Thread,java.lang.Throwable) -> uncaughtException
+com.TwentyCodes.android.exception.ExceptionReportActivity -> com.TwentyCodes.android.exception.ExceptionReportActivity:
+    com.TwentyCodes.android.exception.Report mReport -> a
+    34:47:void onCreate(android.os.Bundle) -> onCreate
+    56:61:void onClick(android.view.View) -> onClick
+com.TwentyCodes.android.exception.R -> com.TwentyCodes.android.exception.b:
+com.TwentyCodes.android.exception.R$id -> com.TwentyCodes.android.exception.c:
+    int ad -> ad
+    int d_Picker -> d_Picker
+    int decrement -> decrement
+    int description -> description
+    int dice -> dice
+    int die_selector -> die_selector
+    int editText -> editText
+    int exception_text -> exception_text
+    int exception_title -> exception_title
+    int game_mode_spinner -> game_mode_spinner
+    int holder -> holder
+    int increment -> increment
+    int linearLayout1 -> linearLayout1
+    int list -> list
+    int menu_clear -> menu_clear
+    int menu_delete -> menu_delete
+    int menu_settings -> menu_settings
+    int mod_Picker -> mod_Picker
+    int new_game_button -> new_game_button
+    int number_Picker -> number_Picker
+    int progress -> progress
+    int roll_button -> roll_button
+    int roll_progress -> roll_progress
+    int send -> send
+    int text1 -> text1
+    int textView1 -> textView1
+    int textView2 -> textView2
+    int textView3 -> textView3
+    int timepicker_input -> timepicker_input
+com.TwentyCodes.android.exception.R$layout -> com.TwentyCodes.android.exception.d:
+    int dice_selector -> dice_selector
+    int exception_activity -> exception_activity
+    int exception_list_item -> exception_list_item
+    int game_list -> game_list
+    int list -> list
+    int list_row -> list_row
+    int main -> main
+    int new_game_dialog -> new_game_dialog
+    int number_picker -> number_picker
+com.TwentyCodes.android.exception.R$string -> com.TwentyCodes.android.exception.e:
+    int app_name -> app_name
+    int calc_successes -> calc_successes
+    int calc_successes_summary -> calc_successes_summary
+    int clear_history -> clear_history
+    int contact_us -> contact_us
+    int crash -> crash
+    int create_new_game -> create_new_game
+    int delete -> delete
+    int deleteing -> deleteing
+    int description -> description
+    int do_you_want_to_quit -> do_you_want_to_quit
+    int email -> email
+    int email_about -> email_about
+    int empty_msg -> empty_msg
+    int game_mode -> game_mode
+    int game_mode_dd -> game_mode_dd
+    int game_mode_exalted -> game_mode_exalted
+    int game_name -> game_name
+    int higlight_color -> higlight_color
+    int higlight_color_msg -> higlight_color_msg
+    int new_game -> new_game
+    int no_reports -> no_reports
+    int quit -> quit
+    int roll -> roll
+    int roll_again -> roll_again
+    int roll_again_summary -> roll_again_summary
+    int roll_mod -> roll_mod
+    int roll_mod_msg -> roll_mod_msg
+    int rolled -> rolled
+    int rolls -> rolls
+    int send -> send
+    int sending -> sending
+    int sending_report -> sending_report
+    int settings -> settings
+    int sorry -> sorry
+    int successes -> successes
+    int sucesses -> sucesses
+    int tens_count_twice -> tens_count_twice
+    int tens_count_twice_msg -> tens_count_twice_msg
+    int total -> total
+    int total_plus_mod -> total_plus_mod
+    int version -> version
+    int version_info -> version_info
+com.TwentyCodes.android.exception.Report -> com.TwentyCodes.android.exception.Report:
+    java.lang.String mUrl -> a
+    java.util.ArrayList mReport -> b
+    android.os.Parcelable$Creator CREATOR -> CREATOR
+    72:72:int describeContents() -> describeContents
+    83:99:java.lang.String file() -> a
+    132:142:com.TwentyCodes.android.exception.Report generateReport(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String) -> a
+    151:154:java.util.ArrayList getNameValuePairs() -> c
+    162:162:java.util.ArrayList getReport() -> b
+    171:172:com.TwentyCodes.android.exception.Report setDescription(java.lang.String) -> a
+    181:186:java.lang.String toString() -> toString
+    191:193:void writeToParcel(android.os.Parcel,int) -> writeToParcel
+com.TwentyCodes.android.exception.Report$1 -> com.TwentyCodes.android.exception.f:
+    42:42:com.TwentyCodes.android.exception.Report createFromParcel(android.os.Parcel) -> a
+    46:46:com.TwentyCodes.android.exception.Report[] newArray(int) -> a
+    1:1:java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
+    1:1:java.lang.Object[] newArray(int) -> newArray
+com.TwentyCodes.android.exception.ReportAdapter -> com.TwentyCodes.android.exception.g:
+    java.util.ArrayList mReport -> a
+    android.view.LayoutInflater mInflater -> b
+    49:49:int getCount() -> getCount
+    59:59:org.apache.http.NameValuePair getItem(int) -> a
+    69:69:long getItemId(int) -> getItemId
+    84:104:android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
+    1:1:java.lang.Object getItem(int) -> getItem
+com.TwentyCodes.android.exception.ReportAdapter$ViewHolder -> com.TwentyCodes.android.exception.h:
+    android.widget.TextView title -> a
+    android.widget.TextView body -> b
+    com.TwentyCodes.android.exception.ReportAdapter this$0 -> c
+com.TwentyCodes.android.exception.ReportItem -> com.TwentyCodes.android.exception.ReportItem:
+    android.os.Parcelable$Creator CREATOR -> CREATOR
+    java.lang.String mKey -> a
+    java.lang.String mValue -> b
+    56:56:int describeContents() -> describeContents
+    64:66:void writeToParcel(android.os.Parcel,int) -> writeToParcel
+    72:72:java.lang.String getKey() -> a
+    79:79:java.lang.String getValue() -> b
+com.TwentyCodes.android.exception.ReportItem$1 -> com.TwentyCodes.android.exception.i:
+    21:21:com.TwentyCodes.android.exception.ReportItem createFromParcel(android.os.Parcel) -> a
+    25:25:com.TwentyCodes.android.exception.ReportItem[] newArray(int) -> a
+    1:1:java.lang.Object createFromParcel(android.os.Parcel) -> createFromParcel
+    1:1:java.lang.Object[] newArray(int) -> newArray
+com.TwentyCodes.android.exception.ReportPostingService -> com.TwentyCodes.android.exception.ReportPostingService:
+    android.app.NotificationManager mNotificationManager -> a
+    int mStartId -> b
+    com.TwentyCodes.android.exception.Report mReport -> c
+    boolean isStarted -> d
+    43:44:void getReport(android.content.Intent) -> a
+    52:52:android.os.IBinder onBind(android.content.Intent) -> onBind
+    65:87:void onCreate() -> onCreate
+    97:99:void onDestroy() -> onDestroy
+    108:112:void onStart(android.content.Intent,int) -> onStart
+    120:123:int onStartCommand(android.content.Intent,int,int) -> onStartCommand
+    131:148:void postReport() -> a
+    33:33:int access$0(com.TwentyCodes.android.exception.ReportPostingService) -> a
+    34:34:com.TwentyCodes.android.exception.Report access$1(com.TwentyCodes.android.exception.ReportPostingService) -> b
+com.TwentyCodes.android.exception.ReportPostingService$1 -> com.TwentyCodes.android.exception.j:
+    com.TwentyCodes.android.exception.ReportPostingService this$0 -> a
+    137:145:void run() -> run
+com.TwentyCodes.android.exception.VersionInformationPreference -> com.TwentyCodes.android.exception.VersionInformationPreference:
+    android.content.Context mContext -> a
+    75:114:android.view.View onCreateView(android.view.ViewGroup) -> onCreateView
+com.admob.android.ads.AdListener -> com.admob.android.ads.a:
+    void onReceiveAd(com.admob.android.ads.AdView) -> a
+    void onFailedToReceiveAd(com.admob.android.ads.AdView) -> b
+    void onReceiveRefreshedAd(com.admob.android.ads.AdView) -> c
+    void onFailedToReceiveRefreshedAd(com.admob.android.ads.AdView) -> d
+com.admob.android.ads.AdManager -> com.admob.android.ads.b:
+    java.lang.String a -> a
+    int b -> b
+    java.lang.String c -> c
+    java.lang.String d -> d
+    java.lang.String[] e -> e
+    java.lang.String f -> f
+    android.location.Location g -> g
+    long h -> h
+    java.lang.String i -> i
+    java.util.GregorianCalendar j -> j
+    com.admob.android.ads.AdManager$Gender k -> k
+    171:174:void clientError(java.lang.String) -> a
+    185:191:int getScreenWidth(android.content.Context) -> a
+    205:263:void b(android.content.Context) -> j
+    275:280:java.lang.String getApplicationPackageName(android.content.Context) -> b
+    293:298:int getApplicationVersion(android.content.Context) -> c
+    309:321:java.lang.String getPublisherId(android.content.Context) -> d
+    336:350:void setPublisherId(java.lang.String) -> b
+    360:360:java.lang.String getTestAction() -> a
+    419:434:boolean isTestDevice(android.content.Context) -> e
+    467:500:java.lang.String getUserId(android.content.Context) -> f
+    512:531:java.lang.String a(java.lang.String) -> c
+    555:683:android.location.Location getCoordinates(android.content.Context) -> g
+    696:709:java.lang.String a(android.content.Context) -> h
+    720:720:java.lang.String a() -> b
+    730:730:java.lang.String getPostalCode() -> c
+    740:748:java.lang.String getOrientation(android.content.Context) -> i
+    776:776:java.util.GregorianCalendar getBirthday() -> d
+    787:798:java.lang.String b() -> e
+    843:853:java.lang.String c() -> f
+    22:22:android.location.Location a(android.location.Location) -> a
+    22:22:long a(long) -> a
+    22:22:android.location.Location d() -> g
+    22:22:long e() -> h
+com.admob.android.ads.AdManager$1 -> com.admob.android.ads.c:
+    android.location.LocationManager a -> a
+    646:659:void onLocationChanged(android.location.Location) -> onLocationChanged
+    664:664:void onProviderDisabled(java.lang.String) -> onProviderDisabled
+    669:669:void onProviderEnabled(java.lang.String) -> onProviderEnabled
+    674:674:void onStatusChanged(java.lang.String,int,android.os.Bundle) -> onStatusChanged
+com.admob.android.ads.AdManager$Gender -> com.admob.android.ads.d:
+    com.admob.android.ads.AdManager$Gender MALE -> a
+    com.admob.android.ads.AdManager$Gender FEMALE -> b
+    com.admob.android.ads.AdManager$Gender[] a -> c
+    27:27:com.admob.android.ads.AdManager$Gender[] values() -> values
+    27:27:com.admob.android.ads.AdManager$Gender valueOf(java.lang.String) -> valueOf
+com.admob.android.ads.AdView -> com.admob.android.ads.AdView:
+    java.lang.Boolean b -> b
+    com.admob.android.ads.g c -> c
+    int d -> d
+    boolean e -> e
+    com.admob.android.ads.AdView$a f -> f
+    int g -> g
+    int h -> h
+    int i -> i
+    java.lang.String j -> j
+    java.lang.String k -> k
+    com.admob.android.ads.AdListener l -> l
+    boolean m -> m
+    boolean n -> n
+    boolean o -> o
+    long p -> p
+    com.admob.android.ads.d$a q -> q
+    android.os.Handler a -> a
+    java.util.Vector r -> r
+    385:468:void onMeasure(int,int) -> onMeasure
+    609:635:void a() -> d
+    778:816:void a(com.admob.android.ads.d,com.admob.android.ads.g) -> a
+    904:936:void setRequestInterval(int) -> setRequestInterval
+    947:961:void a(boolean) -> a
+    969:979:void b() -> e
+    1020:1041:boolean c() -> f
+    1113:1114:void onWindowFocusChanged(boolean) -> onWindowFocusChanged
+    1123:1124:void onWindowVisibilityChanged(int) -> onWindowVisibilityChanged
+    1132:1135:void setTextColor(int) -> setTextColor
+    1155:1155:int getPrimaryTextColor() -> a
+    1171:1172:void setPrimaryTextColor(int) -> setPrimaryTextColor
+    1182:1182:int getSecondaryTextColor() -> b
+    1199:1200:void setSecondaryTextColor(int) -> setSecondaryTextColor
+    1214:1217:void setBackgroundColor(int) -> setBackgroundColor
+    1227:1227:int getBackgroundColor() -> c
+    1252:1253:void setKeywords(java.lang.String) -> setKeywords
+    1272:1273:void setSearchQuery(java.lang.String) -> setSearchQuery
+    1299:1300:void setGoneWithoutAd(boolean) -> setGoneWithoutAd
+    1338:1363:void setVisibility(int) -> setVisibility
+    1379:1390:void setEnabled(boolean) -> setEnabled
+    1402:1405:void setAdListener(com.admob.android.ads.AdListener) -> setAdListener
+    1449:1452:void onAttachedToWindow() -> onAttachedToWindow
+    1460:1463:void onDetachedFromWindow() -> onDetachedFromWindow
+    1632:1633:void a(android.view.View) -> a
+    1637:1638:void b(android.view.View) -> b
+    1652:1673:boolean a(android.content.Context) -> a
+    53:53:com.admob.android.ads.g a(com.admob.android.ads.AdView) -> a
+    53:53:com.admob.android.ads.AdListener b(com.admob.android.ads.AdView) -> b
+    53:53:void c(com.admob.android.ads.AdView) -> c
+    53:53:com.admob.android.ads.d$a d(com.admob.android.ads.AdView) -> d
+    53:53:java.lang.String e(com.admob.android.ads.AdView) -> e
+    53:53:java.lang.String f(com.admob.android.ads.AdView) -> f
+    53:53:boolean a(com.admob.android.ads.AdView,boolean) -> a
+    53:53:void b(com.admob.android.ads.AdView,boolean) -> b
+    53:53:long g(com.admob.android.ads.AdView) -> g
+    53:53:void a(com.admob.android.ads.AdView,com.admob.android.ads.d) -> a
+    53:53:void a(com.admob.android.ads.AdView,com.admob.android.ads.g) -> a
+    53:53:void b(com.admob.android.ads.AdView,com.admob.android.ads.g) -> b
+    53:53:com.admob.android.ads.g c(com.admob.android.ads.AdView,com.admob.android.ads.g) -> c
+    53:53:int h(com.admob.android.ads.AdView) -> h
+    53:53:void i(com.admob.android.ads.AdView) -> i
+com.admob.android.ads.AdView$1 -> com.admob.android.ads.e:
+    com.admob.android.ads.g a -> a
+    com.admob.android.ads.AdView b -> b
+    1513:1513:void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
+    1519:1520:void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
+    1524:1524:void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
+com.admob.android.ads.AdView$a -> com.admob.android.ads.f:
+    boolean a -> a
+    java.lang.ref.WeakReference b -> b
+    1067:1091:void run() -> run
+com.admob.android.ads.AdView$b -> com.admob.android.ads.g:
+    java.lang.ref.WeakReference a -> a
+    java.lang.ref.WeakReference b -> b
+    int c -> c
+    boolean d -> d
+    837:873:void run() -> run
+com.admob.android.ads.AdView$c -> com.admob.android.ads.h:
+    java.lang.ref.WeakReference a -> a
+    java.lang.ref.WeakReference b -> b
+    1552:1612:void run() -> run
+com.admob.android.ads.AdView$c$1 -> com.admob.android.ads.i:
+    com.admob.android.ads.g a -> a
+    com.admob.android.ads.AdView b -> b
+    com.admob.android.ads.g c -> c
+    1578:1578:void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
+    1584:1595:void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
+    1599:1599:void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
+com.admob.android.ads.AdView$d -> com.admob.android.ads.j:
+    java.lang.ref.WeakReference a -> a
+    495:521:void run() -> run
+com.admob.android.ads.a -> com.admob.android.ads.k:
+    java.lang.ref.WeakReference a -> a
+    648:700:void run() -> run
+com.admob.android.ads.b -> com.admob.android.ads.l:
+    android.view.View a -> a
+    float b -> b
+    float c -> c
+    35:52:void applyTransformation(float,android.view.animation.Transformation) -> applyTransformation
+com.admob.android.ads.b$a -> com.admob.android.ads.m:
+    void f() -> a
+com.admob.android.ads.c -> com.admob.android.ads.n:
+    android.view.animation.Interpolator a -> a
+    float b -> b
+    float c -> c
+    26:36:float getInterpolation(float) -> getInterpolation
+com.admob.android.ads.d -> com.admob.android.ads.o:
+    int c -> c
+    android.graphics.Rect d -> d
+    android.graphics.PointF e -> e
+    android.graphics.PointF f -> f
+    android.graphics.PointF g -> g
+    android.graphics.Matrix h -> h
+    android.graphics.RectF i -> i
+    java.lang.String j -> j
+    java.lang.String k -> k
+    boolean l -> l
+    boolean m -> m
+    java.util.Vector n -> n
+    java.util.Vector o -> o
+    java.util.Vector p -> p
+    com.admob.android.ads.d$f q -> q
+    android.graphics.Rect r -> r
+    long s -> s
+    int t -> t
+    int u -> u
+    android.view.View a -> a
+    com.admob.android.ads.d$a v -> v
+    com.admob.android.ads.g b -> b
+    int w -> w
+    int x -> x
+    int y -> y
+    org.json.JSONObject z -> z
+    java.util.Hashtable A -> A
+    java.util.HashSet B -> B
+    java.util.Vector C -> C
+    com.admob.android.ads.d$b D -> D
+    double E -> E
+    double F -> F
+    287:309:com.admob.android.ads.d a(com.admob.android.ads.d$a,org.json.JSONObject,int,int,int,com.admob.android.ads.g) -> a
+    371:371:double a() -> a
+    433:437:void a(java.lang.String,boolean) -> a
+    446:450:void a(java.lang.String) -> a
+    460:460:int a(int) -> a
+    477:486:android.graphics.Rect a(android.graphics.Rect) -> a
+    495:495:com.admob.android.ads.g b() -> b
+    503:504:void a(com.admob.android.ads.g) -> a
+    511:511:long c() -> c
+    544:544:boolean d() -> d
+    561:562:void a(com.admob.android.ads.d$b) -> a
+    588:588:int e() -> e
+    599:599:int f() -> f
+    611:616:android.graphics.Rect g() -> g
+    644:652:void h() -> h
+    672:689:void a(org.json.JSONObject) -> a
+    749:757:void i() -> i
+    809:843:void j() -> j
+    936:955:android.view.View a(android.content.Context,java.lang.String,java.lang.String,int,int) -> a
+    961:968:void onClick(android.view.View) -> onClick
+    979:986:java.lang.String toString() -> toString
+    997:1004:boolean equals(java.lang.Object) -> equals
+    1016:1016:int hashCode() -> hashCode
+    1034:1046:void b(org.json.JSONObject) -> b
+    1057:1205:boolean c(org.json.JSONObject) -> c
+    1248:1275:android.os.Bundle d(org.json.JSONObject) -> d
+    1317:1402:void a(android.os.Bundle,java.lang.String,org.json.JSONArray) -> a
+    1432:1432:boolean k() -> k
+    1438:1452:void l() -> l
+    1467:1502:void m() -> m
+    1508:1536:void n() -> n
+    1545:1582:void a(com.admob.android.ads.r,java.lang.Exception) -> a
+    1601:1632:void a(com.admob.android.ads.r) -> a
+    1637:1669:void o() -> o
+    1721:1820:boolean a(org.json.JSONObject,com.admob.android.ads.d$d) -> a
+    1850:1904:android.view.animation.AnimationSet a(org.json.JSONArray,org.json.JSONObject,android.view.View,android.graphics.Rect) -> a
+    1915:1922:int e(org.json.JSONObject) -> e
+    1928:1954:void a(org.json.JSONObject,android.view.animation.Animation,android.view.animation.AnimationSet) -> a
+    1959:1969:void a(android.view.animation.Animation,int,int,float,java.lang.String,boolean) -> a
+    1973:2014:void a(java.lang.String,android.view.animation.Animation) -> a
+    2123:2170:android.view.animation.Animation a(android.view.View,android.graphics.Rect,org.json.JSONObject,org.json.JSONArray,org.json.JSONArray) -> a
+    2207:2214:com.admob.android.ads.m a(float,float) -> a
+    2219:2227:com.admob.android.ads.l a(android.graphics.PointF,android.graphics.PointF,android.view.View,android.graphics.Rect) -> a
+    2233:2281:android.view.animation.AnimationSet a(org.json.JSONObject,android.view.View,android.graphics.Rect,long) -> a
+    2288:2398:android.view.animation.Animation a(int,java.lang.String,java.lang.String,float[],org.json.JSONArray,java.lang.String[],long,android.view.View,android.graphics.Rect,org.json.JSONObject,org.json.JSONArray) -> a
+    2404:2411:com.admob.android.ads.k a(int,int,android.view.View) -> a
+    2416:2423:com.admob.android.ads.b a(float,float,android.view.View) -> a
+    2429:2447:com.admob.android.ads.n a(android.graphics.RectF,android.graphics.RectF,android.view.View,android.graphics.Rect) -> a
+    2452:2454:android.graphics.PointF a(android.graphics.RectF,android.graphics.PointF) -> a
+    2698:2732:android.view.View a(org.json.JSONObject,android.graphics.Rect) -> a
+    2863:2932:void a(android.widget.ImageView,android.graphics.Bitmap,org.json.JSONObject) -> a
+    2937:2959:void p() -> p
+    3016:3022:android.view.animation.Interpolator a(java.lang.String,long,long,long) -> a
+    3041:3050:android.graphics.Matrix a(org.json.JSONArray) -> a
+    3055:3066:android.graphics.Matrix a(org.json.JSONObject,java.lang.String,android.graphics.Matrix) -> a
+    3071:3090:java.lang.String[] a(org.json.JSONObject,java.lang.String) -> a
+    3095:3109:float[] b(org.json.JSONArray) -> b
+    3114:3119:float[] b(org.json.JSONObject,java.lang.String) -> b
+    3124:3124:float a(org.json.JSONObject,java.lang.String,float) -> a
+    3132:3137:int c(org.json.JSONArray) -> c
+    3142:3163:int a(org.json.JSONObject,java.lang.String,int) -> a
+    3169:3174:android.graphics.RectF d(org.json.JSONArray) -> d
+    3179:3192:android.graphics.RectF a(org.json.JSONObject,java.lang.String,android.graphics.RectF) -> a
+    3208:3221:android.graphics.Rect a(org.json.JSONObject,java.lang.String,android.graphics.Rect) -> a
+    3227:3230:android.graphics.PointF e(org.json.JSONArray) -> e
+    3235:3251:android.graphics.PointF a(org.json.JSONObject,java.lang.String,android.graphics.PointF) -> a
+    79:79:void a(com.admob.android.ads.d) -> a
+com.admob.android.ads.d$1 -> com.admob.android.ads.p:
+    int[] a -> a
+com.admob.android.ads.d$2 -> com.admob.android.ads.r:
+    713:717:void a(com.admob.android.ads.r) -> a
+    721:725:void a(com.admob.android.ads.r,java.lang.Exception) -> a
+com.admob.android.ads.d$a -> com.admob.android.ads.s:
+    java.lang.ref.WeakReference a -> a
+    726:731:void a() -> a
+    738:763:void a(com.admob.android.ads.d) -> a
+com.admob.android.ads.d$b -> com.admob.android.ads.t:
+    void a() -> b
+com.admob.android.ads.d$c -> com.admob.android.ads.u:
+    java.lang.String a -> a
+    int b -> b
+    int c -> c
+    java.lang.String d -> d
+    java.lang.ref.WeakReference e -> e
+    902:928:void run() -> run
+com.admob.android.ads.d$d -> com.admob.android.ads.v:
+    java.util.Vector a -> a
+    com.admob.android.ads.g b -> b
+    java.lang.ref.WeakReference c -> c
+    2520:2562:void run() -> run
+com.admob.android.ads.d$e -> com.admob.android.ads.w:
+    java.lang.String a -> a
+    boolean b -> b
+com.admob.android.ads.d$f -> com.admob.android.ads.x:
+    com.admob.android.ads.d$f a -> a
+    com.admob.android.ads.d$f b -> b
+    com.admob.android.ads.d$f c -> c
+    com.admob.android.ads.d$f d -> d
+    com.admob.android.ads.d$f e -> e
+    com.admob.android.ads.d$f f -> f
+    com.admob.android.ads.d$f g -> g
+    com.admob.android.ads.d$f h -> h
+    com.admob.android.ads.d$f[] i -> i
+    83:83:com.admob.android.ads.d$f[] values() -> values
+    83:83:com.admob.android.ads.d$f valueOf(java.lang.String) -> valueOf
+com.admob.android.ads.d$g -> com.admob.android.ads.y:
+    android.view.View a -> a
+    android.widget.RelativeLayout$LayoutParams b -> b
+    android.view.animation.AnimationSet c -> c
+com.admob.android.ads.e -> com.admob.android.ads.z:
+    boolean a -> a
+    38:38:com.admob.android.ads.r a(java.lang.String,java.lang.String,java.lang.String,com.admob.android.ads.h,int,java.util.Map,java.lang.String) -> a
+    61:66:com.admob.android.ads.r a(java.lang.String,java.lang.String,java.lang.String,org.json.JSONObject,com.admob.android.ads.h) -> a
+    78:78:com.admob.android.ads.r a(java.lang.String,java.lang.String,java.lang.String,com.admob.android.ads.h) -> a
+    90:95:com.admob.android.ads.r a(java.lang.String,java.lang.String,java.lang.String,com.admob.android.ads.h,int) -> a
+    106:106:com.admob.android.ads.r a(java.lang.String,java.lang.String,java.lang.String) -> a
+com.admob.android.ads.f -> com.admob.android.ads.aa:
+    float a -> a
+    android.graphics.PointF b -> b
+    36:41:float a(android.view.View) -> a
+    66:71:android.graphics.PointF b(android.view.View) -> b
+    85:95:com.admob.android.ads.f c(android.view.View) -> c
+com.admob.android.ads.g -> com.admob.android.ads.ab:
+    com.admob.android.ads.d a -> a
+    com.admob.android.ads.AdView c -> c
+    java.util.Vector d -> d
+    android.view.View e -> e
+    long f -> f
+    boolean g -> g
+    android.view.View h -> h
+    android.widget.ProgressBar b -> b
+    float i -> i
+    com.admob.android.ads.g$d j -> j
+    192:205:void a(com.admob.android.ads.d) -> a
+    213:213:com.admob.android.ads.d b() -> c
+    221:221:float c() -> d
+    230:235:void d() -> e
+    244:261:void a(android.view.View,android.widget.RelativeLayout$LayoutParams) -> a
+    344:359:void onDraw(android.graphics.Canvas) -> onDraw
+    398:399:void a() -> b
+    430:439:void e() -> f
+    500:513:boolean onKeyDown(int,android.view.KeyEvent) -> onKeyDown
+    524:538:boolean onKeyUp(int,android.view.KeyEvent) -> onKeyUp
+    546:569:void f() -> a
+    607:666:boolean dispatchTouchEvent(android.view.MotionEvent) -> dispatchTouchEvent
+    682:692:boolean j() -> j
+    711:720:long g() -> g
+    731:757:boolean dispatchTrackballEvent(android.view.MotionEvent) -> dispatchTrackballEvent
+    766:799:void k() -> k
+    848:864:org.json.JSONObject l() -> l
+    869:897:void a(android.view.View,org.json.JSONObject) -> a
+    915:937:java.util.Vector a(int,int,int,long,java.util.Vector) -> a
+    964:980:java.util.Vector a(android.view.MotionEvent,boolean,java.util.Vector) -> a
+    989:1000:java.util.Vector a(android.view.KeyEvent,java.util.Vector) -> a
+    1011:1011:void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
+    1021:1021:void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
+    1030:1030:void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
+    1034:1034:java.lang.String h() -> h
+    1039:1050:org.json.JSONObject i() -> i
+    1064:1094:void setPressed(boolean) -> setPressed
+    39:39:com.admob.android.ads.AdView a(com.admob.android.ads.g) -> a
+com.admob.android.ads.g$a -> com.admob.android.ads.ac:
+    org.json.JSONObject a -> a
+    java.lang.ref.WeakReference b -> b
+    816:838:void run() -> run
+com.admob.android.ads.g$b -> com.admob.android.ads.ad:
+    java.lang.ref.WeakReference a -> a
+    276:289:void run() -> run
+com.admob.android.ads.g$c -> com.admob.android.ads.ae:
+    java.lang.ref.WeakReference a -> a
+    414:423:void run() -> run
+com.admob.android.ads.g$d -> com.admob.android.ads.af:
+    571:571:int compare(java.lang.Object,java.lang.Object) -> compare
+com.admob.android.ads.h -> com.admob.android.ads.ag:
+    void a(com.admob.android.ads.r) -> a
+    void a(com.admob.android.ads.r,java.lang.Exception) -> a
+com.admob.android.ads.i -> com.admob.android.ads.ah:
+    java.net.HttpURLConnection m -> m
+    java.net.URL n -> n
+    79:232:boolean a() -> a
+    237:242:void h() -> h
+    249:252:void b() -> b
+    261:270:void run() -> run
+com.admob.android.ads.j -> com.admob.android.ads.ai:
+    float[] a -> a
+    float[] b -> b
+    float c -> c
+    float d -> d
+    float e -> e
+    boolean f -> f
+    android.graphics.Camera g -> g
+    84:86:void initialize(int,int,int,int) -> initialize
+    91:133:void applyTransformation(float,android.view.animation.Transformation) -> applyTransformation
+com.admob.android.ads.k -> com.admob.android.ads.aj:
+    int[] a -> a
+    int[] b -> b
+    android.view.View c -> c
+    47:66:void applyTransformation(float,android.view.animation.Transformation) -> applyTransformation
+com.admob.android.ads.l -> com.admob.android.ads.ak:
+    28:32:void applyTransformation(float,android.view.animation.Transformation) -> applyTransformation
+com.admob.android.ads.m -> com.admob.android.ads.al:
+    25:29:void applyTransformation(float,android.view.animation.Transformation) -> applyTransformation
+com.admob.android.ads.n -> com.admob.android.ads.am:
+    34:38:void applyTransformation(float,android.view.animation.Transformation) -> applyTransformation
+com.admob.android.ads.o -> com.admob.android.ads.an:
+    com.admob.android.ads.o a -> a
+    android.content.Context b -> b
+    java.lang.Thread c -> c
+    java.lang.String d -> d
+    java.util.Properties e -> e
+    android.content.Context f -> f
+    31:37:void a(android.content.Context) -> a
+    99:108:java.lang.String a() -> a
+    147:168:boolean b() -> b
+    175:191:java.io.File a(android.content.Context,java.lang.String) -> a
+    215:219:void a(com.admob.android.ads.r,java.lang.Exception) -> a
+    238:257:void a(com.admob.android.ads.r) -> a
+com.admob.android.ads.p -> com.admob.android.ads.ao:
+    float[] a -> a
+    float[] b -> b
+    26:44:void applyTransformation(float,android.view.animation.Transformation) -> applyTransformation
+com.admob.android.ads.q -> com.admob.android.ads.q:
+    float a -> a
+    boolean b -> b
+    float c -> c
+    103:139:void onMeasure(int,int) -> onMeasure
+com.admob.android.ads.r -> com.admob.android.ads.ap:
+    java.util.concurrent.Executor m -> m
+    java.lang.String n -> n
+    java.lang.String a -> a
+    int b -> b
+    java.lang.Exception c -> c
+    java.util.Map d -> d
+    int e -> e
+    int f -> f
+    java.lang.String o -> o
+    java.lang.String g -> g
+    com.admob.android.ads.h h -> h
+    java.net.URL i -> i
+    byte[] j -> j
+    boolean k -> k
+    java.lang.String l -> l
+    134:199:java.lang.String c() -> c
+    261:261:byte[] d() -> d
+    279:279:java.lang.String e() -> e
+    295:295:java.net.URL f() -> f
+    boolean a() -> a
+    void b() -> b
+    323:324:void g() -> g
+    333:334:void a(java.lang.String) -> a
+    351:352:void a(int) -> a
+com.admob.android.ads.s -> com.admob.android.ads.aq:
+    org.json.JSONObject i() -> i
+    java.lang.String h() -> h
+com.admob.android.ads.t -> com.admob.android.ads.ar:
+    boolean a -> a
+    35:47:void a(android.content.Context) -> a
+com.admob.android.ads.u -> com.admob.android.ads.as:
+    java.lang.String a -> a
+    int b -> b
+    long c -> c
+    java.lang.String d -> d
+    83:169:com.admob.android.ads.d a(com.admob.android.ads.d$a,android.content.Context,java.lang.String,java.lang.String,int,int,int,com.admob.android.ads.g,int) -> a
+    234:345:java.lang.String a(android.content.Context,java.lang.String,java.lang.String,int) -> a
+    353:370:void a(java.lang.StringBuilder,java.lang.String,java.lang.String) -> a
+com.admob.android.ads.view.AdMobWebView -> com.admob.android.ads.view.AdMobWebView:
+    android.widget.RelativeLayout d -> d
+    java.lang.String a -> a
+    java.lang.String b -> b
+    boolean c -> c
+    59:61:void removeSelf() -> a
+    74:80:boolean onKeyDown(int,android.view.KeyEvent) -> onKeyDown
+    93:95:void onFocusChanged(boolean,int,android.graphics.Rect) -> onFocusChanged
+    106:107:android.os.Parcelable onSaveInstanceState() -> onSaveInstanceState
+    119:121:void onWindowVisibilityChanged(int) -> onWindowVisibilityChanged
+    19:19:void a(com.admob.android.ads.view.AdMobWebView) -> a
+com.admob.android.ads.view.AdMobWebView$a -> com.admob.android.ads.view.a:
+    com.admob.android.ads.view.AdMobWebView a -> a
+    com.admob.android.ads.view.AdMobWebView b -> b
+    138:182:boolean shouldOverrideUrlLoading(android.webkit.WebView,java.lang.String) -> shouldOverrideUrlLoading
+    187:214:java.util.Hashtable a(java.lang.String) -> a
+    222:234:void onPageFinished(android.webkit.WebView,java.lang.String) -> onPageFinished

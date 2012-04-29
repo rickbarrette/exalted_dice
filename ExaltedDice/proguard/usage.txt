@@ -1,0 +1,132 @@
+android.annotation.SuppressLint
+android.annotation.TargetApi
+com.TwentyCode.android.ExaltedDice.BuildConfig
+com.TwentyCode.android.ExaltedDice.ColorDialogPreference$1:
+    206:207:public void colorChanged(int)
+com.TwentyCode.android.ExaltedDice.ColorDialogPreference$ColorPickerView:
+    private static final int CENTER_X
+    private static final int CENTER_Y
+    private static final int CENTER_RADIUS
+com.TwentyCode.android.ExaltedDice.ColorDialogPreference$OnColorChangedListener:
+    public abstract void colorChanged(int)
+com.TwentyCode.android.ExaltedDice.Database:
+    public static final java.lang.String KEY_NAME
+    public static final java.lang.String KEY_D_TYPE
+    public static final java.lang.String KEY_NUMBER
+    public static final java.lang.String KEY_LOG
+    public static final java.lang.String KEY_ROLL_ID
+    public static final java.lang.String KEY_MOD
+    public static final java.lang.String KEY_ROLLED
+    public static final java.lang.String KEY_MODE
+    private static final java.lang.String TAG
+    185:188:public Database(android.content.Context)
+    208:222:public boolean backup()
+    303:313:private void copyFile(java.io.File,java.io.File)
+    421:421:public android.database.Cursor getGameFromId(long)
+    499:499:public boolean isOpen()
+    510:512:public static boolean parseBoolean(java.lang.String)
+    541:563:public void restore()
+com.TwentyCode.android.ExaltedDice.DatabaseListener:
+    public abstract void onRestoreComplete()
+com.TwentyCode.android.ExaltedDice.ExaltedDice:
+    public static final java.lang.String KEY_GAME_MODE
+    public static final java.lang.String KEY_GAME_NAME
+    public static final java.lang.String KEY_GAME_ID
+    private static final java.lang.String TAG
+    private static final int DELETE
+    300:300:public void onRestoreComplete()
+    447:461:public void quitDialog()
+    604:605:public void toastLong(java.lang.CharSequence)
+com.TwentyCode.android.ExaltedDice.ExaltedDice$3
+com.TwentyCode.android.ExaltedDice.ExaltedDice$4
+com.TwentyCode.android.ExaltedDice.GameListActivity:
+    151:151:public void onRestoreComplete()
+com.TwentyCode.android.ExaltedDice.NumberPicker:
+    private static final int DEFAULT_MAX
+    private static final int DEFAULT_MIN
+    private static final int DEFAULT_VALUE
+    private static final boolean DEFAULT_WRAP
+com.TwentyCode.android.ExaltedDice.R:
+    10:10:public R()
+com.TwentyCode.android.ExaltedDice.R$array
+com.TwentyCode.android.ExaltedDice.R$attr
+com.TwentyCode.android.ExaltedDice.R$drawable
+com.TwentyCode.android.ExaltedDice.R$id
+com.TwentyCode.android.ExaltedDice.R$layout
+com.TwentyCode.android.ExaltedDice.R$menu
+com.TwentyCode.android.ExaltedDice.R$string
+com.TwentyCode.android.ExaltedDice.R$style
+com.TwentyCode.android.ExaltedDice.R$styleable:
+    223:223:public R$styleable()
+com.TwentyCode.android.ExaltedDice.R$xml
+com.TwentyCode.android.ExaltedDice.Settings:
+    public static final java.lang.String SETTINGS
+    public static final java.lang.String KEY_ROLL_AGAIN
+    public static final java.lang.String KEY_TENS_COUNT_TWICE
+    public static final java.lang.String KEY_COLOR
+com.TwentyCodes.android.exception.ExceptionHandler:
+    private static final java.lang.String MSG_SUBJECT_TAG
+    private static final java.lang.String MSG_BODY
+    protected static final int SIMPLE_NOTFICATION_ID
+    private static final java.lang.String TAG
+    72:77:public ExceptionHandler(android.content.BroadcastReceiver,android.content.Context)
+    84:89:public ExceptionHandler(android.app.Service)
+com.TwentyCodes.android.exception.ExceptionReportActivity:
+    private static final java.lang.String TAG
+com.TwentyCodes.android.exception.R:
+    10:10:public R()
+com.TwentyCodes.android.exception.R$array
+com.TwentyCodes.android.exception.R$attr
+com.TwentyCodes.android.exception.R$drawable
+com.TwentyCodes.android.exception.R$id:
+    122:122:public R$id()
+com.TwentyCodes.android.exception.R$layout:
+    153:153:public R$layout()
+com.TwentyCodes.android.exception.R$menu
+com.TwentyCodes.android.exception.R$string:
+    169:169:public R$string()
+com.TwentyCodes.android.exception.R$style
+com.TwentyCodes.android.exception.R$styleable
+com.TwentyCodes.android.exception.R$xml
+com.TwentyCodes.android.exception.Report:
+    111:117:public com.TwentyCodes.android.exception.Report generateReport(org.json.JSONObject)
+com.TwentyCodes.android.exception.ReportPostingService:
+    public static final int NOTIFICATION_ID
+    private static final java.lang.String TAG
+com.TwentyCodes.android.exception.VersionInformationPreference:
+    35:37:public VersionInformationPreference(android.content.Context)
+com.admob.android.ads.AdManager:
+    public static final java.lang.String SDK_VERSION_DATE
+    public static final java.lang.String SDK_VERSION
+    public static final java.lang.String LOG
+    public static final java.lang.String TEST_EMULATOR
+    157:159:private AdManager()
+    389:399:public static void setTestDevices(java.lang.String[])
+    406:406:static java.lang.String[] getTestDevices()
+    455:456:public static void setTestAction(java.lang.String)
+    765:766:public static void setPostalCode(java.lang.String)
+    808:809:public static void setBirthday(java.util.GregorianCalendar)
+    820:823:public static void setBirthday(int,int,int)
+    832:832:public static com.admob.android.ads.AdManager$Gender getGender()
+    864:865:public static void setGender(com.admob.android.ads.AdManager$Gender)
+    874:875:static void setEndpoint(java.lang.String)
+    883:883:static java.lang.String getEndpoint()
+com.admob.android.ads.AdView:
+    254:255:public AdView(android.app.Activity)
+    566:597:public void requestFreshAd()
+    885:886:public int getRequestInterval()
+    1143:1144:public int getTextColor()
+    1237:1237:public java.lang.String getKeywords()
+    1261:1261:public java.lang.String getSearchQuery()
+    1308:1309:public boolean isGoneWithoutAd()
+    1415:1415:public com.admob.android.ads.AdListener getAdListener()
+    1430:1430:public boolean hasAd()
+com.admob.android.ads.SimpleAdListener
+com.admob.android.ads.e:
+    9:9:public e()
+com.admob.android.ads.t:
+    13:13:t()
+com.admob.android.ads.u:
+    28:28:u()
+    380:391:static void a(java.lang.String)
+    398:398:static java.lang.String a()
