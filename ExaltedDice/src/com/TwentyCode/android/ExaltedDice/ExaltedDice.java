@@ -179,7 +179,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		 * The following is for api 11 and up
 		 * else use compat methods
 		 */
-		if(Integer.valueOf(android.os.Build.VERSION.SDK) > 11){
+		if(Integer.valueOf(android.os.Build.VERSION.SDK_INT) > 11){
 			ActionBar actionBar = getActionBar();
 			actionBar.setDisplayHomeAsUpEnabled(true);
 			initPickers();
