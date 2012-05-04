@@ -170,7 +170,15 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		Log.i(TAG, "onCreate()");
 		setContentView(R.layout.main);
 		
-		mSettings = getSharedPreferences(Settings.SETTINGS, Context.MODE_WORLD_WRITEABLE);
+		Intent i = this.getIntent();
+		if(i != null)
+			if(i.hasExtra(KEY_GAME_NAME)){
+				mGameName = i.getStringExtra(KEY_GAME_NAME);
+				mGameId = i.getLongExtra(KEY_GAME_ID, -1);
+				this.setTitle(mGameName);
+			}
+		
+		mSettings = getSharedPreferences(mGameName, Context.MODE_WORLD_WRITEABLE);
 		
 		mDiceValues = getResources().getStringArray(R.array.dice_types);
 		mModValues = getResources().getStringArray(R.array.mods);
@@ -185,14 +193,6 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 			initPickers();
 		} else 
 			initCompatPickers();
-		
-		Intent i = this.getIntent();
-		if(i != null)
-			if(i.hasExtra(KEY_GAME_NAME)){
-				mGameName = i.getStringExtra(KEY_GAME_NAME);
-				mGameId = i.getLongExtra(KEY_GAME_ID, -1);
-				this.setTitle(mGameName);
-			}
 		
 		mListView = (ListView) findViewById(R.id.list);
 		mListView.setOnItemClickListener(this);

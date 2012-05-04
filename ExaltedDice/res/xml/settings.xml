@@ -12,21 +12,25 @@
         android:summary="@string/higlight_color_msg"
         android:title="@string/higlight_color" />
 
-    <PreferenceCategory android:title="@string/successes" >
+    <PreferenceCategory
+        android:key="exalted"
+        android:title="@string/successes" >
     </PreferenceCategory>
 
     <CheckBoxPreference
-        android:defaultValue="true"
+        android:enabled="false"
         android:key="tens_count_twice"
         android:summary="@string/tens_count_twice_msg"
         android:title="@string/tens_count_twice" />
     <CheckBoxPreference
+        android:enabled="false"
         android:key="ones_subtract"
         android:summary="@string/ones_subtract_msg"
         android:title="@string/ones_subtract" />
 
     <ListPreference
         android:defaultValue="7"
+        android:enabled="false"
         android:entries="@array/success_after"
         android:entryValues="@array/success_after"
         android:key="success_after"

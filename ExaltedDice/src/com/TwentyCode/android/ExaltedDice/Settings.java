@@ -27,7 +27,6 @@ import android.view.MenuItem;
  */
 public class Settings extends PreferenceActivity implements OnPreferenceClickListener {
 	
-	public static final String SETTINGS = "settings";
 	private static final CharSequence EMAIL = "email";
 	
 	public static final String KEY_ROLL_AGAIN = "roll_again";
@@ -35,7 +34,7 @@ public class Settings extends PreferenceActivity implements OnPreferenceClickLis
 	public static final String KEY_COLOR = "color";
 	public static final String KEY_ONES_SUBRACT = "ones_subtract";
 	public static final String KEY_SUCCESS_AFTER = "success_after";
-//	public static final String KEY_ = "";
+	public static final String KEY_EXALTED = "exalted";
 //	public static final String KEY_ = "";
 	
 
@@ -76,24 +75,38 @@ public class Settings extends PreferenceActivity implements OnPreferenceClickLis
 		 */
 		@Override
 		protected void onCreate(Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
+			//load preferences xml. this load relies on only wether the app is full or not. it will show the check license option if full and leave it out if lite
+			addPreferencesFromResource(R.xml.settings);
 			
 			/*
 			 * The following is for api 11 and up
 			 */
-			if(Integer.valueOf(android.os.Build.VERSION.SDK) > 11){
+			if(Integer.valueOf(android.os.Build.VERSION.SDK_INT) > 11){
 				ActionBar actionBar = getActionBar();
 				if(actionBar != null)
 					actionBar.setDisplayHomeAsUpEnabled(true);
 			}
-			
-			super.onCreate(savedInstanceState);
-			//set shared_prefs name
-			getPreferenceManager().setSharedPreferencesName(SETTINGS);
-			
-			//load preferences xml. this load relies on only wether the app is full or not. it will show the check license option if full and leave it out if lite
-			addPreferencesFromResource(R.xml.settings);
-			this.findPreference(EMAIL).setOnPreferenceClickListener(this);
+
+			Intent i = this.getIntent();
+			if(i != null){
+				if(i.hasExtra(ExaltedDice.KEY_GAME_NAME))
+					//set shared_prefs name
+					getPreferenceManager().setSharedPreferencesName(i.getStringExtra(ExaltedDice.KEY_GAME_NAME));
+				
+				if(i.hasExtra(ExaltedDice.KEY_GAME_MODE))
+					/*
+			    	 * EXALTED
+			    	 */
+			    	if(i.getStringExtra(ExaltedDice.KEY_GAME_MODE).equals(getString(R.string.game_mode_exalted))){
+			    		this.findPreference(KEY_ONES_SUBRACT).setEnabled(true);
+			    		this.findPreference(KEY_TENS_COUNT_TWICE).setEnabled(true);
+			    		this.findPreference(KEY_SUCCESS_AFTER).setEnabled(true);
+			    	}
 			}
+			
+			this.findPreference(EMAIL).setOnPreferenceClickListener(this);
+		}
     	
     	/**
     	 * Called when a options item has been selected

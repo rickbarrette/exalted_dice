@@ -40,7 +40,7 @@ public class RollHistoryDatabaseAdapter extends BaseAdapter {
 		mDb = db;
 		mInflater = LayoutInflater.from(context);
 		mCount = mDb.getGameRollCount(mGameId);
-		mSettings = context.getSharedPreferences(Settings.SETTINGS, Context.MODE_WORLD_WRITEABLE);
+		mSettings = context.getSharedPreferences(mGameName, Context.MODE_WORLD_WRITEABLE);
 	}
 
 	/**
