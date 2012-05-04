@@ -25,6 +25,14 @@
         android:summary="@string/ones_subtract_msg"
         android:title="@string/ones_subtract" />
 
+    <ListPreference
+        android:defaultValue="7"
+        android:entries="@array/success_after"
+        android:entryValues="@array/success_after"
+        android:key="success_after"
+        android:summary="@string/success_after_msg"
+        android:title="@string/success_after" />
+
     <PreferenceCategory android:title="@string/contact_us" >
         <Preference
             android:key="email"

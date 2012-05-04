@@ -37,5 +37,8 @@
     <string name="game_mode">Game Mode</string>
     <string name="ones_subtract">Ones Subtract</string>
     <string name="ones_subtract_msg">Ones count as -1 to your successes</string>
+    <string name="success_after">Success After</string>
+    <string name="success_after_msg">Choose what are counted as successes, starting at the selected value.</string>
+    <string name="seven">7</string>
 
 </resources>

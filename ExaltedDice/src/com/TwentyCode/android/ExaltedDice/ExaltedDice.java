@@ -584,7 +584,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		Log.i(TAG, "successes()");
 		int intSuccesses = 0;
 		for (int i = 0; i < roll.length; i++) {
-			if (roll[i] >= 7)
+			if (roll[i] >= Integer.parseInt(mSettings.getString(Settings.KEY_SUCCESS_AFTER, "7")))
 				intSuccesses++;
 			if(mSettings.getBoolean(Settings.KEY_TENS_COUNT_TWICE, true))
 				if (roll[i] == 10)
@@ -592,8 +592,6 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 			if(mSettings.getBoolean(Settings.KEY_ONES_SUBRACT, false))
 				if (roll[i] == 1)
 					intSuccesses--;
-			
-			
 		}
 		return intSuccesses;
 	}
