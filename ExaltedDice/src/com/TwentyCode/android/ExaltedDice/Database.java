@@ -321,6 +321,10 @@ public class Database {
 		
 		final ProgressDialog progress = ProgressDialog.show(Database.this.mContext, "", Database.this.mContext.getText(R.string.deleteing), true, true);
 		
+		final String gameName = DatabaseUtils.sqlEscapeString(getGameName(id));
+		
+		mContext.getSharedPreferences(gameName, Context.MODE_WORLD_WRITEABLE).edit().clear().commit();
+
 		final Handler handler =  new Handler(){
 			@Override
 		    public void handleMessage(Message msg) {
@@ -334,8 +338,7 @@ public class Database {
 		 new Thread( new Runnable(){
 			 @Override
 			 public void run(){
-				 Looper.prepare();
-				 String gameName = DatabaseUtils.sqlEscapeString(getGameName(id));
+				Looper.prepare();
 		
 				Database.this.mDb.delete(GAME_HISTORY_TABLE, KEY_NAME +" = "+ gameName, null);
 				Database.this.mDb.delete(GAME_OPTIONS_TABLE, KEY_NAME +" = "+ gameName, null);
