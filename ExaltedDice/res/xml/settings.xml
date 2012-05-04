@@ -20,6 +20,10 @@
         android:key="tens_count_twice"
         android:summary="@string/tens_count_twice_msg"
         android:title="@string/tens_count_twice" />
+    <CheckBoxPreference
+        android:key="ones_subtract"
+        android:summary="@string/ones_subtract_msg"
+        android:title="@string/ones_subtract" />
 
     <PreferenceCategory android:title="@string/contact_us" >
         <Preference

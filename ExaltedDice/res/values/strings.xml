@@ -35,5 +35,7 @@
     <string name="higlight_color">Highlight Color</string>
     <string name="higlight_color_msg">Highlights your last roll in a custom color</string>
     <string name="game_mode">Game Mode</string>
+    <string name="ones_subtract">Ones Subtract</string>
+    <string name="ones_subtract_msg">Ones count as -1 to your successes</string>
 
 </resources>

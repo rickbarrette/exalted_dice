@@ -589,6 +589,11 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 			if(mSettings.getBoolean(Settings.KEY_TENS_COUNT_TWICE, true))
 				if (roll[i] == 10)
 					intSuccesses++;
+			if(mSettings.getBoolean(Settings.KEY_ONES_SUBRACT, false))
+				if (roll[i] == 1)
+					intSuccesses--;
+			
+			
 		}
 		return intSuccesses;
 	}
