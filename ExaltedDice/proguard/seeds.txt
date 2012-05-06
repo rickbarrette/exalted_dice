@@ -27,6 +27,7 @@ com.TwentyCode.android.ExaltedDice.R$array: int dice_types
 com.TwentyCode.android.ExaltedDice.R$array: int game_modes
 com.TwentyCode.android.ExaltedDice.R$array: int hello_msg
 com.TwentyCode.android.ExaltedDice.R$array: int mods
+com.TwentyCode.android.ExaltedDice.R$array: int success_after
 com.TwentyCode.android.ExaltedDice.R$attr: int backgroundColor
 com.TwentyCode.android.ExaltedDice.R$attr: int defaultValue
 com.TwentyCode.android.ExaltedDice.R$attr: int endRange
@@ -118,7 +119,11 @@ com.TwentyCode.android.ExaltedDice.R$string: int higlight_color
 com.TwentyCode.android.ExaltedDice.R$string: int higlight_color_msg
 com.TwentyCode.android.ExaltedDice.R$string: int new_game
 com.TwentyCode.android.ExaltedDice.R$string: int no_reports
+com.TwentyCode.android.ExaltedDice.R$string: int ones_subtract
+com.TwentyCode.android.ExaltedDice.R$string: int ones_subtract_msg
 com.TwentyCode.android.ExaltedDice.R$string: int quit
+com.TwentyCode.android.ExaltedDice.R$string: int reporting_error
+com.TwentyCode.android.ExaltedDice.R$string: int reporting_error_msg
 com.TwentyCode.android.ExaltedDice.R$string: int roll
 com.TwentyCode.android.ExaltedDice.R$string: int roll_again
 com.TwentyCode.android.ExaltedDice.R$string: int roll_again_summary
@@ -130,7 +135,10 @@ com.TwentyCode.android.ExaltedDice.R$string: int send
 com.TwentyCode.android.ExaltedDice.R$string: int sending
 com.TwentyCode.android.ExaltedDice.R$string: int sending_report
 com.TwentyCode.android.ExaltedDice.R$string: int settings
+com.TwentyCode.android.ExaltedDice.R$string: int seven
 com.TwentyCode.android.ExaltedDice.R$string: int sorry
+com.TwentyCode.android.ExaltedDice.R$string: int success_after
+com.TwentyCode.android.ExaltedDice.R$string: int success_after_msg
 com.TwentyCode.android.ExaltedDice.R$string: int successes
 com.TwentyCode.android.ExaltedDice.R$string: int sucesses
 com.TwentyCode.android.ExaltedDice.R$string: int tens_count_twice
@@ -160,6 +168,7 @@ com.TwentyCodes.android.exception.R$array: int dice_types
 com.TwentyCodes.android.exception.R$array: int game_modes
 com.TwentyCodes.android.exception.R$array: int hello_msg
 com.TwentyCodes.android.exception.R$array: int mods
+com.TwentyCodes.android.exception.R$array: int success_after
 com.TwentyCodes.android.exception.R$attr: int backgroundColor
 com.TwentyCodes.android.exception.R$attr: int defaultValue
 com.TwentyCodes.android.exception.R$attr: int endRange
@@ -251,7 +260,11 @@ com.TwentyCodes.android.exception.R$string: int higlight_color
 com.TwentyCodes.android.exception.R$string: int higlight_color_msg
 com.TwentyCodes.android.exception.R$string: int new_game
 com.TwentyCodes.android.exception.R$string: int no_reports
+com.TwentyCodes.android.exception.R$string: int ones_subtract
+com.TwentyCodes.android.exception.R$string: int ones_subtract_msg
 com.TwentyCodes.android.exception.R$string: int quit
+com.TwentyCodes.android.exception.R$string: int reporting_error
+com.TwentyCodes.android.exception.R$string: int reporting_error_msg
 com.TwentyCodes.android.exception.R$string: int roll
 com.TwentyCodes.android.exception.R$string: int roll_again
 com.TwentyCodes.android.exception.R$string: int roll_again_summary
@@ -263,7 +276,10 @@ com.TwentyCodes.android.exception.R$string: int send
 com.TwentyCodes.android.exception.R$string: int sending
 com.TwentyCodes.android.exception.R$string: int sending_report
 com.TwentyCodes.android.exception.R$string: int settings
+com.TwentyCodes.android.exception.R$string: int seven
 com.TwentyCodes.android.exception.R$string: int sorry
+com.TwentyCodes.android.exception.R$string: int success_after
+com.TwentyCodes.android.exception.R$string: int success_after_msg
 com.TwentyCodes.android.exception.R$string: int successes
 com.TwentyCodes.android.exception.R$string: int sucesses
 com.TwentyCodes.android.exception.R$string: int tens_count_twice
@@ -294,23 +310,28 @@ com.TwentyCodes.android.exception.ReportPostingService
 com.TwentyCodes.android.exception.VersionInformationPreference
 com.TwentyCodes.android.exception.VersionInformationPreference: VersionInformationPreference(android.content.Context,android.util.AttributeSet)
 com.TwentyCodes.android.exception.VersionInformationPreference: VersionInformationPreference(android.content.Context,android.util.AttributeSet,int)
-com.admob.android.ads.AdManager$Gender: com.admob.android.ads.AdManager$Gender[] values()
-com.admob.android.ads.AdManager$Gender: com.admob.android.ads.AdManager$Gender valueOf(java.lang.String)
-com.admob.android.ads.AdView
-com.admob.android.ads.AdView: AdView(android.content.Context,android.util.AttributeSet)
-com.admob.android.ads.AdView: AdView(android.content.Context,android.util.AttributeSet,int)
-com.admob.android.ads.AdView: void setRequestInterval(int)
-com.admob.android.ads.AdView: void setTextColor(int)
-com.admob.android.ads.AdView: void setPrimaryTextColor(int)
-com.admob.android.ads.AdView: void setSecondaryTextColor(int)
-com.admob.android.ads.AdView: void setBackgroundColor(int)
-com.admob.android.ads.AdView: void setKeywords(java.lang.String)
-com.admob.android.ads.AdView: void setSearchQuery(java.lang.String)
-com.admob.android.ads.AdView: void setGoneWithoutAd(boolean)
-com.admob.android.ads.AdView: void setVisibility(int)
-com.admob.android.ads.AdView: void setEnabled(boolean)
-com.admob.android.ads.AdView: void setAdListener(com.admob.android.ads.AdListener)
-com.admob.android.ads.d$f: com.admob.android.ads.d$f[] values()
-com.admob.android.ads.d$f: com.admob.android.ads.d$f valueOf(java.lang.String)
-com.admob.android.ads.q
-com.admob.android.ads.view.AdMobWebView
+com.google.ads.AdActivity
+com.google.ads.AdActivity: void onClick(android.view.View)
+com.google.ads.AdRequest$ErrorCode: com.google.ads.AdRequest$ErrorCode[] values()
+com.google.ads.AdRequest$ErrorCode: com.google.ads.AdRequest$ErrorCode valueOf(java.lang.String)
+com.google.ads.AdRequest$Gender: com.google.ads.AdRequest$Gender[] values()
+com.google.ads.AdRequest$Gender: com.google.ads.AdRequest$Gender valueOf(java.lang.String)
+com.google.ads.AdView
+com.google.ads.AdView: AdView(android.content.Context,android.util.AttributeSet)
+com.google.ads.AdView: AdView(android.content.Context,android.util.AttributeSet,int)
+com.google.ads.AdView: void setAdListener(com.google.ads.AdListener)
+com.google.ads.ag$b: com.google.ads.ag$b[] values()
+com.google.ads.ag$b: com.google.ads.ag$b valueOf(java.lang.String)
+com.google.ads.internal.AdVideoView
+com.google.ads.internal.AdVideoView: void setMediaControllerEnabled(boolean)
+com.google.ads.internal.AdVideoView: void setSrc(java.lang.String)
+com.google.ads.internal.AdWebView
+com.google.ads.internal.AdWebView: void setAdActivity(com.google.ads.AdActivity)
+com.google.ads.internal.AdWebView: void setIsExpandedMraid(boolean)
+com.google.ads.searchads.SearchAdRequest$BorderType: com.google.ads.searchads.SearchAdRequest$BorderType[] values()
+com.google.ads.searchads.SearchAdRequest$BorderType: com.google.ads.searchads.SearchAdRequest$BorderType valueOf(java.lang.String)
+com.google.ads.util.AdUtil$UserActivityReceiver
+com.google.ads.util.AdUtil$a: com.google.ads.util.AdUtil$a[] values()
+com.google.ads.util.AdUtil$a: com.google.ads.util.AdUtil$a valueOf(java.lang.String)
+com.google.ads.util.b$a: com.google.ads.util.b$a[] values()
+com.google.ads.util.b$a: com.google.ads.util.b$a valueOf(java.lang.String)

@@ -33,23 +33,23 @@ com.TwentyCode.android.ExaltedDice.Database -> com.TwentyCode.android.ExaltedDic
     232:241:java.lang.String checkName(java.lang.String) -> b
     250:285:void clearHistory(long) -> a
     292:293:void close() -> a
-    322:351:void deleteGame(long) -> b
-    361:361:void deleteRoll(long,long) -> a
-    372:384:android.content.ContentValues generateContentValues(java.lang.String,java.lang.String,java.lang.Object) -> a
-    392:392:android.database.Cursor getAllGames() -> b
-    401:411:java.util.List getAllGameTitles() -> c
-    432:432:android.content.ContentValues getGameHistoryInfo(java.lang.String,int) -> a
-    442:449:java.lang.String getGameName(long) -> c
-    459:459:android.content.ContentValues getGameOptions(long) -> d
-    469:477:int getGameRollCount(long) -> e
-    488:491:long insertGame(java.lang.String) -> a
-    523:532:android.content.ContentValues parseCursor(android.database.Cursor) -> a
-    576:600:void updateGame(long,java.lang.String,android.content.ContentValues,int) -> a
-    609:629:void updateOptions(long,android.content.ContentValues) -> a
-    638:654:void updateRowIds(long) -> f
+    322:354:void deleteGame(long) -> b
+    364:364:void deleteRoll(long,long) -> a
+    375:387:android.content.ContentValues generateContentValues(java.lang.String,java.lang.String,java.lang.Object) -> a
+    395:395:android.database.Cursor getAllGames() -> b
+    404:414:java.util.List getAllGameTitles() -> c
+    435:435:android.content.ContentValues getGameHistoryInfo(java.lang.String,int) -> a
+    445:452:java.lang.String getGameName(long) -> c
+    462:462:android.content.ContentValues getGameOptions(long) -> d
+    472:480:int getGameRollCount(long) -> e
+    491:494:long insertGame(java.lang.String) -> a
+    526:535:android.content.ContentValues parseCursor(android.database.Cursor) -> a
+    579:603:void updateGame(long,java.lang.String,android.content.ContentValues,int) -> a
+    612:632:void updateOptions(long,android.content.ContentValues) -> a
+    641:657:void updateRowIds(long) -> f
     83:83:com.TwentyCode.android.ExaltedDice.DatabaseListener access$0(com.TwentyCode.android.ExaltedDice.Database) -> a
     81:81:android.database.sqlite.SQLiteDatabase access$1(com.TwentyCode.android.ExaltedDice.Database) -> b
-    636:636:void access$2(com.TwentyCode.android.ExaltedDice.Database,long) -> a
+    639:639:void access$2(com.TwentyCode.android.ExaltedDice.Database,long) -> a
 com.TwentyCode.android.ExaltedDice.Database$1 -> com.TwentyCode.android.ExaltedDice.e:
     com.TwentyCode.android.ExaltedDice.Database this$0 -> a
     android.app.ProgressDialog val$progress -> b
@@ -62,12 +62,13 @@ com.TwentyCode.android.ExaltedDice.Database$2 -> com.TwentyCode.android.ExaltedD
 com.TwentyCode.android.ExaltedDice.Database$3 -> com.TwentyCode.android.ExaltedDice.g:
     com.TwentyCode.android.ExaltedDice.Database this$0 -> a
     android.app.ProgressDialog val$progress -> b
-    327:330:void handleMessage(android.os.Message) -> handleMessage
+    331:334:void handleMessage(android.os.Message) -> handleMessage
 com.TwentyCode.android.ExaltedDice.Database$4 -> com.TwentyCode.android.ExaltedDice.h:
     com.TwentyCode.android.ExaltedDice.Database this$0 -> a
-    long val$id -> b
-    android.os.Handler val$handler -> c
-    337:349:void run() -> run
+    java.lang.String val$gameName -> b
+    long val$id -> c
+    android.os.Handler val$handler -> d
+    341:352:void run() -> run
 com.TwentyCode.android.ExaltedDice.Database$OpenHelper -> com.TwentyCode.android.ExaltedDice.i:
     com.TwentyCode.android.ExaltedDice.Database this$0 -> a
     107:124:void createDatabase(android.database.sqlite.SQLiteDatabase) -> a
@@ -135,8 +136,8 @@ com.TwentyCode.android.ExaltedDice.ExaltedDice -> com.TwentyCode.android.Exalted
     480:508:android.content.ContentValues results(int) -> a
     517:554:void rollDice() -> f
     563:572:int[] rollGen(int) -> b
-    584:593:int successes(int[]) -> a
-    614:617:void vibrate(long) -> a
+    584:596:int successes(int[]) -> a
+    617:620:void vibrate(long) -> a
     54:54:android.widget.ProgressBar access$0(com.TwentyCode.android.ExaltedDice.ExaltedDice) -> a
     55:55:android.view.View access$1(com.TwentyCode.android.ExaltedDice.ExaltedDice) -> b
     48:48:com.TwentyCode.android.ExaltedDice.Database access$2(com.TwentyCode.android.ExaltedDice.ExaltedDice) -> c
@@ -290,10 +291,10 @@ com.TwentyCode.android.ExaltedDice.RollHistoryDatabaseAdapter$ViewHolder -> com.
     com.TwentyCode.android.ExaltedDice.RollHistoryDatabaseAdapter this$0 -> d
 com.TwentyCode.android.ExaltedDice.Settings -> com.TwentyCode.android.ExaltedDice.Settings:
     java.lang.CharSequence EMAIL -> a
-    52:70:android.content.Intent generateEmailIntent() -> a
-    83:96:void onCreate(android.os.Bundle) -> onCreate
-    104:112:boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
-    121:122:boolean onPreferenceClick(android.preference.Preference) -> onPreferenceClick
+    51:69:android.content.Intent generateEmailIntent() -> a
+    78:109:void onCreate(android.os.Bundle) -> onCreate
+    117:125:boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
+    134:135:boolean onPreferenceClick(android.preference.Preference) -> onPreferenceClick
 com.TwentyCodes.android.exception.ExceptionHandler -> com.TwentyCodes.android.exception.a:
     java.lang.Thread$UncaughtExceptionHandler mDefaultUEH -> a
     android.app.Activity mApp -> b
@@ -378,7 +379,11 @@ com.TwentyCodes.android.exception.R$string -> com.TwentyCodes.android.exception.
     int higlight_color_msg -> higlight_color_msg
     int new_game -> new_game
     int no_reports -> no_reports
+    int ones_subtract -> ones_subtract
+    int ones_subtract_msg -> ones_subtract_msg
     int quit -> quit
+    int reporting_error -> reporting_error
+    int reporting_error_msg -> reporting_error_msg
     int roll -> roll
     int roll_again -> roll_again
     int roll_again_summary -> roll_again_summary
@@ -390,7 +395,10 @@ com.TwentyCodes.android.exception.R$string -> com.TwentyCodes.android.exception.
     int sending -> sending
     int sending_report -> sending_report
     int settings -> settings
+    int seven -> seven
     int sorry -> sorry
+    int success_after -> success_after
+    int success_after_msg -> success_after_msg
     int successes -> successes
     int sucesses -> sucesses
     int tens_count_twice -> tens_count_twice
@@ -446,491 +454,987 @@ com.TwentyCodes.android.exception.ReportPostingService -> com.TwentyCodes.androi
     int mStartId -> b
     com.TwentyCodes.android.exception.Report mReport -> c
     boolean isStarted -> d
-    43:44:void getReport(android.content.Intent) -> a
-    52:52:android.os.IBinder onBind(android.content.Intent) -> onBind
-    65:87:void onCreate() -> onCreate
-    97:99:void onDestroy() -> onDestroy
-    108:112:void onStart(android.content.Intent,int) -> onStart
-    120:123:int onStartCommand(android.content.Intent,int,int) -> onStartCommand
-    131:148:void postReport() -> a
-    33:33:int access$0(com.TwentyCodes.android.exception.ReportPostingService) -> a
-    34:34:com.TwentyCodes.android.exception.Report access$1(com.TwentyCodes.android.exception.ReportPostingService) -> b
-com.TwentyCodes.android.exception.ReportPostingService$1 -> com.TwentyCodes.android.exception.j:
-    com.TwentyCodes.android.exception.ReportPostingService this$0 -> a
-    137:145:void run() -> run
+    android.content.Intent mIntent -> e
+    boolean hasErrored -> f
+    51:80:void fireNotification(java.lang.String,java.lang.String,java.lang.String,int,android.content.Intent,boolean) -> a
+    88:89:void getReport(android.content.Intent) -> a
+    96:102:void notifyError() -> a
+    109:116:void notifySending() -> b
+    125:125:android.os.IBinder onBind(android.content.Intent) -> onBind
+    137:142:void onCreate() -> onCreate
+    151:155:void onDestroy() -> onDestroy
+    164:169:void onStart(android.content.Intent,int) -> onStart
+    177:181:int onStartCommand(android.content.Intent,int,int) -> onStartCommand
+    189:203:void postReport() -> c
 com.TwentyCodes.android.exception.VersionInformationPreference -> com.TwentyCodes.android.exception.VersionInformationPreference:
     android.content.Context mContext -> a
     75:114:android.view.View onCreateView(android.view.ViewGroup) -> onCreateView
-com.admob.android.ads.AdListener -> com.admob.android.ads.a:
-    void onReceiveAd(com.admob.android.ads.AdView) -> a
-    void onFailedToReceiveAd(com.admob.android.ads.AdView) -> b
-    void onReceiveRefreshedAd(com.admob.android.ads.AdView) -> c
-    void onFailedToReceiveRefreshedAd(com.admob.android.ads.AdView) -> d
-com.admob.android.ads.AdManager -> com.admob.android.ads.b:
-    java.lang.String a -> a
-    int b -> b
-    java.lang.String c -> c
-    java.lang.String d -> d
-    java.lang.String[] e -> e
-    java.lang.String f -> f
-    android.location.Location g -> g
-    long h -> h
-    java.lang.String i -> i
-    java.util.GregorianCalendar j -> j
-    com.admob.android.ads.AdManager$Gender k -> k
-    171:174:void clientError(java.lang.String) -> a
-    185:191:int getScreenWidth(android.content.Context) -> a
-    205:263:void b(android.content.Context) -> j
-    275:280:java.lang.String getApplicationPackageName(android.content.Context) -> b
-    293:298:int getApplicationVersion(android.content.Context) -> c
-    309:321:java.lang.String getPublisherId(android.content.Context) -> d
-    336:350:void setPublisherId(java.lang.String) -> b
-    360:360:java.lang.String getTestAction() -> a
-    419:434:boolean isTestDevice(android.content.Context) -> e
-    467:500:java.lang.String getUserId(android.content.Context) -> f
-    512:531:java.lang.String a(java.lang.String) -> c
-    555:683:android.location.Location getCoordinates(android.content.Context) -> g
-    696:709:java.lang.String a(android.content.Context) -> h
-    720:720:java.lang.String a() -> b
-    730:730:java.lang.String getPostalCode() -> c
-    740:748:java.lang.String getOrientation(android.content.Context) -> i
-    776:776:java.util.GregorianCalendar getBirthday() -> d
-    787:798:java.lang.String b() -> e
-    843:853:java.lang.String c() -> f
-    22:22:android.location.Location a(android.location.Location) -> a
-    22:22:long a(long) -> a
-    22:22:android.location.Location d() -> g
-    22:22:long e() -> h
-com.admob.android.ads.AdManager$1 -> com.admob.android.ads.c:
-    android.location.LocationManager a -> a
-    646:659:void onLocationChanged(android.location.Location) -> onLocationChanged
-    664:664:void onProviderDisabled(java.lang.String) -> onProviderDisabled
-    669:669:void onProviderEnabled(java.lang.String) -> onProviderEnabled
-    674:674:void onStatusChanged(java.lang.String,int,android.os.Bundle) -> onStatusChanged
-com.admob.android.ads.AdManager$Gender -> com.admob.android.ads.d:
-    com.admob.android.ads.AdManager$Gender MALE -> a
-    com.admob.android.ads.AdManager$Gender FEMALE -> b
-    com.admob.android.ads.AdManager$Gender[] a -> c
-    27:27:com.admob.android.ads.AdManager$Gender[] values() -> values
-    27:27:com.admob.android.ads.AdManager$Gender valueOf(java.lang.String) -> valueOf
-com.admob.android.ads.AdView -> com.admob.android.ads.AdView:
-    java.lang.Boolean b -> b
-    com.admob.android.ads.g c -> c
-    int d -> d
-    boolean e -> e
-    com.admob.android.ads.AdView$a f -> f
-    int g -> g
-    int h -> h
-    int i -> i
-    java.lang.String j -> j
-    java.lang.String k -> k
-    com.admob.android.ads.AdListener l -> l
-    boolean m -> m
+com.google.ads.Ad -> com.google.ads.a:
+com.google.ads.AdActivity -> com.google.ads.AdActivity:
+    com.google.ads.internal.a a -> a
+    java.lang.Object b -> b
+    com.google.ads.AdActivity c -> c
+    com.google.ads.internal.d d -> d
+    com.google.ads.AdActivity e -> e
+    com.google.ads.AdActivity f -> f
+    com.google.ads.AdActivity$StaticMethodWrapper g -> g
+    com.google.ads.internal.AdWebView h -> h
+    android.view.ViewGroup i -> i
+    boolean j -> j
+    long k -> k
+    android.widget.RelativeLayout l -> l
+    com.google.ads.AdActivity m -> m
     boolean n -> n
     boolean o -> o
-    long p -> p
-    com.admob.android.ads.d$a q -> q
-    android.os.Handler a -> a
-    java.util.Vector r -> r
-    385:468:void onMeasure(int,int) -> onMeasure
-    609:635:void a() -> d
-    778:816:void a(com.admob.android.ads.d,com.admob.android.ads.g) -> a
-    904:936:void setRequestInterval(int) -> setRequestInterval
-    947:961:void a(boolean) -> a
-    969:979:void b() -> e
-    1020:1041:boolean c() -> f
-    1113:1114:void onWindowFocusChanged(boolean) -> onWindowFocusChanged
-    1123:1124:void onWindowVisibilityChanged(int) -> onWindowVisibilityChanged
-    1132:1135:void setTextColor(int) -> setTextColor
-    1155:1155:int getPrimaryTextColor() -> a
-    1171:1172:void setPrimaryTextColor(int) -> setPrimaryTextColor
-    1182:1182:int getSecondaryTextColor() -> b
-    1199:1200:void setSecondaryTextColor(int) -> setSecondaryTextColor
-    1214:1217:void setBackgroundColor(int) -> setBackgroundColor
-    1227:1227:int getBackgroundColor() -> c
-    1252:1253:void setKeywords(java.lang.String) -> setKeywords
-    1272:1273:void setSearchQuery(java.lang.String) -> setSearchQuery
-    1299:1300:void setGoneWithoutAd(boolean) -> setGoneWithoutAd
-    1338:1363:void setVisibility(int) -> setVisibility
-    1379:1390:void setEnabled(boolean) -> setEnabled
-    1402:1405:void setAdListener(com.admob.android.ads.AdListener) -> setAdListener
-    1449:1452:void onAttachedToWindow() -> onAttachedToWindow
-    1460:1463:void onDetachedFromWindow() -> onDetachedFromWindow
-    1632:1633:void a(android.view.View) -> a
-    1637:1638:void b(android.view.View) -> b
-    1652:1673:boolean a(android.content.Context) -> a
-    53:53:com.admob.android.ads.g a(com.admob.android.ads.AdView) -> a
-    53:53:com.admob.android.ads.AdListener b(com.admob.android.ads.AdView) -> b
-    53:53:void c(com.admob.android.ads.AdView) -> c
-    53:53:com.admob.android.ads.d$a d(com.admob.android.ads.AdView) -> d
-    53:53:java.lang.String e(com.admob.android.ads.AdView) -> e
-    53:53:java.lang.String f(com.admob.android.ads.AdView) -> f
-    53:53:boolean a(com.admob.android.ads.AdView,boolean) -> a
-    53:53:void b(com.admob.android.ads.AdView,boolean) -> b
-    53:53:long g(com.admob.android.ads.AdView) -> g
-    53:53:void a(com.admob.android.ads.AdView,com.admob.android.ads.d) -> a
-    53:53:void a(com.admob.android.ads.AdView,com.admob.android.ads.g) -> a
-    53:53:void b(com.admob.android.ads.AdView,com.admob.android.ads.g) -> b
-    53:53:com.admob.android.ads.g c(com.admob.android.ads.AdView,com.admob.android.ads.g) -> c
-    53:53:int h(com.admob.android.ads.AdView) -> h
-    53:53:void i(com.admob.android.ads.AdView) -> i
-com.admob.android.ads.AdView$1 -> com.admob.android.ads.e:
-    com.admob.android.ads.g a -> a
-    com.admob.android.ads.AdView b -> b
-    1513:1513:void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
-    1519:1520:void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
-    1524:1524:void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
-com.admob.android.ads.AdView$a -> com.admob.android.ads.f:
-    boolean a -> a
-    java.lang.ref.WeakReference b -> b
-    1067:1091:void run() -> run
-com.admob.android.ads.AdView$b -> com.admob.android.ads.g:
-    java.lang.ref.WeakReference a -> a
-    java.lang.ref.WeakReference b -> b
-    int c -> c
-    boolean d -> d
-    837:873:void run() -> run
-com.admob.android.ads.AdView$c -> com.admob.android.ads.h:
-    java.lang.ref.WeakReference a -> a
-    java.lang.ref.WeakReference b -> b
-    1552:1612:void run() -> run
-com.admob.android.ads.AdView$c$1 -> com.admob.android.ads.i:
-    com.admob.android.ads.g a -> a
-    com.admob.android.ads.AdView b -> b
-    com.admob.android.ads.g c -> c
-    1578:1578:void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
-    1584:1595:void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
-    1599:1599:void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
-com.admob.android.ads.AdView$d -> com.admob.android.ads.j:
-    java.lang.ref.WeakReference a -> a
-    495:521:void run() -> run
-com.admob.android.ads.a -> com.admob.android.ads.k:
-    java.lang.ref.WeakReference a -> a
-    648:700:void run() -> run
-com.admob.android.ads.b -> com.admob.android.ads.l:
-    android.view.View a -> a
-    float b -> b
-    float c -> c
-    35:52:void applyTransformation(float,android.view.animation.Transformation) -> applyTransformation
-com.admob.android.ads.b$a -> com.admob.android.ads.m:
-    void f() -> a
-com.admob.android.ads.c -> com.admob.android.ads.n:
-    android.view.animation.Interpolator a -> a
-    float b -> b
-    float c -> c
-    26:36:float getInterpolation(float) -> getInterpolation
-com.admob.android.ads.d -> com.admob.android.ads.o:
-    int c -> c
-    android.graphics.Rect d -> d
-    android.graphics.PointF e -> e
-    android.graphics.PointF f -> f
-    android.graphics.PointF g -> g
-    android.graphics.Matrix h -> h
-    android.graphics.RectF i -> i
-    java.lang.String j -> j
-    java.lang.String k -> k
-    boolean l -> l
-    boolean m -> m
-    java.util.Vector n -> n
-    java.util.Vector o -> o
-    java.util.Vector p -> p
-    com.admob.android.ads.d$f q -> q
-    android.graphics.Rect r -> r
-    long s -> s
-    int t -> t
-    int u -> u
-    android.view.View a -> a
-    com.admob.android.ads.d$a v -> v
-    com.admob.android.ads.g b -> b
-    int w -> w
-    int x -> x
-    int y -> y
-    org.json.JSONObject z -> z
-    java.util.Hashtable A -> A
-    java.util.HashSet B -> B
-    java.util.Vector C -> C
-    com.admob.android.ads.d$b D -> D
-    double E -> E
-    double F -> F
-    287:309:com.admob.android.ads.d a(com.admob.android.ads.d$a,org.json.JSONObject,int,int,int,com.admob.android.ads.g) -> a
-    371:371:double a() -> a
-    433:437:void a(java.lang.String,boolean) -> a
-    446:450:void a(java.lang.String) -> a
-    460:460:int a(int) -> a
-    477:486:android.graphics.Rect a(android.graphics.Rect) -> a
-    495:495:com.admob.android.ads.g b() -> b
-    503:504:void a(com.admob.android.ads.g) -> a
-    511:511:long c() -> c
-    544:544:boolean d() -> d
-    561:562:void a(com.admob.android.ads.d$b) -> a
-    588:588:int e() -> e
-    599:599:int f() -> f
-    611:616:android.graphics.Rect g() -> g
-    644:652:void h() -> h
-    672:689:void a(org.json.JSONObject) -> a
-    749:757:void i() -> i
-    809:843:void j() -> j
-    936:955:android.view.View a(android.content.Context,java.lang.String,java.lang.String,int,int) -> a
-    961:968:void onClick(android.view.View) -> onClick
-    979:986:java.lang.String toString() -> toString
-    997:1004:boolean equals(java.lang.Object) -> equals
-    1016:1016:int hashCode() -> hashCode
-    1034:1046:void b(org.json.JSONObject) -> b
-    1057:1205:boolean c(org.json.JSONObject) -> c
-    1248:1275:android.os.Bundle d(org.json.JSONObject) -> d
-    1317:1402:void a(android.os.Bundle,java.lang.String,org.json.JSONArray) -> a
-    1432:1432:boolean k() -> k
-    1438:1452:void l() -> l
-    1467:1502:void m() -> m
-    1508:1536:void n() -> n
-    1545:1582:void a(com.admob.android.ads.r,java.lang.Exception) -> a
-    1601:1632:void a(com.admob.android.ads.r) -> a
-    1637:1669:void o() -> o
-    1721:1820:boolean a(org.json.JSONObject,com.admob.android.ads.d$d) -> a
-    1850:1904:android.view.animation.AnimationSet a(org.json.JSONArray,org.json.JSONObject,android.view.View,android.graphics.Rect) -> a
-    1915:1922:int e(org.json.JSONObject) -> e
-    1928:1954:void a(org.json.JSONObject,android.view.animation.Animation,android.view.animation.AnimationSet) -> a
-    1959:1969:void a(android.view.animation.Animation,int,int,float,java.lang.String,boolean) -> a
-    1973:2014:void a(java.lang.String,android.view.animation.Animation) -> a
-    2123:2170:android.view.animation.Animation a(android.view.View,android.graphics.Rect,org.json.JSONObject,org.json.JSONArray,org.json.JSONArray) -> a
-    2207:2214:com.admob.android.ads.m a(float,float) -> a
-    2219:2227:com.admob.android.ads.l a(android.graphics.PointF,android.graphics.PointF,android.view.View,android.graphics.Rect) -> a
-    2233:2281:android.view.animation.AnimationSet a(org.json.JSONObject,android.view.View,android.graphics.Rect,long) -> a
-    2288:2398:android.view.animation.Animation a(int,java.lang.String,java.lang.String,float[],org.json.JSONArray,java.lang.String[],long,android.view.View,android.graphics.Rect,org.json.JSONObject,org.json.JSONArray) -> a
-    2404:2411:com.admob.android.ads.k a(int,int,android.view.View) -> a
-    2416:2423:com.admob.android.ads.b a(float,float,android.view.View) -> a
-    2429:2447:com.admob.android.ads.n a(android.graphics.RectF,android.graphics.RectF,android.view.View,android.graphics.Rect) -> a
-    2452:2454:android.graphics.PointF a(android.graphics.RectF,android.graphics.PointF) -> a
-    2698:2732:android.view.View a(org.json.JSONObject,android.graphics.Rect) -> a
-    2863:2932:void a(android.widget.ImageView,android.graphics.Bitmap,org.json.JSONObject) -> a
-    2937:2959:void p() -> p
-    3016:3022:android.view.animation.Interpolator a(java.lang.String,long,long,long) -> a
-    3041:3050:android.graphics.Matrix a(org.json.JSONArray) -> a
-    3055:3066:android.graphics.Matrix a(org.json.JSONObject,java.lang.String,android.graphics.Matrix) -> a
-    3071:3090:java.lang.String[] a(org.json.JSONObject,java.lang.String) -> a
-    3095:3109:float[] b(org.json.JSONArray) -> b
-    3114:3119:float[] b(org.json.JSONObject,java.lang.String) -> b
-    3124:3124:float a(org.json.JSONObject,java.lang.String,float) -> a
-    3132:3137:int c(org.json.JSONArray) -> c
-    3142:3163:int a(org.json.JSONObject,java.lang.String,int) -> a
-    3169:3174:android.graphics.RectF d(org.json.JSONArray) -> d
-    3179:3192:android.graphics.RectF a(org.json.JSONObject,java.lang.String,android.graphics.RectF) -> a
-    3208:3221:android.graphics.Rect a(org.json.JSONObject,java.lang.String,android.graphics.Rect) -> a
-    3227:3230:android.graphics.PointF e(org.json.JSONArray) -> e
-    3235:3251:android.graphics.PointF a(org.json.JSONObject,java.lang.String,android.graphics.PointF) -> a
-    79:79:void a(com.admob.android.ads.d) -> a
-com.admob.android.ads.d$1 -> com.admob.android.ads.p:
-    int[] a -> a
-com.admob.android.ads.d$2 -> com.admob.android.ads.r:
-    713:717:void a(com.admob.android.ads.r) -> a
-    721:725:void a(com.admob.android.ads.r,java.lang.Exception) -> a
-com.admob.android.ads.d$a -> com.admob.android.ads.s:
-    java.lang.ref.WeakReference a -> a
-    726:731:void a() -> a
-    738:763:void a(com.admob.android.ads.d) -> a
-com.admob.android.ads.d$b -> com.admob.android.ads.t:
-    void a() -> b
-com.admob.android.ads.d$c -> com.admob.android.ads.u:
-    java.lang.String a -> a
-    int b -> b
-    int c -> c
-    java.lang.String d -> d
-    java.lang.ref.WeakReference e -> e
-    902:928:void run() -> run
-com.admob.android.ads.d$d -> com.admob.android.ads.v:
-    java.util.Vector a -> a
-    com.admob.android.ads.g b -> b
-    java.lang.ref.WeakReference c -> c
-    2520:2562:void run() -> run
-com.admob.android.ads.d$e -> com.admob.android.ads.w:
-    java.lang.String a -> a
-    boolean b -> b
-com.admob.android.ads.d$f -> com.admob.android.ads.x:
-    com.admob.android.ads.d$f a -> a
-    com.admob.android.ads.d$f b -> b
-    com.admob.android.ads.d$f c -> c
-    com.admob.android.ads.d$f d -> d
-    com.admob.android.ads.d$f e -> e
-    com.admob.android.ads.d$f f -> f
-    com.admob.android.ads.d$f g -> g
-    com.admob.android.ads.d$f h -> h
-    com.admob.android.ads.d$f[] i -> i
-    83:83:com.admob.android.ads.d$f[] values() -> values
-    83:83:com.admob.android.ads.d$f valueOf(java.lang.String) -> valueOf
-com.admob.android.ads.d$g -> com.admob.android.ads.y:
-    android.view.View a -> a
-    android.widget.RelativeLayout$LayoutParams b -> b
-    android.view.animation.AnimationSet c -> c
-com.admob.android.ads.e -> com.admob.android.ads.z:
-    boolean a -> a
-    38:38:com.admob.android.ads.r a(java.lang.String,java.lang.String,java.lang.String,com.admob.android.ads.h,int,java.util.Map,java.lang.String) -> a
-    61:66:com.admob.android.ads.r a(java.lang.String,java.lang.String,java.lang.String,org.json.JSONObject,com.admob.android.ads.h) -> a
-    78:78:com.admob.android.ads.r a(java.lang.String,java.lang.String,java.lang.String,com.admob.android.ads.h) -> a
-    90:95:com.admob.android.ads.r a(java.lang.String,java.lang.String,java.lang.String,com.admob.android.ads.h,int) -> a
-    106:106:com.admob.android.ads.r a(java.lang.String,java.lang.String,java.lang.String) -> a
-com.admob.android.ads.f -> com.admob.android.ads.aa:
-    float a -> a
-    android.graphics.PointF b -> b
-    36:41:float a(android.view.View) -> a
-    66:71:android.graphics.PointF b(android.view.View) -> b
-    85:95:com.admob.android.ads.f c(android.view.View) -> c
-com.admob.android.ads.g -> com.admob.android.ads.ab:
-    com.admob.android.ads.d a -> a
-    com.admob.android.ads.AdView c -> c
-    java.util.Vector d -> d
-    android.view.View e -> e
-    long f -> f
-    boolean g -> g
-    android.view.View h -> h
-    android.widget.ProgressBar b -> b
-    float i -> i
-    com.admob.android.ads.g$d j -> j
-    192:205:void a(com.admob.android.ads.d) -> a
-    213:213:com.admob.android.ads.d b() -> c
-    221:221:float c() -> d
-    230:235:void d() -> e
-    244:261:void a(android.view.View,android.widget.RelativeLayout$LayoutParams) -> a
-    344:359:void onDraw(android.graphics.Canvas) -> onDraw
-    398:399:void a() -> b
-    430:439:void e() -> f
-    500:513:boolean onKeyDown(int,android.view.KeyEvent) -> onKeyDown
-    524:538:boolean onKeyUp(int,android.view.KeyEvent) -> onKeyUp
-    546:569:void f() -> a
-    607:666:boolean dispatchTouchEvent(android.view.MotionEvent) -> dispatchTouchEvent
-    682:692:boolean j() -> j
-    711:720:long g() -> g
-    731:757:boolean dispatchTrackballEvent(android.view.MotionEvent) -> dispatchTrackballEvent
-    766:799:void k() -> k
-    848:864:org.json.JSONObject l() -> l
-    869:897:void a(android.view.View,org.json.JSONObject) -> a
-    915:937:java.util.Vector a(int,int,int,long,java.util.Vector) -> a
-    964:980:java.util.Vector a(android.view.MotionEvent,boolean,java.util.Vector) -> a
-    989:1000:java.util.Vector a(android.view.KeyEvent,java.util.Vector) -> a
-    1011:1011:void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
-    1021:1021:void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
-    1030:1030:void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
-    1034:1034:java.lang.String h() -> h
-    1039:1050:org.json.JSONObject i() -> i
-    1064:1094:void setPressed(boolean) -> setPressed
-    39:39:com.admob.android.ads.AdView a(com.admob.android.ads.g) -> a
-com.admob.android.ads.g$a -> com.admob.android.ads.ac:
-    org.json.JSONObject a -> a
-    java.lang.ref.WeakReference b -> b
-    816:838:void run() -> run
-com.admob.android.ads.g$b -> com.admob.android.ads.ad:
-    java.lang.ref.WeakReference a -> a
-    276:289:void run() -> run
-com.admob.android.ads.g$c -> com.admob.android.ads.ae:
-    java.lang.ref.WeakReference a -> a
-    414:423:void run() -> run
-com.admob.android.ads.g$d -> com.admob.android.ads.af:
-    571:571:int compare(java.lang.Object,java.lang.Object) -> compare
-com.admob.android.ads.h -> com.admob.android.ads.ag:
-    void a(com.admob.android.ads.r) -> a
-    void a(com.admob.android.ads.r,java.lang.Exception) -> a
-com.admob.android.ads.i -> com.admob.android.ads.ah:
-    java.net.HttpURLConnection m -> m
-    java.net.URL n -> n
-    79:232:boolean a() -> a
-    237:242:void h() -> h
-    249:252:void b() -> b
-    261:270:void run() -> run
-com.admob.android.ads.j -> com.admob.android.ads.ai:
-    float[] a -> a
-    float[] b -> b
-    float c -> c
-    float d -> d
-    float e -> e
-    boolean f -> f
-    android.graphics.Camera g -> g
-    84:86:void initialize(int,int,int,int) -> initialize
-    91:133:void applyTransformation(float,android.view.animation.Transformation) -> applyTransformation
-com.admob.android.ads.k -> com.admob.android.ads.aj:
-    int[] a -> a
-    int[] b -> b
-    android.view.View c -> c
-    47:66:void applyTransformation(float,android.view.animation.Transformation) -> applyTransformation
-com.admob.android.ads.l -> com.admob.android.ads.ak:
-    28:32:void applyTransformation(float,android.view.animation.Transformation) -> applyTransformation
-com.admob.android.ads.m -> com.admob.android.ads.al:
-    25:29:void applyTransformation(float,android.view.animation.Transformation) -> applyTransformation
-com.admob.android.ads.n -> com.admob.android.ads.am:
-    34:38:void applyTransformation(float,android.view.animation.Transformation) -> applyTransformation
-com.admob.android.ads.o -> com.admob.android.ads.an:
-    com.admob.android.ads.o a -> a
-    android.content.Context b -> b
-    java.lang.Thread c -> c
-    java.lang.String d -> d
-    java.util.Properties e -> e
-    android.content.Context f -> f
-    31:37:void a(android.content.Context) -> a
-    99:108:java.lang.String a() -> a
-    147:168:boolean b() -> b
-    175:191:java.io.File a(android.content.Context,java.lang.String) -> a
-    215:219:void a(com.admob.android.ads.r,java.lang.Exception) -> a
-    238:257:void a(com.admob.android.ads.r) -> a
-com.admob.android.ads.p -> com.admob.android.ads.ao:
-    float[] a -> a
-    float[] b -> b
-    26:44:void applyTransformation(float,android.view.animation.Transformation) -> applyTransformation
-com.admob.android.ads.q -> com.admob.android.ads.q:
-    float a -> a
-    boolean b -> b
-    float c -> c
-    103:139:void onMeasure(int,int) -> onMeasure
-com.admob.android.ads.r -> com.admob.android.ads.ap:
-    java.util.concurrent.Executor m -> m
-    java.lang.String n -> n
-    java.lang.String a -> a
-    int b -> b
-    java.lang.Exception c -> c
-    java.util.Map d -> d
-    int e -> e
-    int f -> f
-    java.lang.String o -> o
-    java.lang.String g -> g
-    com.admob.android.ads.h h -> h
-    java.net.URL i -> i
-    byte[] j -> j
-    boolean k -> k
-    java.lang.String l -> l
-    134:199:java.lang.String c() -> c
-    261:261:byte[] d() -> d
-    279:279:java.lang.String e() -> e
-    295:295:java.net.URL f() -> f
-    boolean a() -> a
-    void b() -> b
-    323:324:void g() -> g
-    333:334:void a(java.lang.String) -> a
-    351:352:void a(int) -> a
-com.admob.android.ads.s -> com.admob.android.ads.aq:
-    org.json.JSONObject i() -> i
-    java.lang.String h() -> h
-com.admob.android.ads.t -> com.admob.android.ads.ar:
-    boolean a -> a
-    35:47:void a(android.content.Context) -> a
-com.admob.android.ads.u -> com.admob.android.ads.as:
-    java.lang.String a -> a
-    int b -> b
-    long c -> c
-    java.lang.String d -> d
-    83:169:com.admob.android.ads.d a(com.admob.android.ads.d$a,android.content.Context,java.lang.String,java.lang.String,int,int,int,com.admob.android.ads.g,int) -> a
-    234:345:java.lang.String a(android.content.Context,java.lang.String,java.lang.String,int) -> a
-    353:370:void a(java.lang.StringBuilder,java.lang.String,java.lang.String) -> a
-com.admob.android.ads.view.AdMobWebView -> com.admob.android.ads.view.AdMobWebView:
-    android.widget.RelativeLayout d -> d
+    com.google.ads.internal.AdVideoView p -> p
+    218:233:android.view.View a(int) -> a
+    244:246:void a(java.lang.String) -> a
+    257:259:void a(java.lang.String,java.lang.Throwable) -> a
+    266:266:com.google.ads.internal.AdVideoView getAdVideoView() -> a
+    276:298:com.google.ads.internal.AdWebView getOpeningAdWebView() -> b
+    305:305:boolean isShowing() -> c
+    315:316:void launchAdActivity(com.google.ads.internal.d,com.google.ads.internal.e) -> a
+    330:350:void a(java.util.HashMap,com.google.ads.internal.d) -> a
+    361:399:void b(java.util.HashMap,com.google.ads.internal.d) -> b
+    403:417:void a(com.google.ads.internal.d) -> a
+    420:420:com.google.ads.internal.AdVideoView a(android.app.Activity) -> a
+    428:432:void moveAdVideoView(int,int,int,int) -> a
+    439:458:void newAdVideoView(int,int,int,int) -> b
+    465:471:android.widget.RelativeLayout$LayoutParams a(int,int,int,int) -> c
+    482:483:void onClick(android.view.View) -> onClick
+    494:639:void onCreate(android.os.Bundle) -> onCreate
+    657:728:void a(com.google.ads.internal.AdWebView,boolean,int,boolean) -> a
+    744:759:void onDestroy() -> onDestroy
+    769:774:void onPause() -> onPause
+    782:846:void d() -> g
+    856:865:void onWindowFocusChanged(boolean) -> onWindowFocusChanged
+    876:900:void onActivityResult(int,int,android.content.Intent) -> onActivityResult
+    48:48:java.lang.Object a() -> d
+    48:48:com.google.ads.AdActivity b() -> e
+    48:48:com.google.ads.internal.d c() -> f
+    48:48:com.google.ads.internal.d b(com.google.ads.internal.d) -> b
+com.google.ads.AdActivity$StaticMethodWrapper -> com.google.ads.b:
+    118:122:boolean isShowing() -> a
+    133:160:void launchAdActivity(com.google.ads.internal.d,com.google.ads.internal.e) -> a
+com.google.ads.AdListener -> com.google.ads.c:
+    void onReceiveAd(com.google.ads.Ad) -> a
+    void onFailedToReceiveAd(com.google.ads.Ad,com.google.ads.AdRequest$ErrorCode) -> a
+    void onPresentScreen(com.google.ads.Ad) -> b
+    void onDismissScreen(com.google.ads.Ad) -> c
+    void onLeaveApplication(com.google.ads.Ad) -> d
+com.google.ads.AdRequest -> com.google.ads.d:
+    java.text.SimpleDateFormat a -> b
+    java.lang.reflect.Method b -> c
+    java.lang.reflect.Method c -> d
+    com.google.ads.AdRequest$Gender d -> e
+    java.util.Date e -> f
+    java.util.Set f -> g
+    java.util.Map g -> h
+    java.util.Map h -> i
+    android.location.Location i -> j
+    boolean j -> k
+    boolean k -> l
+    java.lang.String TEST_EMULATOR -> a
+    java.util.Set l -> m
+    351:352:com.google.ads.AdRequest setKeywords(java.util.Set) -> a
+    470:473:com.google.ads.AdRequest setNetworkExtras(com.google.ads.mediation.NetworkExtras) -> a
+    494:494:java.lang.Object getNetworkExtras(java.lang.Class) -> a
+    574:652:java.util.Map getRequestMap(android.content.Context) -> a
+    691:692:com.google.ads.AdRequest setTestDevices(java.util.Set) -> b
+    707:719:boolean isTestDevice(android.content.Context) -> b
+com.google.ads.AdRequest$ErrorCode -> com.google.ads.e:
+    com.google.ads.AdRequest$ErrorCode INVALID_REQUEST -> a
+    com.google.ads.AdRequest$ErrorCode NO_FILL -> b
+    com.google.ads.AdRequest$ErrorCode NETWORK_ERROR -> c
+    com.google.ads.AdRequest$ErrorCode INTERNAL_ERROR -> d
+    java.lang.String a -> e
+    com.google.ads.AdRequest$ErrorCode[] b -> f
+    54:54:com.google.ads.AdRequest$ErrorCode[] values() -> values
+    54:54:com.google.ads.AdRequest$ErrorCode valueOf(java.lang.String) -> valueOf
+    97:97:java.lang.String toString() -> toString
+com.google.ads.AdRequest$Gender -> com.google.ads.f:
+    com.google.ads.AdRequest$Gender UNKNOWN -> a
+    com.google.ads.AdRequest$Gender MALE -> b
+    com.google.ads.AdRequest$Gender FEMALE -> c
+    com.google.ads.AdRequest$Gender[] a -> d
+    104:104:com.google.ads.AdRequest$Gender[] values() -> values
+    104:104:com.google.ads.AdRequest$Gender valueOf(java.lang.String) -> valueOf
+com.google.ads.AdSize -> com.google.ads.g:
+    com.google.ads.AdSize SMART_BANNER -> a
+    com.google.ads.AdSize BANNER -> b
+    com.google.ads.AdSize IAB_MRECT -> c
+    com.google.ads.AdSize IAB_BANNER -> d
+    com.google.ads.AdSize IAB_LEADERBOARD -> e
+    com.google.ads.AdSize IAB_WIDE_SKYSCRAPER -> f
+    int a -> g
+    int b -> h
+    boolean c -> i
+    boolean d -> j
+    boolean e -> k
+    java.lang.String f -> l
+    181:195:com.google.ads.AdSize createAdSize(com.google.ads.AdSize,android.content.Context) -> a
+    202:206:int getWidth() -> a
+    213:217:int getHeight() -> b
+    226:226:boolean a() -> f
+    235:235:boolean isFullWidth() -> c
+    244:244:boolean isAutoHeight() -> d
+    253:253:boolean isCustomAdSize() -> e
+    261:261:java.lang.String toString() -> toString
+    347:348:int a(android.content.Context) -> a
+    359:366:int b(android.content.Context) -> b
+com.google.ads.AdView -> com.google.ads.AdView:
+    com.google.ads.m a -> a
+    com.google.ads.internal.d b -> b
+    151:186:void a(android.content.Context,java.lang.String,int,com.google.ads.AdSize,android.util.AttributeSet) -> a
+    196:196:int a(android.content.Context,int) -> a
+    215:224:boolean a(android.content.Context,com.google.ads.AdSize,android.util.AttributeSet) -> a
+    244:253:boolean b(android.content.Context,com.google.ads.AdSize,android.util.AttributeSet) -> b
+    283:287:void a(android.content.Context,java.lang.String,com.google.ads.AdSize,android.util.AttributeSet) -> a
+    300:375:void a(android.content.Context,android.util.AttributeSet) -> a
+    380:405:java.lang.String a(java.lang.String,android.content.Context,android.util.AttributeSet,boolean,boolean) -> a
+    411:423:java.util.Set b(java.lang.String,android.content.Context,android.util.AttributeSet,boolean,boolean) -> b
+    427:427:boolean a(java.lang.String,android.util.AttributeSet) -> a
+    441:472:void a(android.app.Activity,com.google.ads.AdSize,java.lang.String) -> a
+    498:502:boolean isRefreshing() -> a
+    514:523:void loadAd(com.google.ads.AdRequest) -> a
+    534:535:void setAdListener(com.google.ads.AdListener) -> setAdListener
+com.google.ads.InterstitialAd -> com.google.ads.h:
+com.google.ads.a -> com.google.ads.i:
     java.lang.String a -> a
     java.lang.String b -> b
+    java.util.List c -> c
+    java.util.HashMap d -> d
+    49:49:java.lang.String a() -> a
+    53:53:java.lang.String b() -> b
+    57:57:java.util.List c() -> c
+    61:61:java.util.HashMap d() -> d
+com.google.ads.aa -> com.google.ads.j:
+    android.content.Context a -> a
+    java.lang.String b -> b
+    41:41:java.net.HttpURLConnection a(java.net.URL) -> a
+    53:76:void run() -> run
+com.google.ads.ab -> com.google.ads.k:
+    java.lang.ref.WeakReference a -> a
+    44:50:void run() -> run
+com.google.ads.ac -> com.google.ads.l:
+    android.net.Uri a -> a
+    android.net.Uri b -> b
+    java.lang.String[] c -> c
+    java.lang.String[] d -> d
+com.google.ads.ae -> com.google.ads.m:
+    com.google.ads.internal.a a -> a
+    223:225:void a(android.webkit.WebView,boolean) -> a
+    245:246:void a(android.webkit.WebView,java.lang.String) -> a
+    262:263:void a(android.app.Activity,android.webkit.WebView,java.lang.String) -> a
+    281:283:boolean a(android.content.Context,long) -> a
+    290:290:boolean a(android.content.Context,long,android.content.SharedPreferences) -> a
+    308:309:void a(android.app.Activity) -> a
+com.google.ads.ae$a -> com.google.ads.n:
+    java.lang.ref.WeakReference a -> a
+    android.content.SharedPreferences$Editor b -> b
+    72:76:android.content.SharedPreferences$Editor a(android.app.Activity) -> a
+    84:120:void run() -> run
+com.google.ads.ae$b -> com.google.ads.o:
+    java.lang.ref.WeakReference a -> a
+    android.webkit.WebView b -> b
+    java.lang.String c -> c
+    140:162:void run() -> run
+com.google.ads.ae$c -> com.google.ads.p:
+    boolean a -> a
+    android.webkit.WebView b -> b
+    179:180:void run() -> run
+com.google.ads.af -> com.google.ads.q:
+    24:27:boolean a(android.content.Context) -> a
+    37:40:boolean a(android.content.Intent,android.content.Context) -> a
+com.google.ads.ag -> com.google.ads.r:
+    97:153:void a(com.google.ads.internal.d,java.util.HashMap,android.webkit.WebView) -> a
+com.google.ads.ag$a -> com.google.ads.s:
+    85:85:void onClick(android.content.DialogInterface,int) -> onClick
+com.google.ads.ag$b -> com.google.ads.t:
+    com.google.ads.ag$b a -> a
+    com.google.ads.ag$b b -> b
+    java.lang.String c -> c
+    com.google.ads.ag$b[] d -> d
+    33:33:com.google.ads.ag$b[] values() -> values
+    33:33:com.google.ads.ag$b valueOf(java.lang.String) -> valueOf
+com.google.ads.ag$c -> com.google.ads.u:
+    com.google.ads.internal.d a -> a
+    67:70:void onClick(android.content.DialogInterface,int) -> onClick
+com.google.ads.b -> com.google.ads.v:
+    java.math.BigInteger a -> a
+    java.math.BigInteger b -> b
+    com.google.ads.b c -> c
+    48:51:com.google.ads.b a() -> a
+    58:58:java.math.BigInteger b() -> b
+    66:68:java.math.BigInteger c() -> c
+    96:109:java.math.BigInteger d() -> d
+    117:117:byte[] a(long) -> a
+com.google.ads.c -> com.google.ads.w:
+    java.util.Map a -> a
+    java.lang.String b -> b
+    java.lang.String c -> c
+    java.util.List d -> d
+    java.lang.Integer e -> e
+    java.lang.Integer f -> f
+    java.util.List g -> g
+    java.util.List h -> h
+    java.util.List i -> i
+    97:127:com.google.ads.c a(java.lang.String) -> a
+    132:132:boolean a() -> a
+    136:136:int b() -> b
+    140:140:java.lang.String c() -> c
+    149:149:boolean d() -> d
+    153:153:int e() -> e
+    157:157:java.util.List f() -> f
+    162:162:java.util.List g() -> g
+    167:167:java.util.List h() -> h
+    172:172:java.util.List i() -> i
+    180:202:com.google.ads.a a(org.json.JSONObject) -> a
+    211:226:com.google.ads.internal.h j() -> j
+    234:243:java.util.List a(org.json.JSONObject,java.lang.String) -> a
+com.google.ads.c$1 -> com.google.ads.x:
+com.google.ads.d -> com.google.ads.y:
+    com.google.ads.c a -> a
+    long b -> b
+    47:47:boolean a() -> a
+    57:62:void a(com.google.ads.c,int) -> a
+    69:69:com.google.ads.c b() -> b
+com.google.ads.e -> com.google.ads.z:
+    com.google.ads.internal.d a -> a
+    com.google.ads.h b -> b
+    java.lang.Object c -> c
+    java.lang.Thread d -> d
+    java.lang.Object e -> e
+    boolean f -> f
+    java.lang.Object g -> g
+    106:108:boolean a() -> a
+    126:147:void a(com.google.ads.c,com.google.ads.AdRequest) -> a
+    158:187:boolean a(com.google.ads.c,com.google.ads.internal.d) -> a
+    312:314:boolean d() -> b
+    321:369:void b(com.google.ads.c,com.google.ads.AdRequest) -> b
+    379:432:boolean a(java.lang.String,android.app.Activity,com.google.ads.AdRequest,com.google.ads.f,java.util.HashMap,long) -> a
+    451:458:boolean e(com.google.ads.h) -> b
+    468:477:void d(com.google.ads.h) -> a
+    51:51:void a(com.google.ads.e,com.google.ads.c,com.google.ads.AdRequest) -> a
+    51:51:java.lang.Object a(com.google.ads.e) -> a
+    51:51:java.lang.Thread a(com.google.ads.e,java.lang.Thread) -> a
+    51:51:com.google.ads.internal.d b(com.google.ads.e) -> b
+    51:51:boolean a(com.google.ads.e,com.google.ads.h) -> a
+com.google.ads.e$1 -> com.google.ads.aa:
+    com.google.ads.c a -> a
+    com.google.ads.AdRequest b -> b
+    com.google.ads.e c -> c
+    139:143:void run() -> run
+com.google.ads.e$7 -> com.google.ads.ab:
+    com.google.ads.c a -> a
+    com.google.ads.e b -> b
+    365:367:void run() -> run
+com.google.ads.e$8 -> com.google.ads.ac:
+    com.google.ads.h a -> a
+    android.view.View b -> b
+    com.google.ads.f c -> c
+    com.google.ads.e d -> d
+    414:423:void run() -> run
+com.google.ads.f -> com.google.ads.ad:
+    java.lang.String a -> a
+    java.lang.String b -> b
+    java.lang.String c -> c
+    java.util.List d -> d
+    java.util.List e -> e
+    java.util.List f -> f
+    61:61:java.lang.String a() -> a
+    65:65:java.lang.String b() -> b
+    69:69:java.lang.String c() -> c
+    74:74:java.util.List d() -> d
+com.google.ads.g -> com.google.ads.ae:
+    48:69:java.lang.String a(java.lang.String,java.lang.String,java.lang.Boolean,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String) -> a
+    97:108:java.lang.Object a(java.lang.String,java.lang.Class) -> a
+com.google.ads.h -> com.google.ads.af:
+    com.google.ads.internal.h a -> a
+    com.google.ads.f b -> b
     boolean c -> c
-    59:61:void removeSelf() -> a
-    74:80:boolean onKeyDown(int,android.view.KeyEvent) -> onKeyDown
-    93:95:void onFocusChanged(boolean,int,android.graphics.Rect) -> onFocusChanged
-    106:107:android.os.Parcelable onSaveInstanceState() -> onSaveInstanceState
-    119:121:void onWindowVisibilityChanged(int) -> onWindowVisibilityChanged
-    19:19:void a(com.admob.android.ads.view.AdMobWebView) -> a
-com.admob.android.ads.view.AdMobWebView$a -> com.admob.android.ads.view.a:
-    com.admob.android.ads.view.AdMobWebView a -> a
-    com.admob.android.ads.view.AdMobWebView b -> b
-    138:182:boolean shouldOverrideUrlLoading(android.webkit.WebView,java.lang.String) -> shouldOverrideUrlLoading
-    187:214:java.util.Hashtable a(java.lang.String) -> a
-    222:234:void onPageFinished(android.webkit.WebView,java.lang.String) -> onPageFinished
+    boolean d -> d
+    com.google.ads.e e -> e
+    com.google.ads.mediation.MediationAdapter f -> f
+    boolean g -> g
+    boolean h -> h
+    android.view.View i -> i
+    android.os.Handler j -> j
+    java.lang.String k -> k
+    com.google.ads.AdRequest l -> l
+    java.util.HashMap m -> m
+    132:141:void a(android.app.Activity) -> a
+    144:174:void b() -> a
+    181:181:boolean c() -> b
+    190:192:boolean d() -> c
+    196:198:android.view.View e() -> d
+    238:238:java.lang.String g() -> e
+    244:247:void a(boolean) -> a
+    251:252:void a(com.google.ads.mediation.MediationAdapter) -> a
+    270:271:void j() -> f
+    274:274:boolean k() -> g
+    42:42:com.google.ads.mediation.MediationAdapter a(com.google.ads.h) -> a
+com.google.ads.h$1 -> com.google.ads.ag:
+    com.google.ads.h a -> a
+    157:172:void run() -> run
+com.google.ads.i -> com.google.ads.ah:
+    com.google.ads.h a -> a
+    java.lang.String b -> b
+    com.google.ads.AdRequest c -> c
+    java.util.HashMap d -> d
+    boolean e -> e
+    java.lang.ref.WeakReference f -> f
+    67:79:boolean a(java.util.Map) -> a
+    113:129:void run() -> run
+    132:134:void a(java.lang.String,java.lang.Throwable) -> a
+    142:203:void a(com.google.ads.mediation.MediationAdapter) -> a
+com.google.ads.i$a -> com.google.ads.ai:
+com.google.ads.internal.AdVideoView -> com.google.ads.internal.AdVideoView:
+    com.google.ads.internal.a b -> b
+    java.lang.ref.WeakReference c -> c
+    com.google.ads.internal.AdWebView d -> d
+    android.widget.MediaController a -> a
+    long e -> e
+    android.widget.VideoView f -> f
+    java.lang.String g -> g
+    129:131:void a() -> a
+    147:153:void b() -> b
+    159:176:void setMediaControllerEnabled(boolean) -> setMediaControllerEnabled
+    182:183:void setSrc(java.lang.String) -> setSrc
+    190:191:void onCompletion(android.media.MediaPlayer) -> onCompletion
+    198:201:boolean onError(android.media.MediaPlayer,int,int) -> onError
+    209:213:void onPrepared(android.media.MediaPlayer) -> onPrepared
+    219:220:void c() -> c
+    226:227:void d() -> d
+    234:235:void a(int) -> a
+    241:242:void a(android.view.MotionEvent) -> a
+    248:249:void e() -> e
+    255:263:void f() -> f
+com.google.ads.internal.AdVideoView$a -> com.google.ads.internal.a:
+    java.lang.ref.WeakReference a -> a
+    android.os.Handler b -> b
+    58:65:void run() -> run
+    68:69:void a() -> a
+com.google.ads.internal.AdWebView -> com.google.ads.internal.AdWebView:
+    java.lang.ref.WeakReference a -> a
+    com.google.ads.AdSize b -> b
+    boolean c -> c
+    134:138:void a() -> a
+    148:148:com.google.ads.AdActivity b() -> b
+    159:160:void setAdActivity(com.google.ads.AdActivity) -> setAdActivity
+    174:178:void loadDataWithBaseURL(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String) -> loadDataWithBaseURL
+    187:191:void loadUrl(java.lang.String) -> loadUrl
+    200:204:void stopLoading() -> stopLoading
+    214:218:void destroy() -> destroy
+    228:273:void onMeasure(int,int) -> onMeasure
+    280:281:void setIsExpandedMraid(boolean) -> setIsExpandedMraid
+com.google.ads.internal.AdWebView$1 -> com.google.ads.internal.b:
+    com.google.ads.internal.AdWebView a -> a
+    95:106:void onDownloadStart(java.lang.String,java.lang.String,java.lang.String,java.lang.String,long) -> onDownloadStart
+com.google.ads.internal.a -> com.google.ads.internal.c:
+    com.google.ads.internal.a d -> d
+    com.google.ads.util.f a -> a
+    java.util.Map b -> b
+    java.util.Map c -> c
+    136:162:java.lang.String a(android.net.Uri,java.util.HashMap) -> a
+    179:201:void a(com.google.ads.internal.d,java.util.Map,android.net.Uri,android.webkit.WebView) -> a
+    212:216:boolean a(android.net.Uri) -> a
+    228:239:boolean b(android.net.Uri) -> b
+    251:256:boolean c(android.net.Uri) -> c
+    267:273:void a(android.webkit.WebView,java.lang.String,java.lang.String) -> a
+    282:284:void a(android.webkit.WebView,java.lang.String) -> a
+    294:296:void a(android.webkit.WebView,java.util.Map) -> a
+    304:307:void a(android.webkit.WebView) -> a
+    315:316:void b(android.webkit.WebView) -> b
+    40:40:com.google.ads.internal.a a() -> a
+com.google.ads.internal.a$1 -> com.google.ads.internal.d:
+com.google.ads.internal.a$2 -> com.google.ads.internal.e:
+    71:71:com.google.ads.internal.a a() -> a
+    68:68:java.lang.Object b() -> b
+com.google.ads.internal.a$3 -> com.google.ads.internal.f:
+com.google.ads.internal.b -> com.google.ads.internal.g:
+    boolean a -> a
+    42:44:void a(java.lang.String) -> a
+    47:47:void b(java.lang.String) -> b
+    56:59:java.lang.String c(java.lang.String) -> c
+com.google.ads.internal.c -> com.google.ads.internal.h:
+    java.lang.String a -> a
+    java.lang.String b -> b
+    java.lang.String c -> c
+    java.lang.String d -> d
+    boolean e -> e
+    com.google.ads.internal.f f -> f
+    com.google.ads.internal.d g -> g
+    com.google.ads.AdRequest h -> h
+    android.webkit.WebView i -> i
+    java.lang.String j -> j
+    java.util.LinkedList k -> k
+    java.lang.String l -> l
+    boolean m -> m
+    boolean n -> n
+    com.google.ads.AdRequest$ErrorCode o -> o
+    boolean p -> p
+    int q -> q
+    java.lang.Thread r -> r
+    boolean s -> s
+    426:427:void a(java.lang.String) -> a
+    457:461:void a(com.google.ads.AdRequest) -> a
+    469:653:void run() -> run
+    658:685:void b() -> a
+    696:727:void a(java.lang.String,com.google.ads.c,com.google.ads.d) -> a
+    737:740:java.lang.String d() -> c
+    758:954:java.lang.String a(java.util.Map,android.app.Activity) -> a
+    969:975:void a(com.google.ads.AdRequest$ErrorCode,boolean) -> a
+    984:986:void f(java.lang.String) -> f
+    993:998:void e() -> d
+    1004:1009:void f() -> e
+    1012:1013:void a(boolean) -> a
+    1016:1017:void b(java.lang.String) -> b
+    1030:1033:void a(java.lang.String,java.lang.String) -> a
+    1041:1042:void c(java.lang.String) -> c
+    1053:1055:void d(java.lang.String) -> d
+    1061:1062:void e(java.lang.String) -> e
+    1072:1074:void a(com.google.ads.AdRequest$ErrorCode) -> a
+    1085:1087:void c() -> b
+    1093:1094:void b(boolean) -> b
+    1103:1104:void a(int) -> a
+    1113:1114:void c(boolean) -> c
+    42:42:com.google.ads.internal.d a(com.google.ads.internal.c) -> a
+com.google.ads.internal.c$1 -> com.google.ads.internal.i:
+    com.google.ads.c a -> a
+    com.google.ads.internal.c b -> b
+    678:679:void run() -> run
+com.google.ads.internal.c$a -> com.google.ads.internal.j:
+    com.google.ads.internal.d a -> a
+    android.webkit.WebView b -> b
+    com.google.ads.internal.f c -> c
+    com.google.ads.AdRequest$ErrorCode d -> d
+    boolean e -> e
+    111:130:void run() -> run
+com.google.ads.internal.c$b -> com.google.ads.internal.k:
+    com.google.ads.internal.c a -> a
+com.google.ads.internal.c$c -> com.google.ads.internal.l:
+    java.lang.String b -> b
+    java.lang.String c -> c
+    android.webkit.WebView d -> d
+    com.google.ads.internal.c a -> a
+    149:154:void run() -> run
+com.google.ads.internal.c$d -> com.google.ads.internal.m:
+    com.google.ads.internal.c a -> a
+com.google.ads.internal.c$e -> com.google.ads.internal.n:
+    com.google.ads.internal.d a -> a
+    java.util.LinkedList b -> b
+    int c -> c
+    boolean d -> d
+    java.lang.String e -> e
+    181:188:void run() -> run
+com.google.ads.internal.d -> com.google.ads.internal.o:
+    java.lang.Object a -> a
+    com.google.ads.m b -> b
+    com.google.ads.internal.c c -> c
+    com.google.ads.AdRequest d -> d
+    com.google.ads.internal.g e -> e
+    com.google.ads.internal.AdWebView f -> f
+    com.google.ads.internal.i g -> g
+    android.os.Handler h -> h
+    long i -> i
+    boolean j -> j
+    boolean k -> k
+    boolean l -> l
+    boolean m -> m
+    android.content.SharedPreferences n -> n
+    long o -> o
+    com.google.ads.ab p -> p
+    boolean q -> q
+    java.util.LinkedList r -> r
+    java.util.LinkedList s -> s
+    int t -> t
+    java.lang.Boolean u -> u
+    com.google.ads.d v -> v
+    com.google.ads.e w -> w
+    com.google.ads.f x -> x
+    java.lang.String y -> y
+    266:274:void a() -> a
+    301:317:void a(java.lang.String) -> a
+    324:324:java.lang.String c() -> b
+    333:335:void d() -> c
+    344:352:void e() -> d
+    361:378:void f() -> e
+    386:386:com.google.ads.m g() -> f
+    395:395:com.google.ads.d h() -> g
+    405:405:com.google.ads.internal.c i() -> h
+    414:414:com.google.ads.internal.AdWebView j() -> i
+    423:423:com.google.ads.internal.i k() -> j
+    432:432:com.google.ads.internal.g l() -> k
+    443:444:void a(int) -> a
+    452:452:int m() -> l
+    461:461:long n() -> m
+    472:472:boolean o() -> n
+    479:479:boolean p() -> o
+    496:496:boolean r() -> p
+    508:556:void a(com.google.ads.AdRequest) -> a
+    568:588:void a(com.google.ads.AdRequest$ErrorCode) -> a
+    601:615:void a(com.google.ads.c) -> a
+    633:654:void a(android.view.View,com.google.ads.h,com.google.ads.f,boolean) -> a
+    683:693:void b(com.google.ads.c) -> b
+    705:714:void s() -> q
+    724:731:void t() -> r
+    741:748:void u() -> s
+    756:758:void v() -> t
+    773:784:void a(com.google.ads.f,java.lang.Boolean) -> a
+    818:829:void a(java.util.List,java.lang.String) -> a
+    839:859:void a(java.util.List,java.lang.String,java.lang.String,java.lang.String,java.lang.Boolean) -> a
+    868:880:void w() -> u
+    890:891:void a(java.lang.Runnable) -> a
+    900:920:void x() -> v
+    931:940:void a(long) -> a
+    948:949:void a(boolean) -> a
+    955:957:void a(android.view.View) -> a
+    965:966:void a(float) -> a
+    976:979:void b(long) -> b
+    1056:1068:void A() -> w
+    1078:1107:void B() -> x
+    1117:1119:void b(java.lang.String) -> b
+    1130:1134:void a(java.util.LinkedList) -> a
+    1151:1152:void b(boolean) -> b
+com.google.ads.internal.e -> com.google.ads.internal.p:
+    java.lang.String a -> a
+    java.util.HashMap b -> b
+    101:104:java.util.HashMap a(java.io.Serializable) -> a
+    117:121:android.os.Bundle a() -> a
+    132:132:java.lang.String b() -> b
+    143:143:java.util.HashMap c() -> c
+com.google.ads.internal.f -> com.google.ads.internal.q:
+    com.google.ads.internal.c a -> a
+    com.google.ads.internal.d b -> b
+    com.google.ads.internal.f$a c -> c
+    boolean d -> d
+    boolean e -> e
+    java.lang.String f -> f
+    java.lang.Thread g -> g
+    153:154:void a() -> a
+    161:171:void a(java.net.HttpURLConnection) -> a
+    177:181:void b(java.net.HttpURLConnection) -> b
+    188:192:void c(java.net.HttpURLConnection) -> c
+    200:204:void d(java.net.HttpURLConnection) -> d
+    210:220:void e(java.net.HttpURLConnection) -> e
+    227:234:void f(java.net.HttpURLConnection) -> f
+    240:247:void g(java.net.HttpURLConnection) -> g
+    254:272:void h(java.net.HttpURLConnection) -> h
+    279:287:void i(java.net.HttpURLConnection) -> i
+    294:305:void j(java.net.HttpURLConnection) -> j
+    314:315:void a(boolean) -> a
+    322:328:void k(java.net.HttpURLConnection) -> k
+    335:341:void a(java.lang.String) -> a
+    352:393:void a(java.net.HttpURLConnection,int) -> a
+    399:413:void run() -> run
+    420:435:void b() -> b
+    443:455:void a(android.content.Context,java.net.HttpURLConnection) -> a
+com.google.ads.internal.f$1 -> com.google.ads.internal.r:
+    125:125:java.net.HttpURLConnection a(java.net.URL) -> a
+com.google.ads.internal.f$a -> com.google.ads.internal.s:
+    java.net.HttpURLConnection a(java.net.URL) -> a
+com.google.ads.internal.g -> com.google.ads.internal.t:
+    java.util.LinkedList b -> b
+    long c -> c
+    long d -> d
+    java.util.LinkedList e -> e
+    long f -> f
+    java.lang.String g -> g
+    long h -> h
+    boolean i -> i
+    boolean j -> j
+    java.lang.String a -> a
+    110:117:void a() -> a
+    125:127:void b() -> b
+    135:137:void c() -> c
+    145:148:void d() -> d
+    158:161:long e() -> e
+    176:190:java.lang.String f() -> f
+    204:217:java.lang.String g() -> g
+    230:230:long h() -> h
+    234:234:long i() -> i
+    238:238:java.lang.String j() -> j
+    242:244:void a(java.lang.String) -> a
+    247:247:boolean k() -> k
+    251:253:void l() -> l
+    256:256:boolean m() -> m
+    260:262:void n() -> n
+    268:270:void o() -> o
+    273:273:java.lang.String p() -> p
+    277:279:void b(java.lang.String) -> b
+    287:292:long q() -> q
+com.google.ads.internal.h -> com.google.ads.internal.u:
+    com.google.ads.AdSize b -> b
+    boolean c -> c
+    com.google.ads.internal.h a -> a
+    41:41:com.google.ads.internal.h a(com.google.ads.AdSize,android.content.Context) -> a
+    54:54:com.google.ads.internal.h a(com.google.ads.AdSize) -> a
+    58:58:boolean a() -> a
+    66:66:com.google.ads.AdSize b() -> b
+com.google.ads.internal.i -> com.google.ads.internal.v:
+    com.google.ads.internal.a c -> c
+    com.google.ads.internal.d a -> a
+    java.util.Map d -> d
+    boolean b -> b
+    boolean e -> e
+    boolean f -> f
+    boolean g -> g
+    boolean h -> h
+    92:96:com.google.ads.internal.i a(com.google.ads.internal.d,java.util.Map,boolean,boolean) -> a
+    108:153:boolean shouldOverrideUrlLoading(android.webkit.WebView,java.lang.String) -> shouldOverrideUrlLoading
+    163:180:void onPageFinished(android.webkit.WebView,java.lang.String) -> onPageFinished
+    186:187:void a(boolean) -> a
+    194:195:void b(boolean) -> b
+    205:206:void c(boolean) -> c
+    216:217:void d(boolean) -> d
+com.google.ads.internal.j -> com.google.ads.internal.w:
+    byte[] a -> a
+    39:53:android.view.ViewGroup a(android.app.Activity,com.google.ads.internal.d) -> a
+com.google.ads.internal.j$a -> com.google.ads.internal.x:
+    android.gesture.GestureStore a -> a
+    android.app.Activity b -> b
+    com.google.ads.internal.d c -> c
+    73:111:void onGesturePerformed(android.gesture.GestureOverlayView,android.gesture.Gesture) -> onGesturePerformed
+    60:60:android.app.Activity a(com.google.ads.internal.j$a) -> a
+com.google.ads.internal.j$a$1 -> com.google.ads.internal.y:
+    com.google.ads.internal.j$a a -> a
+    105:105:void onClick(android.content.DialogInterface,int) -> onClick
+com.google.ads.internal.j$a$2 -> com.google.ads.internal.z:
+    java.lang.String a -> a
+    com.google.ads.internal.j$a b -> b
+    93:99:void onClick(android.content.DialogInterface,int) -> onClick
+com.google.ads.j -> com.google.ads.aj:
+    com.google.ads.h a -> a
+com.google.ads.k -> com.google.ads.ak:
+    com.google.ads.h a -> a
+com.google.ads.l -> com.google.ads.al:
+    com.google.ads.l b -> b
+    com.google.ads.util.i$b a -> a
+    65:65:com.google.ads.l a() -> a
+com.google.ads.l$a -> com.google.ads.am:
+    com.google.ads.util.i$c a -> a
+    com.google.ads.util.i$c b -> b
+    com.google.ads.util.i$c c -> c
+    com.google.ads.util.i$c d -> d
+    com.google.ads.util.i$c e -> e
+    com.google.ads.util.i$c f -> f
+    com.google.ads.util.i$c g -> g
+    com.google.ads.util.i$c h -> h
+    com.google.ads.util.i$c i -> i
+com.google.ads.m -> com.google.ads.an:
+    com.google.ads.util.i$b a -> a
+    com.google.ads.util.i$b b -> b
+    com.google.ads.util.i$d c -> c
+    com.google.ads.util.i$b d -> d
+    com.google.ads.util.i$b e -> e
+    com.google.ads.util.i$b f -> f
+    com.google.ads.util.i$b g -> g
+    com.google.ads.util.i$b h -> h
+    com.google.ads.util.i$b i -> i
+    com.google.ads.util.i$c j -> j
+    69:69:boolean a() -> a
+    73:73:boolean b() -> b
+    96:96:com.google.ads.m a(com.google.ads.Ad,java.lang.String,android.app.Activity,android.view.ViewGroup,com.google.ads.AdSize) -> a
+com.google.ads.mediation.MediationAdRequest -> a.a:
+    com.google.ads.AdRequest a -> a
+    boolean b -> b
+    boolean c -> c
+com.google.ads.mediation.MediationAdapter -> a.b:
+    void destroy() -> a
+    java.lang.Class getAdditionalParametersType() -> b
+    java.lang.Class getServerParametersType() -> c
+com.google.ads.mediation.MediationBannerAdapter -> a.c:
+    void requestBannerAd(com.google.ads.mediation.MediationBannerListener,android.app.Activity,com.google.ads.mediation.MediationServerParameters,com.google.ads.AdSize,com.google.ads.mediation.MediationAdRequest,com.google.ads.mediation.NetworkExtras) -> a
+com.google.ads.mediation.MediationBannerListener -> a.d:
+com.google.ads.mediation.MediationInterstitialAdapter -> a.e:
+    void requestInterstitialAd(com.google.ads.mediation.MediationInterstitialListener,android.app.Activity,com.google.ads.mediation.MediationServerParameters,com.google.ads.mediation.MediationAdRequest,com.google.ads.mediation.NetworkExtras) -> a
+com.google.ads.mediation.MediationInterstitialListener -> a.f:
+com.google.ads.mediation.MediationServerParameters -> a.g:
+    63:107:void load(java.util.Map) -> a
+    113:113:void a() -> a
+com.google.ads.mediation.MediationServerParameters$MappingException -> a.h:
+com.google.ads.mediation.MediationServerParameters$Parameter -> a.i:
+    java.lang.String name() -> a
+    boolean required() -> b
+com.google.ads.mediation.NetworkExtras -> a.j:
+com.google.ads.mediation.admob.AdMobAdapterExtras -> b.a:
+    boolean a -> a
+    boolean b -> b
+    java.util.Map c -> c
+    59:59:boolean getPlusOneOptOut() -> a
+    102:102:java.util.Map getExtras() -> b
+    130:131:com.google.ads.mediation.admob.AdMobAdapterExtras clearExtras() -> c
+com.google.ads.n -> com.google.ads.ao:
+    void a(com.google.ads.internal.d,java.util.HashMap,android.webkit.WebView) -> a
+com.google.ads.o -> com.google.ads.ap:
+    com.google.ads.internal.a a -> a
+    37:65:void a(com.google.ads.internal.d,java.util.HashMap,android.webkit.WebView) -> a
+com.google.ads.p -> com.google.ads.aq:
+    29:58:void a(com.google.ads.internal.d,java.util.HashMap,android.webkit.WebView) -> a
+com.google.ads.q -> com.google.ads.ar:
+    28:34:void a(com.google.ads.internal.d,java.util.HashMap,android.webkit.WebView) -> a
+com.google.ads.r -> com.google.ads.as:
+    com.google.ads.internal.a a -> a
+    34:65:void a(com.google.ads.internal.d,java.util.HashMap,android.webkit.WebView) -> a
+com.google.ads.s -> com.google.ads.at:
+    27:36:void a(com.google.ads.internal.d,java.util.HashMap,android.webkit.WebView) -> a
+    39:39:java.lang.Runnable a(java.lang.String,android.webkit.WebView) -> a
+com.google.ads.searchads.SearchAdRequest -> c.a:
+    java.lang.String a -> b
+    int b -> c
+    int c -> d
+    int d -> e
+    int e -> f
+    int f -> g
+    int g -> h
+    java.lang.String h -> i
+    int i -> j
+    int j -> k
+    com.google.ads.searchads.SearchAdRequest$BorderType k -> l
+    int l -> m
+    java.lang.String m -> n
+    219:273:java.util.Map getRequestMap(android.content.Context) -> a
+    283:283:java.lang.String a(int) -> a
+com.google.ads.searchads.SearchAdRequest$BorderType -> c.b:
+    com.google.ads.searchads.SearchAdRequest$BorderType NONE -> a
+    com.google.ads.searchads.SearchAdRequest$BorderType DASHED -> b
+    com.google.ads.searchads.SearchAdRequest$BorderType DOTTED -> c
+    com.google.ads.searchads.SearchAdRequest$BorderType SOLID -> d
+    java.lang.String a -> e
+    com.google.ads.searchads.SearchAdRequest$BorderType[] b -> f
+    21:21:com.google.ads.searchads.SearchAdRequest$BorderType[] values() -> values
+    21:21:com.google.ads.searchads.SearchAdRequest$BorderType valueOf(java.lang.String) -> valueOf
+    51:51:java.lang.String toString() -> toString
+com.google.ads.t -> com.google.ads.au:
+    30:41:void a(com.google.ads.internal.d,java.util.HashMap,android.webkit.WebView) -> a
+com.google.ads.u -> com.google.ads.av:
+    28:45:void a(com.google.ads.internal.d,java.util.HashMap,android.webkit.WebView) -> a
+com.google.ads.util.AdUtil -> com.google.ads.util.AdUtil:
+    int a -> a
+    java.lang.Boolean b -> b
+    java.lang.String c -> c
+    java.lang.String d -> d
+    java.lang.String e -> e
+    android.media.AudioManager f -> f
+    boolean g -> g
+    boolean h -> h
+    java.lang.String i -> i
+    146:148:boolean a(android.content.Intent,android.content.Context) -> a
+    158:165:java.lang.String a(java.lang.Readable) -> a
+    174:181:int a(java.lang.String) -> a
+    192:210:java.lang.String a(android.content.Context) -> a
+    221:224:int a() -> a
+    236:239:int b() -> b
+    252:255:int a(android.content.Context,android.util.DisplayMetrics) -> a
+    268:271:int b(android.content.Context,android.util.DisplayMetrics) -> b
+    284:296:boolean b(android.content.Context) -> b
+    310:316:boolean a(int,int,java.lang.String) -> a
+    330:397:boolean c(android.content.Context) -> c
+    406:406:boolean c() -> c
+    415:418:boolean a(com.google.ads.util.d) -> a
+    429:433:boolean a(android.net.Uri) -> a
+    445:457:java.lang.String b(java.lang.String) -> b
+    471:491:java.lang.String d(android.content.Context) -> d
+    505:540:java.lang.String e(android.content.Context) -> e
+    551:581:java.lang.String f(android.content.Context) -> f
+    593:618:com.google.ads.util.AdUtil$a g(android.content.Context) -> g
+    628:634:android.util.DisplayMetrics a(android.app.Activity) -> a
+    642:648:java.lang.String a(android.location.Location) -> a
+    652:652:java.lang.String b(android.location.Location) -> b
+    661:672:java.lang.String c(java.lang.String) -> c
+    688:707:java.util.HashMap b(android.net.Uri) -> b
+    714:714:boolean d() -> d
+    721:722:void a(boolean) -> a
+    731:743:void h(android.content.Context) -> h
+    780:817:java.lang.String i(android.content.Context) -> i
+    825:828:void a(android.webkit.WebView) -> a
+    836:837:void a(java.net.HttpURLConnection,android.content.Context) -> a
+    840:849:java.lang.String a(java.util.Map) -> a
+    854:887:org.json.JSONObject b(java.util.Map) -> b
+    892:924:org.json.JSONArray a(java.util.Set) -> a
+com.google.ads.util.AdUtil$UserActivityReceiver -> com.google.ads.util.AdUtil$UserActivityReceiver:
+    751:756:void onReceive(android.content.Context,android.content.Intent) -> onReceive
+com.google.ads.util.AdUtil$a -> com.google.ads.util.a:
+    com.google.ads.util.AdUtil$a a -> a
+    com.google.ads.util.AdUtil$a b -> b
+    com.google.ads.util.AdUtil$a c -> c
+    com.google.ads.util.AdUtil$a d -> d
+    com.google.ads.util.AdUtil$a e -> e
+    com.google.ads.util.AdUtil$a f -> f
+    com.google.ads.util.AdUtil$a[] g -> g
+    112:112:com.google.ads.util.AdUtil$a[] values() -> values
+    112:112:com.google.ads.util.AdUtil$a valueOf(java.lang.String) -> valueOf
+com.google.ads.util.a -> com.google.ads.util.b:
+    boolean a -> a
+    41:42:void a(boolean,java.lang.String) -> a
+    45:46:void b(boolean) -> a
+    49:50:void b(boolean,java.lang.String) -> b
+    62:64:void b(java.lang.Object) -> a
+    71:74:void a(java.lang.Object,java.lang.Object) -> a
+    91:93:void a(java.lang.String) -> a
+    107:116:void c(boolean,java.lang.String) -> c
+com.google.ads.util.a$a -> com.google.ads.util.c:
+com.google.ads.util.b -> com.google.ads.util.d:
+    com.google.ads.util.b$b a -> a
+    int b -> b
+    65:66:void a(com.google.ads.util.b$a,java.lang.String) -> a
+    69:72:void a(com.google.ads.util.b$a,java.lang.String,java.lang.Throwable) -> a
+    81:86:void a(java.lang.String) -> a
+    97:102:void a(java.lang.String,java.lang.Throwable) -> a
+    112:117:void b(java.lang.String) -> b
+    128:133:void b(java.lang.String,java.lang.Throwable) -> b
+    143:148:void c(java.lang.String) -> c
+    160:165:void c(java.lang.String,java.lang.Throwable) -> c
+    175:180:void d(java.lang.String) -> d
+    206:211:void e(java.lang.String) -> e
+    237:242:void d(java.lang.String,java.lang.Throwable) -> d
+    256:256:boolean a(java.lang.String,int) -> a
+    270:270:boolean a(int) -> a
+com.google.ads.util.b$a -> com.google.ads.util.e:
+    com.google.ads.util.b$a a -> a
+    com.google.ads.util.b$a b -> b
+    com.google.ads.util.b$a c -> c
+    com.google.ads.util.b$a d -> d
+    com.google.ads.util.b$a e -> e
+    int f -> f
+    com.google.ads.util.b$a[] g -> g
+    39:39:com.google.ads.util.b$a[] values() -> values
+    39:39:com.google.ads.util.b$a valueOf(java.lang.String) -> valueOf
+com.google.ads.util.b$b -> com.google.ads.util.f:
+    void a(com.google.ads.util.b$a,java.lang.String,java.lang.Throwable) -> a
+com.google.ads.util.c -> com.google.ads.util.g:
+    boolean a -> a
+    118:118:byte[] a(java.lang.String) -> a
+    161:161:byte[] a(byte[],int) -> a
+    188:203:byte[] a(byte[],int,int,int) -> a
+    487:491:java.lang.String b(byte[],int) -> b
+    531:531:byte[] c(byte[],int) -> c
+    549:584:byte[] b(byte[],int,int,int) -> b
+com.google.ads.util.c$a -> com.google.ads.util.h:
+    byte[] a -> a
+    int b -> b
+com.google.ads.util.c$b -> com.google.ads.util.i:
+    int[] c -> c
+    int[] d -> d
+    int e -> e
+    int f -> f
+    int[] g -> g
+    290:466:boolean a(byte[],int,int,boolean) -> a
+com.google.ads.util.c$c -> com.google.ads.util.j:
+    byte[] h -> h
+    byte[] i -> i
+    byte[] j -> j
+    int c -> c
+    int k -> k
+    boolean d -> d
+    boolean e -> e
+    boolean f -> f
+    byte[] l -> l
+    boolean g -> g
+    652:794:boolean a(byte[],int,int,boolean) -> a
+com.google.ads.util.d -> com.google.ads.util.k:
+    java.lang.String a -> a
+    java.lang.String b -> b
+    java.lang.String c -> c
+    com.google.ads.util.d d -> d
+    com.google.ads.util.d e -> e
+    62:66:boolean equals(java.lang.Object) -> equals
+    76:79:boolean a(java.lang.String,java.lang.String) -> a
+    88:98:int hashCode() -> hashCode
+com.google.ads.util.e -> com.google.ads.util.l:
+    41:41:int a(android.content.Context,android.util.DisplayMetrics) -> a
+    55:55:int b(android.content.Context,android.util.DisplayMetrics) -> b
+    69:73:int a(android.content.Context,float,int) -> a
+com.google.ads.util.f -> com.google.ads.util.m:
+    java.lang.Object b() -> b
+com.google.ads.util.g -> com.google.ads.util.n:
+    424:443:void a(android.webkit.WebSettings,com.google.ads.m) -> a
+    451:452:void a(android.view.View) -> a
+    460:462:void a(android.view.Window) -> a
+com.google.ads.util.g$1 -> com.google.ads.util.o:
+    int[] a -> a
+com.google.ads.util.g$a -> com.google.ads.util.p:
+    com.google.ads.m a -> a
+    158:162:void onCloseWindow(android.webkit.WebView) -> onCloseWindow
+    166:184:boolean onConsoleMessage(android.webkit.ConsoleMessage) -> onConsoleMessage
+    205:253:void onExceededDatabaseQuota(java.lang.String,java.lang.String,long,long,long,android.webkit.WebStorage$QuotaUpdater) -> onExceededDatabaseQuota
+    257:257:boolean onJsAlert(android.webkit.WebView,java.lang.String,java.lang.String,android.webkit.JsResult) -> onJsAlert
+    262:262:boolean onJsBeforeUnload(android.webkit.WebView,java.lang.String,java.lang.String,android.webkit.JsResult) -> onJsBeforeUnload
+    267:267:boolean onJsConfirm(android.webkit.WebView,java.lang.String,java.lang.String,android.webkit.JsResult) -> onJsConfirm
+    273:273:boolean onJsPrompt(android.webkit.WebView,java.lang.String,java.lang.String,java.lang.String,android.webkit.JsPromptResult) -> onJsPrompt
+    291:304:void onReachedMaxAppCacheSize(long,long,android.webkit.WebStorage$QuotaUpdater) -> onReachedMaxAppCacheSize
+    312:313:void onShowCustomView(android.view.View,android.webkit.WebChromeClient$CustomViewCallback) -> onShowCustomView
+    329:345:boolean a(android.webkit.WebView,java.lang.String,java.lang.String,java.lang.String,android.webkit.JsResult,android.webkit.JsPromptResult,boolean) -> a
+    354:375:void a(android.app.AlertDialog$Builder,java.lang.String,android.webkit.JsResult) -> a
+    384:415:void a(android.app.AlertDialog$Builder,android.content.Context,java.lang.String,java.lang.String,android.webkit.JsPromptResult) -> a
+com.google.ads.util.g$a$1 -> com.google.ads.util.q:
+    android.webkit.JsResult a -> a
+    370:371:void onCancel(android.content.DialogInterface) -> onCancel
+com.google.ads.util.g$a$2 -> com.google.ads.util.r:
+    android.webkit.JsResult a -> a
+    364:365:void onClick(android.content.DialogInterface,int) -> onClick
+com.google.ads.util.g$a$3 -> com.google.ads.util.s:
+    android.webkit.JsResult a -> a
+    358:359:void onClick(android.content.DialogInterface,int) -> onClick
+com.google.ads.util.g$a$4 -> com.google.ads.util.t:
+    android.webkit.JsPromptResult a -> a
+    410:411:void onCancel(android.content.DialogInterface) -> onCancel
+com.google.ads.util.g$a$5 -> com.google.ads.util.u:
+    android.webkit.JsPromptResult a -> a
+    404:405:void onClick(android.content.DialogInterface,int) -> onClick
+com.google.ads.util.g$a$6 -> com.google.ads.util.v:
+    android.webkit.JsPromptResult a -> a
+    android.widget.EditText b -> b
+    398:399:void onClick(android.content.DialogInterface,int) -> onClick
+com.google.ads.util.g$b -> com.google.ads.util.w:
+    78:117:android.webkit.WebResourceResponse shouldInterceptRequest(android.webkit.WebView,java.lang.String) -> shouldInterceptRequest
+    125:138:android.webkit.WebResourceResponse a(java.lang.String,android.content.Context) -> a
+com.google.ads.util.h -> com.google.ads.util.x:
+com.google.ads.util.h$a -> com.google.ads.util.y:
+    40:41:void onShowCustomView(android.view.View,int,android.webkit.WebChromeClient$CustomViewCallback) -> onShowCustomView
+com.google.ads.util.i -> com.google.ads.util.z:
+    java.lang.Object a -> a
+    int b -> b
+    java.util.HashMap c -> c
+    int k -> k
+    java.util.ArrayList d -> d
+    49:53:void finalize() -> finalize
+    57:57:java.lang.String toString() -> toString
+    61:62:void a(com.google.ads.util.i$a) -> a
+    24:24:void a(com.google.ads.util.i,com.google.ads.util.i$a) -> a
+com.google.ads.util.i$1 -> com.google.ads.util.aa:
+com.google.ads.util.i$a -> com.google.ads.util.ab:
+    java.lang.Object a -> a
+    java.lang.String b -> b
+    com.google.ads.util.i c -> c
+    103:103:java.lang.String toString() -> toString
+com.google.ads.util.i$b -> com.google.ads.util.ac:
+    com.google.ads.util.i d -> d
+    151:151:java.lang.Object a() -> a
+    157:157:java.lang.String toString() -> toString
+com.google.ads.util.i$c -> com.google.ads.util.ad:
+    boolean e -> e
+    com.google.ads.util.i d -> d
+    125:125:java.lang.Object a() -> a
+    129:134:void a(java.lang.Object) -> a
+    139:139:java.lang.String toString() -> toString
+com.google.ads.util.i$d -> com.google.ads.util.ae:
+    com.google.ads.util.i d -> d
+    173:173:java.lang.Object a() -> a
+    179:179:java.lang.String toString() -> toString
+com.google.ads.v -> com.google.ads.aw:
+    29:43:void a(com.google.ads.internal.d,java.util.HashMap,android.webkit.WebView) -> a
+    48:52:void a(java.util.HashMap,java.lang.String,com.google.ads.util.i$c) -> a
+    58:65:void b(java.util.HashMap,java.lang.String,com.google.ads.util.i$c) -> b
+com.google.ads.w -> com.google.ads.ax:
+    27:32:void a(com.google.ads.internal.d,java.util.HashMap,android.webkit.WebView) -> a
+com.google.ads.x -> com.google.ads.ay:
+    com.google.ads.AdActivity$StaticMethodWrapper a -> a
+    48:67:void a(com.google.ads.internal.d,java.util.HashMap,android.webkit.WebView) -> a
+com.google.ads.y -> com.google.ads.az:
+    30:30:void a(com.google.ads.internal.d,java.util.HashMap,android.webkit.WebView) -> a
+com.google.ads.z -> com.google.ads.ba:
+    com.google.ads.internal.a a -> a
+    50:61:int a(java.util.HashMap,java.lang.String,int,android.util.DisplayMetrics) -> a
+    72:170:void a(com.google.ads.internal.d,java.util.HashMap,android.webkit.WebView) -> a
