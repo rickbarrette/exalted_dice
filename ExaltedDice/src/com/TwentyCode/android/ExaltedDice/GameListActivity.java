@@ -34,6 +34,8 @@ public class GameListActivity extends Activity implements OnClickListener, Datab
 
 	@Override
 	public void onClick(View v) {
+		if(!mDb.isOpen())
+			mDb = new Database(this, this);
 		new NewGameDialog(this, mDb).show();
 	}
 
