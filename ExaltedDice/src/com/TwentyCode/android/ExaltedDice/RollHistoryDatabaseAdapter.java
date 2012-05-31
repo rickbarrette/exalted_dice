@@ -95,7 +95,7 @@ public class RollHistoryDatabaseAdapter extends BaseAdapter {
         
         holder.mRoll.setText("Rolled: "+roll.getAsInteger(Database.KEY_NUMBER) + " "+roll.getAsString(Database.KEY_D_TYPE));
         
-        if(isRollModEnabled)
+        if(isRollModEnabled && roll.containsKey(Database.KEY_MOD))
         	holder.mRoll.append(" "+ roll.getAsString(Database.KEY_MOD).replace("'", ""));
         
         holder.mStats.setText(roll.getAsString(Database.KEY_LOG));
