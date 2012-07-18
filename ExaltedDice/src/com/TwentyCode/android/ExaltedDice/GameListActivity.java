@@ -6,6 +6,8 @@
  */
 package com.TwentyCode.android.ExaltedDice;
 
+import com.TwentyCodes.android.exception.ExceptionHandler;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -61,6 +63,7 @@ public class GameListActivity extends Activity implements OnClickListener, Datab
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
 		setContentView(R.layout.game_list);
 		findViewById(R.id.new_game_button).setOnClickListener(this);
 		mList = (ListView) findViewById(android.R.id.list);
