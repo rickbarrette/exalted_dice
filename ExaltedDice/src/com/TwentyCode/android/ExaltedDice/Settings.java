@@ -6,6 +6,7 @@
  */
 package com.TwentyCode.android.ExaltedDice;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -73,7 +74,7 @@ public class Settings extends PreferenceActivity implements OnPreferenceClickLis
 		 * (non-Javadoc)
 		 * @see android.preference.PreferenceActivity#onCreate(android.os.Bundle)
 		 */
-		@Override
+		@SuppressLint("NewApi") @Override
 		protected void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			//load preferences xml. this load relies on only wether the app is full or not. it will show the check license option if full and leave it out if lite
