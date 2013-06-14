@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.TwentyCode.android.ExaltedDice"
     android:installLocation="auto"
-    android:versionCode="92"
-    android:versionName="a83d85b" >
+    android:versionCode="95"
+    android:versionName="3ca0642" >
 
     <uses-sdk android:minSdkVersion="7" />
 

@@ -2,6 +2,7 @@ package com.TwentyCode.android.ExaltedDice;
 
 import java.util.Random;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -67,6 +68,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	 * @param id of the roll
 	 * @author ricky barrette
 	 */
+	@SuppressLint("NewApi")
 	private void applyRollPresets(long id) {
 		ContentValues roll = mDb.getGameHistoryInfo(mGameName, (int) (id));
 		try{
@@ -110,6 +112,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	 * Initializes native number pickers api > 11
 	 * @author ricky barrette
 	 */
+	@SuppressLint("NewApi")
 	private void initPickers() {
 		mDPicker = (NumberPicker) findViewById(R.id.d_Picker);
 		mDPicker.setMinValue(0);
@@ -163,7 +166,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	 * 
 	 * @author ricky barrette 3-27-2010
 	 */
-	@Override
+	@SuppressLint("NewApi") @Override
 	public void onCreate(Bundle savedInstanceState) {
         Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
 		super.onCreate(savedInstanceState);
@@ -303,6 +306,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
    	 * resorts application state after rotation
    	 * @author ricky barrette
    	 */
+   	@SuppressLint("NewApi") 
    	@Override
    	public void onRestoreInstanceState(Bundle savedInstanceState) {
    	  super.onRestoreInstanceState(savedInstanceState);
@@ -336,6 +340,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	 * saves application state before rotation
 	 * @author ricky barrette
 	 */
+	@SuppressLint("NewApi")
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState) {
 		if(isCompat){
@@ -403,6 +408,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
      * @param stringExtra
      * @author ricky barrette
      */
+    @SuppressLint("NewApi")
     private void setGameMode(String mode) {
 		
     	/*
@@ -476,6 +482,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	 * @return String resultsString
 	 * @author ricky barrette
 	 */
+	@SuppressLint("NewApi")
 	public ContentValues results(int times) {
 		Log.i(TAG, "results()");
 		ContentValues rolled = new ContentValues();
@@ -522,6 +529,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 			mRollProgress.setVisibility(View.VISIBLE);
 			
 			new Thread( new Runnable() {
+				@SuppressLint("NewApi")
 				@Override
 				public void run(){
 					// vibrate for 50 milliseconds
@@ -559,6 +567,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 	 * @return int[] roll
 	 * @author ricky barrette
 	 */
+	@SuppressLint("NewApi")
 	public int[] rollGen(int times) {
 		Log.i(TAG, "rollGen()" + times);
 		int[] roll = new int[times];
@@ -586,7 +595,7 @@ public class ExaltedDice extends Activity implements OnClickListener, OnItemClic
 		for (int i = 0; i < roll.length; i++) {
 			if (roll[i] >= Integer.parseInt(mSettings.getString(Settings.KEY_SUCCESS_AFTER, "7")))
 				intSuccesses++;
-			if(mSettings.getBoolean(Settings.KEY_TENS_COUNT_TWICE, true))
+			if(mSettings.getBoolean(Settings.KEY_TENS_COUNT_TWICE, false))
 				if (roll[i] == 10)
 					intSuccesses++;
 			if(mSettings.getBoolean(Settings.KEY_ONES_SUBRACT, false))
